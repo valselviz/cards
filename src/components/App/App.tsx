@@ -1,29 +1,20 @@
-import React from 'react';
-import { Duel } from '../../game-core/duel';
+import React, { useState } from 'react';
 import CardsRow from '../CardsRow/CardsRow';
 import Hand from '../Hand/Hand';
-import './App.css';
-import getRandomCard from '../../game-core/card-types/cardTypes';
+import getRandomCardModel from '../../game-core/card-types/card-types';
+import { ReactDuel } from '../../react-duel/ReactDuel';
+import DuelComp from '../DuelComp/DuelComp';
+import { CardModel } from '../../game-core/cards';
 
 function App() {
   const deck0 = [];
   const deck1 = [];
   for (let i = 0; i < 50; i++) {
-    deck0.push(getRandomCard());
-    deck1.push(getRandomCard());
+    deck0.push(getRandomCardModel());
+    deck1.push(getRandomCardModel());
   }
 
-  const duel = new Duel(deck0, deck1);
-
-  return (
-    <div>
-      <div className="field">
-        <CardsRow cards={duel.fields[0]} />
-        <CardsRow cards={duel.fields[1]} />
-      </div>
-      <Hand cards={duel.hands[0]} />
-    </div>
-  );
+  return <DuelComp cardModelDeck0={deck0} cardModelDeck1={deck1} />;
 }
 
 export default App;
