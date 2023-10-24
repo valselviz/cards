@@ -1,9 +1,9 @@
 .slot {
-    width: 200px;
-    height: 230px;
-    border-radius: 10px;
-    background-color: darkgray;
-    margin: 5px;
-    text-align: center;
-    border: 1px solid black;
+  width: 200px;
+  height: 230px;
+  border-radius: 10px;
+  background-color: darkgray;
+  margin: 5px;
+  text-align: center;
+  border: 1px solid black;
 }

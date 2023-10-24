@@ -1,5 +1,5 @@
 .hand {
-    display: flex;
-    flex-direction: row;
-    height: 200px;
+  display: flex;
+  flex-direction: row;
+  height: 200px;
 }

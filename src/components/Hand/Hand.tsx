@@ -1,16 +1,22 @@
-import CardBox from '../CardBox/CardBox'
-import styles from './Hand.module.css'
-import {Card} from '../../game-core/cards'
+import CardBox from "../CardBox/CardBox";
+import styles from "./Hand.module.css";
+import { Card } from "../../game-logic/card";
 
 interface HandProps {
-  cards: Card[]
+  cards: Card[];
+  executeOneActionWithDelay: () => void;
 }
 
-export default function Hand({cards}: HandProps) {
-  console.log(cards)
+export default function Hand({ cards, executeOneActionWithDelay }: HandProps) {
   return (
-    <div className={styles['hand']}>
-      {cards.map((card, index) => <CardBox key={index} card={card}/>)}
+    <div className={styles["hand"]}>
+      {cards.map((card, index) => (
+        <CardBox
+          key={index}
+          card={card}
+          executeOneActionWithDelay={executeOneActionWithDelay}
+        />
+      ))}
     </div>
   );
 }

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import CardsRow from '../CardsRow/CardsRow';
-import Hand from '../Hand/Hand';
-import getRandomCardModel from '../../game-core/card-types/card-types';
-import { ReactDuel } from '../../react-duel/ReactDuel';
-import DuelComp from '../DuelComp/DuelComp';
-import { CardModel } from '../../game-core/cards';
+import React, { useState } from "react";
+import CardsRow from "../CardsRow/CardsRow";
+import Hand from "../Hand/Hand";
+import getRandomCardModel from "../../game-logic/card-types";
+import DuelComp from "../DuelBoard/DuelBoard";
+import { Player } from "../../game-logic/player";
 
 function App() {
   const deck0 = [];
@@ -14,7 +13,12 @@ function App() {
     deck1.push(getRandomCardModel());
   }
 
-  return <DuelComp cardModelDeck0={deck0} cardModelDeck1={deck1} />;
+  const players = [
+    new Player("Ramon", true, deck0),
+    new Player("Computer", false, deck1),
+  ];
+
+  return <DuelComp players={players} />;
 }
 
 export default App;

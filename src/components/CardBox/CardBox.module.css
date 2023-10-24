@@ -1,13 +1,13 @@
 .card-box {
-    width: 150px;
-    height: 190px;
-    border-radius: 10px;
-    background-color: red;
-    margin: 5px;
-    border: 1px solid black;
-    text-align: center;
+  width: 150px;
+  height: 190px;
+  border-radius: 10px;
+  background-color: red;
+  margin: 5px;
+  border: 1px solid black;
+  text-align: center;
 }
 
 .empty {
-    background-color: gray;
+  background-color: gray;
 }
