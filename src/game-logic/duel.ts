@@ -20,14 +20,16 @@ export class Duel {
     this.players = players;
     this.cards = [
       [
-        [],
-        [],
-        [], // Player0's deck, hand, and field
+        // Player0
+        [], // Deck
+        [], // Hand
+        [], // Field
       ],
       [
-        [],
-        [],
-        [], // Player1's deck, hand, and field
+        // Player1
+        [], // Deck
+        [], // Hand
+        [], // Field
       ],
     ];
 
