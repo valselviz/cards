@@ -51,10 +51,7 @@ export class Duel {
   // Returns true if there are more actions ready to be executed automatically
   // Returns false if it is time for the player to play
   hasNextAction() {
-    if (this.actionsQueue.length > 0) {
-      return true;
-    } else {
-    }
+    return this.actionsQueue.length > 0;
   }
 
   // Executes one automatic action

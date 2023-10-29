@@ -1,5 +1,29 @@
 .field {
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  width: fit-content;
+  margin: auto;
+}
+
+.playersStatusDiv {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+
+.playerSide {
+  display: flex;
+  flex-direction: column;
+  background-color: gray;
+  align-content: center;
+  padding: 10px;
+}
+
+.playerSide-top {
+  border-radius: 10px 10px 0 10px;
+}
+
+.playerSide-bottom {
+  border-radius: 0 10px 10px 10px;
 }
