@@ -1,8 +1,8 @@
-.field {
+.duelBoard {
   display: flex;
   flex-direction: column;
   width: fit-content;
-  margin: auto;
+  margin: 10px auto 10px auto;
 }
 
 .playersStatusDiv {

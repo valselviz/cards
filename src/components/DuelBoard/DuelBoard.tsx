@@ -22,6 +22,9 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   ];
   const [cardsState, setCardsState] = useState<Card[][][]>(emptyBoard);
 
+  // The duel object should be created only once.
+  // It shouldn't be created on each rerender.
+  // This is achived with useMemo
   const duel = useMemo(
     () => new ReactDuel(players, cardsState, setCardsState),
     [players]
@@ -39,44 +42,38 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   useEffect(executeOneActionWithDelay, []);
 
   return (
-    <div>
-      <div className={styles["field"]}>
-        <div
-          className={styles["playerSide"] + " " + styles["playerSide-top"]}
-        >
-          <Hand
-            cards={cardsState[1][Zone.Hand]}
-            executeOneActionWithDelay={executeOneActionWithDelay}
-          />
-          <CardsRow
-            cards={cardsState[1][Zone.Field]}
-            executeOneActionWithDelay={executeOneActionWithDelay}
-          />
-        </div>
-        <div className={styles["playersStatusDiv"]}>
-          <PlayerStatus
-            playerName={players[1].name}
-            playerDeckCards={cardsState[1][Zone.Deck].length}
-            playerId={1}
-          />
-          <PlayerStatus
-            playerName={players[0].name}
-            playerDeckCards={cardsState[0][Zone.Deck].length}
-            playerId={0}
-          />
-        </div>
-        <div
-          className={styles["playerSide"] + " " + styles["playerSide-bottom"]}
-        >
-          <CardsRow
-            cards={cardsState[0][Zone.Field]}
-            executeOneActionWithDelay={executeOneActionWithDelay}
-          />
-          <Hand
-            cards={cardsState[0][Zone.Hand]}
-            executeOneActionWithDelay={executeOneActionWithDelay}
-          />
-        </div>
+    <div className={styles["duelBoard"]}>
+      <div className={styles["playerSide"] + " " + styles["playerSide-top"]}>
+        <Hand
+          cards={cardsState[1][Zone.Hand]}
+          executeOneActionWithDelay={executeOneActionWithDelay}
+        />
+        <CardsRow
+          cards={cardsState[1][Zone.Field]}
+          executeOneActionWithDelay={executeOneActionWithDelay}
+        />
+      </div>
+      <div className={styles["playersStatusDiv"]}>
+        <PlayerStatus
+          playerName={players[1].name}
+          playerDeckCards={cardsState[1][Zone.Deck].length}
+          playerId={1}
+        />
+        <PlayerStatus
+          playerName={players[0].name}
+          playerDeckCards={cardsState[0][Zone.Deck].length}
+          playerId={0}
+        />
+      </div>
+      <div className={styles["playerSide"] + " " + styles["playerSide-bottom"]}>
+        <CardsRow
+          cards={cardsState[0][Zone.Field]}
+          executeOneActionWithDelay={executeOneActionWithDelay}
+        />
+        <Hand
+          cards={cardsState[0][Zone.Hand]}
+          executeOneActionWithDelay={executeOneActionWithDelay}
+        />
       </div>
     </div>
   );

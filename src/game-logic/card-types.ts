@@ -6,15 +6,15 @@ function simpleInvokation(card: Card) {
   card.duel.invoke(card);
 }
 
-export const cardTypes: any = {
+export const cardModels: any = {
   Elf: new CardModel("Elf", 10, 10, simpleInvokation),
   Wizard: new CardModel("Wizard", 15, 15, simpleInvokation),
-  Golem: new CardModel("Golem", 10, 30, simpleInvokation),
+  Golem: new CardModel("Golem", 10, 29, simpleInvokation),
   GiantSpider: new CardModel("Giant Spider", 25, 10, simpleInvokation),
-  Dragon: new CardModel("Dragon", 35, 25, simpleInvokation),
+  Dragon: new CardModel("Hammer Dwarf", 8, 16, simpleInvokation),
 };
 
 export default function getRandomCardModel(): CardModel {
-  const keys = Object.keys(cardTypes);
-  return cardTypes[keys[rndInt(keys.length)]];
+  const keys = Object.keys(cardModels);
+  return cardModels[keys[rndInt(keys.length)]];
 }
