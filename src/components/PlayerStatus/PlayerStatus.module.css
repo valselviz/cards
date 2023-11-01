@@ -1,6 +1,7 @@
 .playerStatus {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   padding: 6px 16px 6px 16px;
   background-color: gray;
   width: 50%;
@@ -8,13 +9,12 @@
   color: white;
 }
 
-.playerStatus-right {
+.playerStatusRight {
   margin-bottom: 20px;
   border-radius: 0 0 10px 10px;
-  justify-content: right;
 }
 
-.playerStatus-left {
+.playerStatusLeft {
   margin-top: 20px;
   border-radius: 10px 10px 0 0;
 }

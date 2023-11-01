@@ -20,10 +20,10 @@
   padding: 10px;
 }
 
-.playerSide-top {
+.playerSideTop {
   border-radius: 10px 10px 0 10px;
 }
 
-.playerSide-bottom {
+.playerSideBottom {
   border-radius: 0 10px 10px 10px;
 }

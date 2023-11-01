@@ -1,5 +1,5 @@
 import { Card } from "../../game-logic/card";
-import { Zone } from "../../game-logic/zones";
+import { Zone } from "../../game-logic/zone";
 import { useEffect, useMemo, useState } from "react";
 import { ReactDuel } from "../../react-duel/react-duel";
 import CardsRow from "../CardsRow/CardsRow";
@@ -25,10 +25,7 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   // The duel object should be created only once.
   // It shouldn't be created on each rerender.
   // This is achived with useMemo
-  const duel = useMemo(
-    () => new ReactDuel(players, cardsState, setCardsState),
-    [players]
-  );
+  const duel = useMemo(() => new ReactDuel(players, setCardsState), [players]);
 
   function executeOneActionWithDelay() {
     if (duel.hasNextAction()) {
@@ -42,8 +39,8 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   useEffect(executeOneActionWithDelay, []);
 
   return (
-    <div className={styles["duelBoard"]}>
-      <div className={styles["playerSide"] + " " + styles["playerSide-top"]}>
+    <div className={styles.duelBoard}>
+      <div className={`${styles.playerSide} ${styles.playerSideTop}`}>
         <Hand
           cards={cardsState[1][Zone.Hand]}
           executeOneActionWithDelay={executeOneActionWithDelay}
@@ -53,7 +50,7 @@ export default function DuelBoard({ players }: DuelBoardProps) {
           executeOneActionWithDelay={executeOneActionWithDelay}
         />
       </div>
-      <div className={styles["playersStatusDiv"]}>
+      <div className={styles.playersStatusDiv}>
         <PlayerStatus
           playerName={players[1].name}
           playerDeckCards={cardsState[1][Zone.Deck].length}
@@ -65,7 +62,7 @@ export default function DuelBoard({ players }: DuelBoardProps) {
           playerId={0}
         />
       </div>
-      <div className={styles["playerSide"] + " " + styles["playerSide-bottom"]}>
+      <div className={`${styles.playerSide} ${styles.playerSideBottom}`}>
         <CardsRow
           cards={cardsState[0][Zone.Field]}
           executeOneActionWithDelay={executeOneActionWithDelay}

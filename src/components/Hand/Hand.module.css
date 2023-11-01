@@ -1,5 +1,7 @@
 .hand {
   display: flex;
   flex-direction: row;
-  height: 200px;
+  justify-content: center;
+  align-items: center;
+  min-height: 224px;
 }

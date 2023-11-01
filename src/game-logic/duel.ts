@@ -1,7 +1,7 @@
 import { Card } from "./card";
 import { Player } from "./player";
 import { rndInt } from "./utils";
-import { Zone } from "./zones";
+import { Zone } from "./zone";
 
 export class Duel {
   // This matrix contains all the cards of the duel

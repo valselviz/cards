@@ -9,7 +9,7 @@ interface HandProps {
 
 export default function Hand({ cards, executeOneActionWithDelay }: HandProps) {
   return (
-    <div className={styles["hand"]}>
+    <div className={styles.hand}>
       {cards.map((card, index) => (
         <CardBox
           key={index}

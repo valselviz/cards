@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import CardsRow from "../CardsRow/CardsRow";
-import Hand from "../Hand/Hand";
-import getRandomCardModel from "../../game-logic/card-types";
+import getRandomCardModel from "../../game-logic/cards-collection";
 import DuelComp from "../DuelBoard/DuelBoard";
 import { Player } from "../../game-logic/player";
 

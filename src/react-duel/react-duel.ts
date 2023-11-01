@@ -1,20 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
-import { Zone } from "../game-logic/zones";
+import { Zone } from "../game-logic/zone";
 import { Card } from "../game-logic/card";
 import { Duel } from "../game-logic/duel";
 import { Player } from "../game-logic/player";
 
 export class ReactDuel extends Duel {
-  cardsState: Card[][][];
   setCardsState: Dispatch<SetStateAction<Card[][][]>>;
 
   constructor(
     players: Player[],
-    cardsState: Card[][][],
     setCardsState: Dispatch<SetStateAction<Card[][][]>>
   ) {
     super(players);
-    this.cardsState = cardsState;
     this.setCardsState = setCardsState;
   }
 

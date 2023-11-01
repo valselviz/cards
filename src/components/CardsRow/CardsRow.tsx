@@ -24,5 +24,5 @@ export default function CardsRow({
       />
     );
   }
-  return <div className={styles["cardsRow"]}>{cardBoxes}</div>;
+  return <div className={styles.cardsRow}>{cardBoxes}</div>;
 }

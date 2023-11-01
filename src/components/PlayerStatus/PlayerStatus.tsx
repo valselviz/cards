@@ -12,9 +12,9 @@ export default function PlayerStatus({
   playerId,
 }: PlayerStatusProps) {
   const specificPlayerClass =
-    playerId == 0 ? styles["playerStatus-left"] : styles["playerStatus-right"];
+    playerId == 0 ? styles.playerStatusLeft : styles.playerStatusRight;
   return (
-    <div className={styles["playerStatus"] + ' ' + specificPlayerClass}>
+    <div className={`${styles.playerStatus} ${specificPlayerClass}`}>
       <p>
         {playerName}: {playerDeckCards} cards
       </p>

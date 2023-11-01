@@ -1,5 +1,8 @@
 .slot {
-  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 210px;
   height: 230px;
   border-radius: 10px;
   background-color: darkgray;

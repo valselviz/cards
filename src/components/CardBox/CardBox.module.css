@@ -1,13 +1,93 @@
-.card-box {
-  width: 150px;
-  height: 190px;
-  border-radius: 10px;
-  background-color: red;
+:root {
+  --dark: #202020;
+  --red: #d95763;
+  --lightRed: #e98e96;
+  --yellow: #fbf236;
+  --lightYellow: #fffcbf;
+  --green: #3dd33d;
+  --lightGreen: #9be99b;
+  --blue: #3f5ceb;
+  --lightBlue: #6c98fa;
+}
+
+.cardBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 160px;
+  height: fit-content;
   margin: 5px;
   border: 1px solid black;
   text-align: center;
+  font-size: 13px;
 }
 
-.empty {
-  background-color: gray;
+.title {
+  width: 85%;
+  margin: 7px;
+  padding: 4px;
+}
+
+.attribute {
+  width: 40%;
+  margin: 7px;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+}
+
+.bottomLine {
+  display: flex;
+  justify-content: space-around;
+  width: 85%;
+}
+
+.icon {
+  width: 14px;
+}
+
+.portrait {
+  width: 135px;
+  height: 135px;
+  border: 1px solid black;
+}
+
+.redCard {
+  background-color: var(--red);
+  .title {
+    background-color: var(--lightRed);
+  }
+  .attribute {
+    background-color: var(--lightRed);
+  }
+}
+
+.yellowCard {
+  background-color: var(--yellow);
+  .title {
+    background-color: var(--lightYellow);
+  }
+  .attribute {
+    background-color: var(--lightYellow);
+  }
+}
+
+.greenCard {
+  background-color: var(--green);
+  .title {
+    background-color: var(--lightGreen);
+  }
+  .attribute {
+    background-color: var(--lightGreen);
+  }
+}
+
+.blueCard {
+  background-color: var(--blue);
+  .title {
+    background-color: var(--lightBlue);
+  }
+  .attribute {
+    background-color: var(--lightBlue);
+  }
 }

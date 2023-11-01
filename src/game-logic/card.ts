@@ -1,4 +1,4 @@
-import { Zone } from "./zones";
+import { Zone } from "./zone";
 import { Duel } from "./duel";
 import { CardModel } from "./card-model";
 
