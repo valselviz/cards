@@ -5,6 +5,7 @@ import { ReactDuel } from "../../react-duel/react-duel";
 import CardsRow from "../CardsRow/CardsRow";
 import Hand from "../Hand/Hand";
 import PlayerStatus from "../PlayerStatus/PlayerStatus";
+import sandClockIcon from "assets/icons/sand-clock.svg";
 
 import styles from "./DuelBoard.module.css";
 import { Player } from "../../game-logic/player";
@@ -67,10 +68,19 @@ export default function DuelBoard({ players }: DuelBoardProps) {
           cards={cardsState[0][Zone.Field]}
           executeOneActionWithDelay={executeOneActionWithDelay}
         />
-        <Hand
-          cards={cardsState[0][Zone.Hand]}
-          executeOneActionWithDelay={executeOneActionWithDelay}
-        />
+        <div className={styles.bottonRow}>
+          <Hand
+            cards={cardsState[0][Zone.Hand]}
+            executeOneActionWithDelay={executeOneActionWithDelay}
+          />
+          <button className={styles.passTurnButton}>
+            <img
+              src={sandClockIcon}
+              className={styles.passTurnIcon}
+              alt="pass turn"
+            />
+          </button>
+        </div>
       </div>
     </div>
   );

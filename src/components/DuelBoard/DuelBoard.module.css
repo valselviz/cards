@@ -27,3 +27,24 @@
 .playerSideBottom {
   border-radius: 0 10px 10px 10px;
 }
+
+.passTurnIcon {
+  height: 80px;
+}
+
+.passTurnButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.bottonRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
