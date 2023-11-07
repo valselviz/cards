@@ -15,7 +15,6 @@
 .playerSide {
   display: flex;
   flex-direction: column;
-  background-color: gray;
   align-content: center;
   padding: 10px;
 }
@@ -43,8 +42,20 @@
   border-radius: 10px;
 }
 
+.passTurnButton:hover {
+  background-color: white;
+}
+
 .bottonRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.onTurn {
+  background-color: lightgray;
+}
+
+.notOnTurn {
+  background-color: gray;
 }

@@ -12,7 +12,7 @@ function App() {
 
   const players = [
     new Player("Ramon", true, deck0),
-    new Player("Computer", false, deck1),
+    new Player("Carlos", true, deck1),
   ];
 
   return <DuelComp players={players} />;
