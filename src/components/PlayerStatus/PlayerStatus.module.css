@@ -3,7 +3,6 @@
   flex-direction: row;
   justify-content: center;
   padding: 6px 16px 6px 16px;
-  background-color: gray;
   width: 50%;
   height: fit-content;
   color: white;
@@ -17,4 +16,16 @@
 .playerStatusLeft {
   margin-top: 20px;
   border-radius: 10px 10px 0 0;
+}
+
+.onTurn {
+  background-color: lightgray;
+  color: black;
+  font-weight: 600;
+}
+
+.notOnTurn {
+  background-color: gray;
+  color: white;
+  font-weight: 400;
 }

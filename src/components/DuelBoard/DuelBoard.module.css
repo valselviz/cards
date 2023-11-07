@@ -15,7 +15,6 @@
 .playerSide {
   display: flex;
   flex-direction: column;
-  background-color: gray;
   align-content: center;
   padding: 10px;
 }
@@ -26,4 +25,37 @@
 
 .playerSideBottom {
   border-radius: 0 10px 10px 10px;
+}
+
+.passTurnIcon {
+  height: 80px;
+}
+
+.passTurnButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.passTurnButton:hover {
+  background-color: white;
+}
+
+.bottonRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.onTurn {
+  background-color: lightgray;
+}
+
+.notOnTurn {
+  background-color: gray;
 }
