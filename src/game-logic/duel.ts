@@ -67,11 +67,15 @@ export class Duel {
   invoke(card: Card) {
     console.log("Queuing invoke action");
     this.actionsQueue.push(() => {
-      console.log("Invoke action");
-      const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
-      this.cards[card.playerId][Zone.Hand].splice(position, 1);
-      card.zone = Zone.Field;
-      this.cards[card.playerId][Zone.Field].push(card);
+      if (this.cards[card.playerId][Zone.Field].length < 5) {
+        console.log("Invoke action");
+        const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
+        this.cards[card.playerId][Zone.Hand].splice(position, 1);
+        card.zone = Zone.Field;
+        this.cards[card.playerId][Zone.Field].push(card);
+      } else {
+        console.log("Field is full");
+      }
     });
   }
 
