@@ -16,8 +16,6 @@ export class ReactDuel extends Duel {
   }
 
   refreshUI() {
-    console.log("Refresh UI");
-
     // Note that when a React state is an array or object,
     // just the content changing is not enough to trigger a rerender.
     // In order to trigger the rerendering of the game's board

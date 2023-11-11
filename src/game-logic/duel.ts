@@ -65,7 +65,6 @@ export class Duel {
   refreshUI() {}
 
   invoke(card: Card) {
-    console.log("Queuing invoke action");
     this.actionsQueue.push(() => {
       if (this.cards[card.playerId][Zone.Field].length < 5) {
         console.log("Invoke action");
@@ -80,7 +79,6 @@ export class Duel {
   }
 
   draw(playerId: number) {
-    console.log("Queuing draw action");
     this.actionsQueue.push(() => {
       console.log("Draw action");
       const deckPosition = rndInt(this.cards[playerId][Zone.Deck].length);

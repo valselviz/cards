@@ -15,8 +15,7 @@ interface DuelBoardProps {
 }
 
 export default function DuelBoard({ players }: DuelBoardProps) {
-  console.log("Rendering DuelBoard");
-
+  
   const emptyBoard = [
     [[], [], []],
     [[], [], []],
