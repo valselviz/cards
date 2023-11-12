@@ -78,6 +78,10 @@ export class Duel {
     });
   }
 
+  destroy(card?: Card) {}
+
+  selectFieldCard(playerId: number) {}
+
   draw(playerId: number) {
     this.actionsQueue.push(() => {
       console.log("Draw action");
