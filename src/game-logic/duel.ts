@@ -1,3 +1,4 @@
+import { Action } from "./action";
 import { Card } from "./card";
 import { Player } from "./player";
 import { rndInt } from "./utils";
@@ -12,9 +13,13 @@ export class Duel {
 
   playerTurn: number; // 0 if it is Player0's turn, 1 if it is Player1's turn
 
-  actionsQueue: (() => void)[] = [];
+  actionsQueue: Action[] = [];
 
   players: Player[];
+
+  waitingForCardSelection: boolean = false;
+
+  selectedTarget: Card | null = null;
 
   constructor(players: Player[]) {
     this.players = players;
@@ -50,22 +55,23 @@ export class Duel {
 
   // Returns true if there are more actions ready to be executed automatically
   // Returns false if it is time for the player to play
-  hasNextAction() {
+  hasNextAction(): boolean {
     return this.actionsQueue.length > 0;
   }
 
   // Executes one automatic action
-  executeOneAction() {
+  executeOneAction(): Action | null {
     const action = this.actionsQueue.shift();
-    if (!action) return;
-    action();
+    if (!action) return null;
+    action.execute();
     this.refreshUI();
+    return action;
   }
 
   refreshUI() {}
 
   invoke(card: Card) {
-    this.actionsQueue.push(() => {
+    const invokeAction = new Action(() => {
       if (this.cards[card.playerId][Zone.Field].length < 5) {
         console.log("Invoke action");
         const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
@@ -76,15 +82,38 @@ export class Duel {
         console.log("Field is full");
       }
     });
+    this.actionsQueue.push(invokeAction);
+  }
+
+  destroy(cardProvider: () => Card | null) {
+    const destroyAction = new Action(() => {
+      const card = cardProvider();
+      if (!card) return;
+      console.log("Destroy action");
+      const position = this.cards[card.playerId][Zone.Field].indexOf(card);
+      this.cards[card.playerId][Zone.Field].splice(position, 1);
+      card.zone = Zone.Graveyard;
+    });
+    this.actionsQueue.push(destroyAction);
+  }
+
+  selectFieldCard(playerId: number) {
+    const selectFieldCardAction = new Action(
+      () => (this.waitingForCardSelection = true),
+      true,
+      ""
+    );
+    this.actionsQueue.push(selectFieldCardAction);
   }
 
   draw(playerId: number) {
-    this.actionsQueue.push(() => {
+    const drawAction = new Action(() => {
       console.log("Draw action");
       const deckPosition = rndInt(this.cards[playerId][Zone.Deck].length);
       const card = this.cards[playerId][Zone.Deck].splice(deckPosition, 1)[0];
       card.zone = Zone.Hand;
       this.cards[playerId][Zone.Hand].push(card);
     });
+    this.actionsQueue.push(drawAction);
   }
 }

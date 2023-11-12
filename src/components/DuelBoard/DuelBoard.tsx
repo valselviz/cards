@@ -15,7 +15,6 @@ interface DuelBoardProps {
 }
 
 export default function DuelBoard({ players }: DuelBoardProps) {
-  
   const emptyBoard = [
     [[], [], []],
     [[], [], []],
@@ -30,8 +29,10 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   function executeOneActionWithDelay() {
     if (duel.hasNextAction()) {
       setTimeout(() => {
-        duel.executeOneAction();
-        executeOneActionWithDelay();
+        const action = duel.executeOneAction();
+        if (action && !action.selectionTargetAction) {
+          executeOneActionWithDelay();
+        }
       }, 300);
     }
   }

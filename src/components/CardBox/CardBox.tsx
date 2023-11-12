@@ -16,21 +16,26 @@ export default function CardBox({
   card,
   executeOneActionWithDelay,
 }: CardBoxProps) {
-  function useCard() {
+  function clickCard() {
     const duel = card.duel;
     if (card.playerId != duel.playerTurn) return;
     if (!duel.players[duel.playerTurn].human) return;
-    if (duel.hasNextAction()) return;
 
-    if (card.zone == Zone.Hand) {
-      card.model.invoke(card);
+    if (card.duel.waitingForCardSelection) {
+      card.duel.selectedTarget = card;
+      card.duel.waitingForCardSelection = false;
       executeOneActionWithDelay();
+    } else if (!duel.hasNextAction()) {
+      if (card.zone == Zone.Hand) {
+        card.model.invoke(card);
+        executeOneActionWithDelay();
+      }
     }
   }
 
   const colorClass = getColorClass(card.model.color);
   return (
-    <div className={`${styles.cardBox} ${colorClass}`} onClick={useCard}>
+    <div className={`${styles.cardBox} ${colorClass}`} onClick={clickCard}>
       <div className={styles.title}>{card.model.name}</div>
       <img src={card.model.image} className={styles.portrait} />
       <div className={styles.bottomLine}>
