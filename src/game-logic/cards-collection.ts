@@ -8,7 +8,7 @@ import giantSpider from "assets/cards/giantSpider.png";
 import golem from "assets/cards/golem.png";
 import hammerDwarf from "assets/cards/hammerDwarf.png";
 import wizard from "assets/cards/wizard.png";
-import blackDragon from "assets/cards/blackDragon.png"
+import blackDragon from "assets/cards/blackDragon.png";
 
 function simpleInvokation(card: Card) {
   card.duel.invoke(card);
@@ -16,7 +16,7 @@ function simpleInvokation(card: Card) {
 
 function oneSacrificeInvokation(card: Card) {
   card.duel.selectFieldCard(card.playerId);
-  //card.duel.destroy();
+  card.duel.destroy(() => card.duel.selectedTarget);
   card.duel.invoke(card);
 }
 

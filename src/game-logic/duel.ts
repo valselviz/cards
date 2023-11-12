@@ -17,6 +17,8 @@ export class Duel {
 
   players: Player[];
 
+  waitingForCardSelection: boolean = false;
+
   selectedTarget: Card | null = null;
 
   constructor(players: Player[]) {
@@ -53,17 +55,17 @@ export class Duel {
 
   // Returns true if there are more actions ready to be executed automatically
   // Returns false if it is time for the player to play
-  hasNextAutomaticAction() {
+  hasNextAction(): boolean {
     return this.actionsQueue.length > 0;
   }
 
   // Executes one automatic action
-  executeOneAction() {
+  executeOneAction(): Action | null {
     const action = this.actionsQueue.shift();
-    if (!action) return;
-    console.log(action);
+    if (!action) return null;
     action.execute();
     this.refreshUI();
+    return action;
   }
 
   refreshUI() {}
@@ -83,8 +85,10 @@ export class Duel {
     this.actionsQueue.push(invokeAction);
   }
 
-  destroy(card: Card) {
+  destroy(cardProvider: () => Card | null) {
     const destroyAction = new Action(() => {
+      const card = cardProvider();
+      if (!card) return;
       console.log("Destroy action");
       const position = this.cards[card.playerId][Zone.Field].indexOf(card);
       this.cards[card.playerId][Zone.Field].splice(position, 1);
@@ -94,7 +98,11 @@ export class Duel {
   }
 
   selectFieldCard(playerId: number) {
-    const selectFieldCardAction = new Action(() => {});
+    const selectFieldCardAction = new Action(
+      () => (this.waitingForCardSelection = true),
+      true,
+      ""
+    );
     this.actionsQueue.push(selectFieldCardAction);
   }
 

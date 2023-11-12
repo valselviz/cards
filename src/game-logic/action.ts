@@ -1,11 +1,17 @@
 export class Action {
-  selectionTargetAction: boolean = false;
+  selectionTargetAction: boolean;
 
-  description: string = "";
+  selectionInfo: string;
 
   execute: () => void;
 
-  constructor(execute: () => void){
+  constructor(
+    execute: () => void,
+    selectionTargetAction: boolean = false,
+    selectionInfo: string = ""
+  ) {
     this.execute = execute;
+    this.selectionTargetAction = selectionTargetAction;
+    this.selectionInfo = selectionInfo;
   }
 }
