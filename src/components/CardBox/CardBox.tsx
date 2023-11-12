@@ -20,7 +20,7 @@ export default function CardBox({
     const duel = card.duel;
     if (card.playerId != duel.playerTurn) return;
     if (!duel.players[duel.playerTurn].human) return;
-    if (duel.hasNextAction()) return;
+    if (duel.hasNextAutomaticAction()) return;
 
     if (card.zone == Zone.Hand) {
       card.model.invoke(card);

@@ -28,7 +28,7 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   const duel = useMemo(() => new ReactDuel(players, setCardsState), [players]);
 
   function executeOneActionWithDelay() {
-    if (duel.hasNextAction()) {
+    if (duel.hasNextAutomaticAction()) {
       setTimeout(() => {
         duel.executeOneAction();
         executeOneActionWithDelay();

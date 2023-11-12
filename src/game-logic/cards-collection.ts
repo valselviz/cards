@@ -16,7 +16,7 @@ function simpleInvokation(card: Card) {
 
 function oneSacrificeInvokation(card: Card) {
   card.duel.selectFieldCard(card.playerId);
-  card.duel.destroy(undefined);
+  //card.duel.destroy();
   card.duel.invoke(card);
 }
 
