@@ -7,7 +7,7 @@ export class CardModel {
   attack: number;
   defense: number;
   color: Color;
-  invoke: (card: Card) => void;
+  useFromHand: (card: Card) => void;
 
   constructor(
     name: string,
@@ -15,13 +15,13 @@ export class CardModel {
     attack: number,
     defense: number,
     color: Color,
-    invoke: (card: Card) => void
+    useFromHand: (card: Card) => void
   ) {
     this.name = name;
     this.image = image;
     this.attack = attack;
     this.defense = defense;
     this.color = color;
-    this.invoke = invoke;
+    this.useFromHand = useFromHand;
   }
 }

@@ -27,7 +27,7 @@ export default function CardBox({
       executeOneActionWithDelay();
     } else if (!duel.hasNextAction()) {
       if (card.zone == Zone.Hand) {
-        card.model.invoke(card);
+        card.model.useFromHand(card);
         executeOneActionWithDelay();
       }
     }

@@ -19,13 +19,13 @@
 }
 
 .onTurn {
-  background-color: lightgray;
+  background-color: #d3d3d380;
   color: black;
   font-weight: 600;
 }
 
 .notOnTurn {
-  background-color: gray;
+  background-color: #80808080;
   color: white;
   font-weight: 400;
 }

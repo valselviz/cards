@@ -11,13 +11,13 @@ import wizard from "assets/cards/wizard.png";
 import blackDragon from "assets/cards/blackDragon.png";
 
 function simpleInvokation(card: Card) {
-  card.duel.invoke(card);
+  card.duel.invoke(() => card);
 }
 
 function oneSacrificeInvokation(card: Card) {
   card.duel.selectFieldCard(card.playerId);
   card.duel.destroy(() => card.duel.selectedTarget);
-  card.duel.invoke(card);
+  card.duel.invoke(() => card);
 }
 
 export const cardModels: any = {

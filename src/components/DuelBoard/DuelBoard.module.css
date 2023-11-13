@@ -53,9 +53,9 @@
 }
 
 .onTurn {
-  background-color: lightgray;
+  background-color: #d3d3d380;
 }
 
 .notOnTurn {
-  background-color: gray;
+  background-color: #80808080;
 }

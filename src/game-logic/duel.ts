@@ -70,7 +70,9 @@ export class Duel {
 
   refreshUI() {}
 
-  invoke(card: Card) {
+  invoke(cardProvider: () => Card | null) {
+    const card = cardProvider();
+    if (!card) return;
     const invokeAction = new Action(() => {
       if (this.cards[card.playerId][Zone.Field].length < 5) {
         console.log("Invoke action");
