@@ -1,22 +1,15 @@
-:root {
-  --dark: #202020;
-  --red: #d95763;
-  --lightRed: #e98e96;
-  --yellow: #fbf236;
-  --lightYellow: #fffcbf;
-  --green: #3dd33d;
-  --lightGreen: #9be99b;
-  --blue: #3f5ceb;
-  --lightBlue: #6c98fa;
+.cardBackground {
+  background-image: url("/src/assets/cardBackground.png");
+  background-size: 100% 100%;
+  width: 160px;
+  height: fit-content;
+  margin: 5px;
 }
 
 .cardBox {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 160px;
-  height: fit-content;
-  margin: 5px;
   border: 1px solid black;
   text-align: center;
   font-size: 13px;

@@ -10,22 +10,22 @@
 
 .playerStatusRight {
   margin-bottom: 20px;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 15px 15px;
 }
 
 .playerStatusLeft {
   margin-top: 20px;
-  border-radius: 10px 10px 0 0;
+  border-radius: 15px 15px 0 0;
 }
 
 .onTurn {
-  background-color: #d3d3d380;
+  background-color: var(--lightShade);
   color: black;
   font-weight: 600;
 }
 
 .notOnTurn {
-  background-color: #80808080;
+  background-color: var(--darkShade);
   color: white;
   font-weight: 400;
 }

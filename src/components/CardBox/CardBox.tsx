@@ -35,17 +35,19 @@ export default function CardBox({
 
   const colorClass = getColorClass(card.model.color);
   return (
-    <div className={`${styles.cardBox} ${colorClass}`} onClick={clickCard}>
-      <div className={styles.title}>{card.model.name}</div>
-      <img src={card.model.image} className={styles.portrait} />
-      <div className={styles.bottomLine}>
-        <div className={styles.attribute}>
-          <img src={swordIcon} className={styles.icon} />
-          {card.model.attack}
-        </div>
-        <div className={styles.attribute}>
-          <img src={shieldIcon} className={styles.icon} />
-          {card.model.defense}
+    <div className={`${styles.cardBackground}`} onClick={clickCard}>
+      <div className={`${styles.cardBox} ${colorClass}`}>
+        <div className={styles.title}>{card.model.name}</div>
+        <img src={card.model.image} className={styles.portrait} />
+        <div className={styles.bottomLine}>
+          <div className={styles.attribute}>
+            <img src={swordIcon} className={styles.icon} />
+            {card.model.attack}
+          </div>
+          <div className={styles.attribute}>
+            <img src={shieldIcon} className={styles.icon} />
+            {card.model.defense}
+          </div>
         </div>
       </div>
     </div>

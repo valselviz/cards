@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   width: fit-content;
-  margin: 10px auto 10px auto;
 }
 
 .playersStatusDiv {
@@ -20,11 +19,11 @@
 }
 
 .playerSideTop {
-  border-radius: 10px 10px 0 10px;
+  border-radius: 15px 15px 0 15px;
 }
 
 .playerSideBottom {
-  border-radius: 0 10px 10px 10px;
+  border-radius: 0 15px 15px 15px;
 }
 
 .passTurnIcon {
@@ -53,9 +52,9 @@
 }
 
 .onTurn {
-  background-color: #d3d3d380;
+  background-color: var(--lightShade);
 }
 
 .notOnTurn {
-  background-color: #80808080;
+  background-color: var(--darkShade);
 }
