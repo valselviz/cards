@@ -1,5 +1,7 @@
+import { Card } from "./card";
+
 export class Action {
-  selectionTargetAction: boolean;
+  shouldSelectTarget: () => boolean;
 
   selectionInfo: string;
 
@@ -7,11 +9,11 @@ export class Action {
 
   constructor(
     execute: () => void,
-    selectionTargetAction: boolean = false,
+    shouldSelectTarget: () => boolean = () => false,
     selectionInfo: string = ""
   ) {
     this.execute = execute;
-    this.selectionTargetAction = selectionTargetAction;
+    this.shouldSelectTarget = shouldSelectTarget;
     this.selectionInfo = selectionInfo;
   }
 }

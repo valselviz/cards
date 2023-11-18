@@ -19,6 +19,8 @@ export class Duel {
 
   waitingForCardSelection: boolean = false;
 
+  selectedCardOwner: number = 0;
+
   selectedTarget: Card | null = null;
 
   constructor(players: Player[]) {
@@ -99,10 +101,38 @@ export class Duel {
     this.actionsQueue.push(destroyAction);
   }
 
-  selectFieldCard(playerId: number) {
+  attack(
+    attackProvider: () => Card | null,
+    defenderProvider: () => Card | null
+  ) {
+    const attackAction = new Action(() => {
+      const attackCard = attackProvider();
+      if (!attackCard) return;
+      const defenderCard = defenderProvider();
+      if (!defenderCard) {
+        const defenderPlayer = 1 - attackCard.playerId;
+        this.cards[defenderPlayer][Zone.Deck].shift();
+      } else if (attackCard.model.attack > defenderCard.model.defense) {
+        const position =
+          this.cards[defenderCard.playerId][Zone.Field].indexOf(defenderCard);
+        this.cards[defenderCard.playerId][Zone.Field].splice(position, 1);
+        defenderCard.zone = Zone.Graveyard;
+      }
+    });
+    this.actionsQueue.push(attackAction);
+  }
+
+  selectFieldCard(selectedCardOwner: number) {
     const selectFieldCardAction = new Action(
-      () => (this.waitingForCardSelection = true),
-      true,
+      () => {
+        if (this.cards[selectedCardOwner][Zone.Field].length > 0) {
+          this.waitingForCardSelection = true;
+          this.selectedCardOwner = selectedCardOwner;
+        } else {
+          this.selectedTarget = null;
+        }
+      },
+      () => this.cards[selectedCardOwner][Zone.Field].length > 0,
       ""
     );
     this.actionsQueue.push(selectFieldCardAction);

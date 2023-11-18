@@ -8,6 +8,7 @@ export class CardModel {
   defense: number;
   color: Color;
   useFromHand: (card: Card) => void;
+  useFromField: (card: Card) => void;
 
   constructor(
     name: string,
@@ -15,7 +16,8 @@ export class CardModel {
     attack: number,
     defense: number,
     color: Color,
-    useFromHand: (card: Card) => void
+    useFromHand: (card: Card) => void,
+    useFromField: (card: Card) => void
   ) {
     this.name = name;
     this.image = image;
@@ -23,5 +25,6 @@ export class CardModel {
     this.defense = defense;
     this.color = color;
     this.useFromHand = useFromHand;
+    this.useFromField = useFromField;
   }
 }

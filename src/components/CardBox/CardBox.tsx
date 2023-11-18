@@ -18,16 +18,22 @@ export default function CardBox({
 }: CardBoxProps) {
   function clickCard() {
     const duel = card.duel;
-    if (card.playerId != duel.playerTurn) return;
     if (!duel.players[duel.playerTurn].human) return;
-
+    // Card Selection
     if (card.duel.waitingForCardSelection) {
-      card.duel.selectedTarget = card;
-      card.duel.waitingForCardSelection = false;
-      executeOneActionWithDelay();
+      if (card.duel.selectedCardOwner == card.playerId) {
+        card.duel.selectedTarget = card;
+        card.duel.waitingForCardSelection = false;
+        executeOneActionWithDelay();
+      }
     } else if (!duel.hasNextAction()) {
+      // Manually triggered actions
+      if (card.playerId != duel.playerTurn) return;
       if (card.zone == Zone.Hand) {
         card.model.useFromHand(card);
+        executeOneActionWithDelay();
+      } else if (card.zone == Zone.Field) {
+        card.model.useFromField(card);
         executeOneActionWithDelay();
       }
     }
