@@ -20,6 +20,14 @@ function oneSacrificeInvokation(card: Card) {
   card.duel.invoke(() => card);
 }
 
+function simpleAttack(card: Card) {
+  card.duel.selectFieldCard(1 - card.playerId);
+  card.duel.attack(
+    () => card,
+    () => card.duel.selectedTarget
+  );
+}
+
 export const cardModels: any = {
   ElfArcher: new CardModel(
     "Elf Archer",
@@ -27,7 +35,8 @@ export const cardModels: any = {
     10,
     10,
     Color.Yellow,
-    simpleInvokation
+    simpleInvokation,
+    simpleAttack
   ),
   GiantSpider: new CardModel(
     "Giant Spider",
@@ -35,16 +44,26 @@ export const cardModels: any = {
     25,
     10,
     Color.Red,
-    simpleInvokation
+    simpleInvokation,
+    simpleAttack
   ),
-  Golem: new CardModel("Golem", golem, 10, 29, Color.Red, simpleInvokation),
+  Golem: new CardModel(
+    "Golem",
+    golem,
+    10,
+    29,
+    Color.Red,
+    simpleInvokation,
+    simpleAttack
+  ),
   HammerDwarf: new CardModel(
     "Hammer Dwarf",
     hammerDwarf,
     8,
     16,
     Color.Blue,
-    simpleInvokation
+    simpleInvokation,
+    simpleAttack
   ),
   Wizard: new CardModel(
     "Wizard",
@@ -52,7 +71,8 @@ export const cardModels: any = {
     15,
     15,
     Color.Green,
-    simpleInvokation
+    simpleInvokation,
+    simpleAttack
   ),
   BlackDragon: new CardModel(
     "Black Dragon",
@@ -60,7 +80,8 @@ export const cardModels: any = {
     35,
     25,
     Color.Blue,
-    oneSacrificeInvokation
+    oneSacrificeInvokation,
+    simpleAttack
   ),
 };
 

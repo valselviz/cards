@@ -30,7 +30,7 @@ export default function DuelBoard({ players }: DuelBoardProps) {
     if (duel.hasNextAction()) {
       setTimeout(() => {
         const action = duel.executeOneAction();
-        if (action && !action.selectionTargetAction) {
+        if (action && !action.shouldSelectTarget()) {
           executeOneActionWithDelay();
         }
       }, 300);
