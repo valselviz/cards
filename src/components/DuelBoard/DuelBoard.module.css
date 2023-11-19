@@ -40,13 +40,16 @@
   margin: 5px;
   border: 1px solid black;
   border-radius: 10px;
+  background-color: transparent;
   background-image: url("/src/assets/clockBackground.png");
   background-size: cover;
   background-position: center;
 }
-
 .passTurnButton:hover {
-  background-color: white;
+  background-image: url("/src/assets/clockBackgroundHover.png");
+}
+.passTurnButton:active {
+  background-image: url("/src/assets/clockBackgroundClick.png");
 }
 
 .bottonRow {
