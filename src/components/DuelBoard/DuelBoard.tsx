@@ -5,7 +5,7 @@ import { ReactDuel } from "../../react-duel/react-duel";
 import CardsRow from "../CardsRow/CardsRow";
 import Hand from "../Hand/Hand";
 import PlayerStatus from "../PlayerStatus/PlayerStatus";
-import sandClockIcon from "assets/icons/sand-clock.svg";
+import sandClockIcon from "assets/clock.png";
 
 import styles from "./DuelBoard.module.css";
 import { Player } from "../../game-logic/player";

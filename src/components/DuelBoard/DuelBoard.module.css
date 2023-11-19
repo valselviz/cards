@@ -27,18 +27,22 @@
 }
 
 .passTurnIcon {
-  height: 80px;
+  height: 110px;
+  border-radius: 10px;
 }
 
 .passTurnButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 143px;
   margin: 5px;
   border: 1px solid black;
   border-radius: 10px;
+  background-image: url("/src/assets/clockBackground.png");
+  background-size: cover;
+  background-position: center;
 }
 
 .passTurnButton:hover {
