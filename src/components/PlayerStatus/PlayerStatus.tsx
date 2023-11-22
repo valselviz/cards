@@ -20,11 +20,12 @@ export default function PlayerStatus({
     playerId === 0 ? styles.playerStatusLeft : styles.playerStatusRight;
   return (
     <div
-      className={`${styles.playerStatus} ${specificPlayerClass} ${hasTurnStyle}`}
+      className={`${styles.playerStatusArea} ${specificPlayerClass} ${hasTurnStyle}`}
     >
-      <p>
-        {playerName}: {playerDeckCards} cards
-      </p>
+      <div className={styles.playerStatus}>
+        <p className={styles.statusText}>{playerName}</p>
+        <div className={styles.deckIcon}>{playerDeckCards}</div>
+      </div>
     </div>
   );
 }
