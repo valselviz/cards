@@ -32,7 +32,7 @@ export default function CardBox({
       if (card.zone == Zone.Hand) {
         card.model.useFromHand(card);
         executeOneActionWithDelay();
-      } else if (card.zone == Zone.Field && card.usableFromField == true) {
+      } else if (card.zone == Zone.Field && card.usableFromField) {
         card.model.useFromField(card);
         card.usableFromField = false;
         executeOneActionWithDelay();
@@ -41,11 +41,9 @@ export default function CardBox({
   }
 
   function usableStyles() {
-    if (!card.usableFromField && card.zone == Zone.Field) {
-      return styles.notUsable;
-    } else {
-      return "";
-    }
+    return !card.usableFromField && card.zone == Zone.Field
+      ? styles.notUsable
+      : "";
   }
 
   const colorClass = getColorClass(card.model.color);
