@@ -7,11 +7,13 @@ export class Card {
   duel: Duel;
   playerId: number;
   zone: Zone;
+  usableFromField: boolean;
 
   constructor(model: CardModel, duel: Duel, playerId: number) {
     this.model = model;
     this.duel = duel;
     this.playerId = playerId;
     this.zone = Zone.Deck;
+    this.usableFromField = false;
   }
 }

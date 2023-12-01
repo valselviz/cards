@@ -40,6 +40,9 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   useEffect(executeOneActionWithDelay, []);
 
   function passTurn() {
+    duel.cards[duel.playerTurn][Zone.Field].forEach(
+      (card) => (card.usableFromField = true)
+    );
     duel.playerTurn = 1 - duel.playerTurn;
     duel.draw(duel.playerTurn);
     executeOneActionWithDelay();
