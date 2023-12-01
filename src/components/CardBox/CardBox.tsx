@@ -32,16 +32,24 @@ export default function CardBox({
       if (card.zone == Zone.Hand) {
         card.model.useFromHand(card);
         executeOneActionWithDelay();
-      } else if (card.zone == Zone.Field) {
+      } else if (card.zone == Zone.Field && card.usableFromField) {
         card.model.useFromField(card);
+        card.usableFromField = false;
         executeOneActionWithDelay();
       }
     }
   }
 
+  function usableStyles() {
+    return !card.usableFromField && card.zone == Zone.Field
+      ? styles.notUsable
+      : "";
+  }
+
   const colorClass = getColorClass(card.model.color);
   return (
     <div className={`${styles.cardBackground}`} onClick={clickCard}>
+      <div className={usableStyles()}></div>
       <div className={`${styles.cardBox} ${colorClass}`}>
         <div className={styles.title}>{card.model.name}</div>
         <img src={card.model.image} className={styles.portrait} />
