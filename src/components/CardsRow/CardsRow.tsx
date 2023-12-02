@@ -12,10 +12,10 @@ export default function CardsRow({
   cards,
   executeOneActionWithDelay,
 }: CardsRowProps) {
-  const cardBoxes: JSX.Element[] = [];
+  const cardSlots = [];
   for (let i = 0; i < 5; i++) {
     const card = cards[i];
-    cardBoxes.push(
+    cardSlots.push(
       <Slot
         key={i}
         position={i}
@@ -24,5 +24,5 @@ export default function CardsRow({
       />
     );
   }
-  return <div className={styles.cardsRow}>{cardBoxes}</div>;
+  return <div className={styles.cardsRow}>{cardSlots}</div>;
 }
