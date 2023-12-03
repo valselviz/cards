@@ -9,15 +9,18 @@ import golem from "assets/cards/golem.png";
 import hammerDwarf from "assets/cards/hammerDwarf.png";
 import wizard from "assets/cards/wizard.png";
 import blackDragon from "assets/cards/blackDragon.png";
+import { Zone } from "./zone";
 
 function simpleInvokation(card: Card) {
   card.duel.invoke(() => card);
 }
 
 function oneSacrificeInvokation(card: Card) {
-  card.duel.selectFieldCard(card.playerId);
-  card.duel.destroy(() => card.duel.selectedTarget);
-  card.duel.invoke(() => card);
+  if (card.duel.cards[card.playerId][Zone.Field].length > 0) {
+    card.duel.selectFieldCard(card.playerId);
+    card.duel.destroy(() => card.duel.selectedTarget);
+    card.duel.invoke(() => card);
+  }
 }
 
 function simpleAttack(card: Card) {

@@ -21,7 +21,10 @@ export default function CardBox({
     if (!duel.players[duel.playerTurn].human) return;
     // Card Selection
     if (card.duel.waitingForCardSelection) {
-      if (card.duel.selectedCardOwner == card.playerId) {
+      if (
+        card.duel.selectedCardOwner == card.playerId &&
+        card.zone == Zone.Field
+      ) {
         card.duel.selectedTarget = card;
         card.duel.waitingForCardSelection = false;
         executeOneActionWithDelay();
