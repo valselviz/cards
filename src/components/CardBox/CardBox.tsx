@@ -20,13 +20,13 @@ export default function CardBox({
     const duel = card.duel;
     if (!duel.players[duel.playerTurn].human) return;
     // Card Selection
-    if (card.duel.waitingForCardSelection) {
+    if (duel.waitingForCardSelection) {
       if (
-        card.duel.selectedCardOwner == card.playerId &&
-        card.zone == Zone.Field
+        card.playerId == duel.selectedCardOwner &&
+        card.zone == duel.selectingFromZone
       ) {
-        card.duel.selectedTarget = card;
-        card.duel.waitingForCardSelection = false;
+        duel.selectedTarget = card;
+        duel.waitingForCardSelection = false;
         executeOneActionWithDelay();
       }
     } else if (!duel.hasNextAction()) {
