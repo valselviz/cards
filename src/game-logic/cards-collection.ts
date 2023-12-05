@@ -94,11 +94,13 @@ export const cardModels: any = {
     0,
     Color.Yellow,
     (card: Card) => {
-      card.duel.selectHandCard(card.playerId);
-      card.duel.discard(() => card.duel.selectedTarget);
-      card.duel.selectFieldCard(1 - card.playerId);
-      card.duel.destroy(() => card.duel.selectedTarget);
-      card.duel.discard(() => card);
+      if (card.duel.cards[card.playerId][Zone.Hand].length > 1) {
+        card.duel.selectHandCard(card.playerId);
+        card.duel.discard(() => card.duel.selectedTarget);
+        card.duel.selectFieldCard(1 - card.playerId);
+        card.duel.destroy(() => card.duel.selectedTarget);
+        card.duel.discard(() => card);
+      }
     },
     () => null
   ),
