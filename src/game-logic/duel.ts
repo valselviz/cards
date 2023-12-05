@@ -23,6 +23,8 @@ export class Duel {
 
   selectedTarget: Card | null = null;
 
+  selectingFromZone: Zone | null = null;
+
   constructor(players: Player[]) {
     this.players = players;
     this.cards = [
@@ -89,6 +91,18 @@ export class Duel {
     this.actionsQueue.push(invokeAction);
   }
 
+  discard(cardProvider: () => Card | null) {
+    const discardAction = new Action(() => {
+      const card = cardProvider();
+      if (!card) return;
+      console.log("Discard action");
+      const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
+      this.cards[card.playerId][Zone.Hand].splice(position, 1);
+      card.zone = Zone.Graveyard;
+    });
+    this.actionsQueue.push(discardAction)
+  }
+
   destroy(cardProvider: () => Card | null) {
     const destroyAction = new Action(() => {
       const card = cardProvider();
@@ -127,6 +141,7 @@ export class Duel {
       () => {
         if (this.cards[selectedCardOwner][Zone.Field].length > 0) {
           this.waitingForCardSelection = true;
+          this.selectingFromZone = Zone.Field;
           this.selectedCardOwner = selectedCardOwner;
         } else {
           this.selectedTarget = null;
@@ -136,6 +151,23 @@ export class Duel {
       ""
     );
     this.actionsQueue.push(selectFieldCardAction);
+  }
+
+  selectHandCard(selectedCardOwner: number) {
+    const selectHandCardAction = new Action(
+      () => {
+        if (this.cards[selectedCardOwner][Zone.Hand].length > 0) {
+          this.waitingForCardSelection = true;
+          this.selectingFromZone = Zone.Hand;
+          this.selectedCardOwner = selectedCardOwner;
+        } else {
+          this.selectedTarget = null;
+        }
+      },
+      () => this.cards[selectedCardOwner][Zone.Hand].length > 0,
+      ""
+    );
+    this.actionsQueue.push(selectHandCardAction)
   }
 
   draw(playerId: number) {

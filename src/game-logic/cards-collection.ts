@@ -9,6 +9,7 @@ import golem from "assets/cards/golem.png";
 import hammerDwarf from "assets/cards/hammerDwarf.png";
 import wizard from "assets/cards/wizard.png";
 import blackDragon from "assets/cards/blackDragon.png";
+import vortex from "assets/cards/vortex.png";
 import { Zone } from "./zone";
 
 function simpleInvokation(card: Card) {
@@ -85,6 +86,23 @@ export const cardModels: any = {
     Color.Blue,
     oneSacrificeInvokation,
     simpleAttack
+  ),
+  Vortex: new CardModel(
+    "Vortex",
+    vortex,
+    0,
+    0,
+    Color.Yellow,
+    (card: Card) => {
+      if (card.duel.cards[card.playerId][Zone.Hand].length > 1) {
+        card.duel.selectHandCard(card.playerId);
+        card.duel.discard(() => card.duel.selectedTarget);
+        card.duel.selectFieldCard(1 - card.playerId);
+        card.duel.destroy(() => card.duel.selectedTarget);
+        card.duel.discard(() => card);
+      }
+    },
+    () => null
   ),
 };
 
