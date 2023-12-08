@@ -25,6 +25,8 @@ export class Duel {
 
   selectingFromZone: Zone | null = null;
 
+  selectionCriteria: (card: Card) => boolean = () => false;
+
   constructor(players: Player[]) {
     this.players = players;
     this.cards = [
@@ -100,7 +102,7 @@ export class Duel {
       this.cards[card.playerId][Zone.Hand].splice(position, 1);
       card.zone = Zone.Graveyard;
     });
-    this.actionsQueue.push(discardAction)
+    this.actionsQueue.push(discardAction);
   }
 
   destroy(cardProvider: () => Card | null) {
@@ -136,13 +138,17 @@ export class Duel {
     this.actionsQueue.push(attackAction);
   }
 
-  selectFieldCard(selectedCardOwner: number) {
-    const selectFieldCardAction = new Action(
+  startFieldSelection(
+    selectedCardOwner: number,
+    selectionCriteria: (card: Card) => boolean = () => true
+  ) {
+    const startFieldSelectionAction = new Action(
       () => {
         if (this.cards[selectedCardOwner][Zone.Field].length > 0) {
           this.waitingForCardSelection = true;
           this.selectingFromZone = Zone.Field;
           this.selectedCardOwner = selectedCardOwner;
+          this.selectionCriteria = selectionCriteria;
         } else {
           this.selectedTarget = null;
         }
@@ -150,16 +156,20 @@ export class Duel {
       () => this.cards[selectedCardOwner][Zone.Field].length > 0,
       ""
     );
-    this.actionsQueue.push(selectFieldCardAction);
+    this.actionsQueue.push(startFieldSelectionAction);
   }
 
-  selectHandCard(selectedCardOwner: number) {
-    const selectHandCardAction = new Action(
+  startHandSelection(
+    selectedCardOwner: number,
+    selectionCriteria: (card: Card) => boolean = () => true
+  ) {
+    const startHandSelectionAction = new Action(
       () => {
         if (this.cards[selectedCardOwner][Zone.Hand].length > 0) {
           this.waitingForCardSelection = true;
           this.selectingFromZone = Zone.Hand;
           this.selectedCardOwner = selectedCardOwner;
+          this.selectionCriteria = selectionCriteria;
         } else {
           this.selectedTarget = null;
         }
@@ -167,7 +177,7 @@ export class Duel {
       () => this.cards[selectedCardOwner][Zone.Hand].length > 0,
       ""
     );
-    this.actionsQueue.push(selectHandCardAction)
+    this.actionsQueue.push(startHandSelectionAction);
   }
 
   draw(playerId: number) {
