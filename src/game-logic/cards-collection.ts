@@ -94,16 +94,18 @@ export const cardModels: any = {
     0,
     Color.Yellow,
     (card: Card) => {
-      if (card.duel.cards[card.playerId][Zone.Hand].length > 1) {
+      const destroyCriteria = (availableCard: Card) =>
+        availableCard.model.defense <= 20;
+      if (
+        card.duel.cards[card.playerId][Zone.Hand].length > 1 &&
+        card.duel.cards[1 - card.playerId][Zone.Field].some(destroyCriteria)
+      ) {
         card.duel.startHandSelection(
           card.playerId,
           (availableCard) => availableCard !== card
         );
         card.duel.discard(() => card.duel.selectedTarget);
-        card.duel.startFieldSelection(
-          1 - card.playerId,
-          (availableCard) => availableCard.model.defense <= 20
-        );
+        card.duel.startFieldSelection(1 - card.playerId, destroyCriteria);
         card.duel.destroy(() => card.duel.selectedTarget);
         card.duel.discard(() => card);
       }

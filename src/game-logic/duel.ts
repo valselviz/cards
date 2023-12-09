@@ -96,8 +96,8 @@ export class Duel {
   discard(cardProvider: () => Card | null) {
     const discardAction = new Action(() => {
       const card = cardProvider();
-      if (!card) return;
       console.log("Discard action");
+      if (!card) return;
       const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
       this.cards[card.playerId][Zone.Hand].splice(position, 1);
       card.zone = Zone.Graveyard;
@@ -108,8 +108,8 @@ export class Duel {
   destroy(cardProvider: () => Card | null) {
     const destroyAction = new Action(() => {
       const card = cardProvider();
-      if (!card) return;
       console.log("Destroy action");
+      if (!card) return;
       const position = this.cards[card.playerId][Zone.Field].indexOf(card);
       this.cards[card.playerId][Zone.Field].splice(position, 1);
       card.zone = Zone.Graveyard;
@@ -144,7 +144,7 @@ export class Duel {
   ) {
     const startFieldSelectionAction = new Action(
       () => {
-        if (this.cards[selectedCardOwner][Zone.Field].length > 0) {
+        if (this.cards[selectedCardOwner][Zone.Field].some(selectionCriteria)) {
           this.waitingForCardSelection = true;
           this.selectingFromZone = Zone.Field;
           this.selectedCardOwner = selectedCardOwner;
@@ -153,7 +153,7 @@ export class Duel {
           this.selectedTarget = null;
         }
       },
-      () => this.cards[selectedCardOwner][Zone.Field].length > 0,
+      () => this.cards[selectedCardOwner][Zone.Field].some(selectionCriteria),
       ""
     );
     this.actionsQueue.push(startFieldSelectionAction);
@@ -165,7 +165,7 @@ export class Duel {
   ) {
     const startHandSelectionAction = new Action(
       () => {
-        if (this.cards[selectedCardOwner][Zone.Hand].length > 0) {
+        if (this.cards[selectedCardOwner][Zone.Hand].some(selectionCriteria)) {
           this.waitingForCardSelection = true;
           this.selectingFromZone = Zone.Hand;
           this.selectedCardOwner = selectedCardOwner;
@@ -174,7 +174,7 @@ export class Duel {
           this.selectedTarget = null;
         }
       },
-      () => this.cards[selectedCardOwner][Zone.Hand].length > 0,
+      () => this.cards[selectedCardOwner][Zone.Hand].some(selectionCriteria),
       ""
     );
     this.actionsQueue.push(startHandSelectionAction);
