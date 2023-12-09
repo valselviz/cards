@@ -23,7 +23,8 @@ export default function CardBox({
     if (duel.waitingForCardSelection) {
       if (
         card.playerId == duel.selectedCardOwner &&
-        card.zone == duel.selectingFromZone
+        card.zone == duel.selectingFromZone &&
+        duel.selectionCriteria(card)
       ) {
         duel.selectedTarget = card;
         duel.waitingForCardSelection = false;
