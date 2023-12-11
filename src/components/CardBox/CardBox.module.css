@@ -93,3 +93,7 @@
   top: 0;
   bottom: 0;
 }
+
+.selectable {
+  box-shadow: 0 0 10px 5px rgb(255, 255, 255);
+}
