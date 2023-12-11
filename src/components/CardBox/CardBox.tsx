@@ -44,16 +44,24 @@ export default function CardBox({
     }
   }
 
-  function usableStyles() {
-    return !card.usableFromField && card.zone == Zone.Field
-      ? styles.notUsable
+  const usableStyles =
+    !card.usableFromField && card.zone == Zone.Field ? styles.notUsable : "";
+
+  const selectableStyles =
+    card.duel.waitingForCardSelection == true &&
+    card.zone == card.duel.selectingFromZone &&
+    card.playerId == card.duel.selectedCardOwner &&
+    card.duel.selectionCriteria(card)
+      ? styles.selectable
       : "";
-  }
 
   const colorClass = getColorClass(card.model.color);
   return (
-    <div className={`${styles.cardBackground}`} onClick={clickCard}>
-      <div className={usableStyles()}></div>
+    <div
+      className={`${styles.cardBackground} ${selectableStyles}`}
+      onClick={clickCard}
+    >
+      <div className={usableStyles}></div>
       <div className={`${styles.cardBox} ${colorClass}`}>
         <div className={styles.title}>{card.model.name}</div>
         <img src={card.model.image} className={styles.portrait} />
