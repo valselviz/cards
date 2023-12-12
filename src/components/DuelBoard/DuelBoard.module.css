@@ -11,23 +11,18 @@
   column-gap: 20px;
 }
 
-.playerSide {
+.fieldArea {
   display: flex;
   flex-direction: column;
   align-content: center;
-  padding: 10px;
-}
-
-.playerSideTop {
-  border-radius: 15px 15px 0 15px;
-}
-
-.playerSideBottom {
-  border-radius: 0 15px 15px 15px;
+  padding: 7px;
+  margin: 5px;
+  border-radius: 15px;
+  background-color: var(--lightShade);
 }
 
 .passTurnImage {
-  height: 110px;
+  height: 140px;
   border-radius: 10px;
 }
 
@@ -35,9 +30,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 90px;
-  height: 143px;
-  margin: 5px;
+  width: 120px;
+  height: 180px;
   border: 1px solid black;
   border-radius: 10px;
   background-color: transparent;
@@ -59,10 +53,16 @@
   align-items: center;
 }
 
-.onTurn {
-  background-color: var(--lightShade);
+.middleSection {
+  display: flex;
+  flex-direction: row;
 }
 
-.notOnTurn {
-  background-color: var(--darkShade);
+.sideSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 170px;
+  margin: 15px;
 }

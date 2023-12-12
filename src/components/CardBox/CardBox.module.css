@@ -2,7 +2,7 @@
   position: relative;
   background-image: url("/src/assets/cardBackground.png");
   background-size: 100% 100%;
-  width: 160px;
+  width: 147px;
   height: fit-content;
   margin: 5px;
 }
@@ -13,19 +13,19 @@
   align-items: center;
   border: 1px solid black;
   text-align: center;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .title {
-  width: 85%;
-  margin: 7px;
-  padding: 4px;
+  width: 88%;
+  margin: 5px;
+  padding: 3px;
 }
 
 .attribute {
   width: 40%;
-  margin: 7px;
-  padding: 4px;
+  margin: 5px;
+  padding: 3px;
   display: flex;
   justify-content: center;
 }
@@ -37,12 +37,12 @@
 }
 
 .icon {
-  width: 14px;
+  width: 13px;
 }
 
 .portrait {
-  width: 135px;
-  height: 135px;
+  width: 125px;
+  height: 125px;
   border: 1px solid black;
 }
 

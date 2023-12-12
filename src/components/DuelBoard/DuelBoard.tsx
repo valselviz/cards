@@ -48,52 +48,38 @@ export default function DuelBoard({ players }: DuelBoardProps) {
     executeOneActionWithDelay();
   }
 
-  const playerOneStyle =
-    duel.playerTurn === 1 ? styles.onTurn : styles.notOnTurn;
-
-  const playerZeroStyle =
-    duel.playerTurn === 0 ? styles.onTurn : styles.notOnTurn;
-
   return (
     <div className={styles.duelBoard}>
-      <div
-        className={`${styles.playerSide} ${styles.playerSideTop} ${playerOneStyle}`}
-      >
-        <Hand
-          cards={cardsState[1][Zone.Hand]}
-          executeOneActionWithDelay={executeOneActionWithDelay}
-        />
-        <CardsRow
-          cards={cardsState[1][Zone.Field]}
-          executeOneActionWithDelay={executeOneActionWithDelay}
-        />
-      </div>
-      <div className={styles.playersStatusDiv}>
-        <PlayerStatus
-          playerName={players[1].name}
-          playerDeckCards={cardsState[1][Zone.Deck].length}
-          playerId={1}
-          playerTurn={duel.playerTurn}
-        />
-        <PlayerStatus
-          playerName={players[0].name}
-          playerDeckCards={cardsState[0][Zone.Deck].length}
-          playerId={0}
-          playerTurn={duel.playerTurn}
-        />
-      </div>
-      <div
-        className={`${styles.playerSide} ${styles.playerSideBottom} ${playerZeroStyle}`}
-      >
-        <CardsRow
-          cards={cardsState[0][Zone.Field]}
-          executeOneActionWithDelay={executeOneActionWithDelay}
-        />
-        <div className={styles.bottonRow}>
-          <Hand
-            cards={cardsState[0][Zone.Hand]}
+      <Hand
+        cards={cardsState[1][Zone.Hand]}
+        executeOneActionWithDelay={executeOneActionWithDelay}
+      />
+      <div className={styles.middleSection}>
+        <div className={styles.sideSection}>
+          <PlayerStatus
+            playerName={players[1].name}
+            playerDeckCards={cardsState[1][Zone.Deck].length}
+            playerId={1}
+            playerTurn={duel.playerTurn}
+          />
+          <PlayerStatus
+            playerName={players[0].name}
+            playerDeckCards={cardsState[0][Zone.Deck].length}
+            playerId={0}
+            playerTurn={duel.playerTurn}
+          />
+        </div>
+        <div className={`${styles.fieldArea} ${styles.onTurn}`}>
+          <CardsRow
+            cards={cardsState[1][Zone.Field]}
             executeOneActionWithDelay={executeOneActionWithDelay}
           />
+          <CardsRow
+            cards={cardsState[0][Zone.Field]}
+            executeOneActionWithDelay={executeOneActionWithDelay}
+          />
+        </div>
+        <div className={styles.sideSection}>
           <button className={styles.passTurnButton} onClick={passTurn}>
             <img
               src={sandClockImage}
@@ -103,6 +89,10 @@ export default function DuelBoard({ players }: DuelBoardProps) {
           </button>
         </div>
       </div>
+      <Hand
+        cards={cardsState[0][Zone.Hand]}
+        executeOneActionWithDelay={executeOneActionWithDelay}
+      />
     </div>
   );
 }
