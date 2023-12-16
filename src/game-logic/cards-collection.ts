@@ -25,11 +25,18 @@ function oneSacrificeInvokation(card: Card) {
 }
 
 function simpleAttack(card: Card) {
-  card.duel.startSelection(1 - card.playerId, Zone.Field);
-  card.duel.attack(
-    () => card,
-    () => card.duel.selectedTarget
-  );
+  if (
+    card.duel.cards[1 - card.playerId][Zone.Field].length == 0 ||
+    card.duel.cards[1 - card.playerId][Zone.Field].some(
+      (opponentCard) => opponentCard.model.defense < card.model.attack
+    )
+  ) {
+    card.duel.startSelection(1 - card.playerId, Zone.Field);
+    card.duel.attack(
+      () => card,
+      () => card.duel.selectedTarget
+    );
+  }
 }
 
 export const cardModels: any = {
