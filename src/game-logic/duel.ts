@@ -138,46 +138,26 @@ export class Duel {
     this.actionsQueue.push(attackAction);
   }
 
-  startFieldSelection(
+  startSelection(
     selectedCardOwner: number,
+    zone: Zone,
     selectionCriteria: (card: Card) => boolean = () => true
   ) {
-    const startFieldSelectionAction = new Action(
+    const startSelectionAction = new Action(
       () => {
-        if (this.cards[selectedCardOwner][Zone.Field].some(selectionCriteria)) {
+        if (this.cards[selectedCardOwner][zone].some(selectionCriteria)) {
           this.waitingForCardSelection = true;
-          this.selectingFromZone = Zone.Field;
+          this.selectingFromZone = zone;
           this.selectedCardOwner = selectedCardOwner;
           this.selectionCriteria = selectionCriteria;
         } else {
           this.selectedTarget = null;
         }
       },
-      () => this.cards[selectedCardOwner][Zone.Field].some(selectionCriteria),
+      () => this.cards[selectedCardOwner][zone].some(selectionCriteria),
       ""
     );
-    this.actionsQueue.push(startFieldSelectionAction);
-  }
-
-  startHandSelection(
-    selectedCardOwner: number,
-    selectionCriteria: (card: Card) => boolean = () => true
-  ) {
-    const startHandSelectionAction = new Action(
-      () => {
-        if (this.cards[selectedCardOwner][Zone.Hand].some(selectionCriteria)) {
-          this.waitingForCardSelection = true;
-          this.selectingFromZone = Zone.Hand;
-          this.selectedCardOwner = selectedCardOwner;
-          this.selectionCriteria = selectionCriteria;
-        } else {
-          this.selectedTarget = null;
-        }
-      },
-      () => this.cards[selectedCardOwner][Zone.Hand].some(selectionCriteria),
-      ""
-    );
-    this.actionsQueue.push(startHandSelectionAction);
+    this.actionsQueue.push(startSelectionAction);
   }
 
   draw(playerId: number) {

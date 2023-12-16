@@ -18,14 +18,14 @@ function simpleInvokation(card: Card) {
 
 function oneSacrificeInvokation(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length > 0) {
-    card.duel.startFieldSelection(card.playerId);
+    card.duel.startSelection(card.playerId, Zone.Field);
     card.duel.destroy(() => card.duel.selectedTarget);
     card.duel.invoke(() => card);
   }
 }
 
 function simpleAttack(card: Card) {
-  card.duel.startFieldSelection(1 - card.playerId);
+  card.duel.startSelection(1 - card.playerId, Zone.Field);
   card.duel.attack(
     () => card,
     () => card.duel.selectedTarget
@@ -100,12 +100,17 @@ export const cardModels: any = {
         card.duel.cards[card.playerId][Zone.Hand].length > 1 &&
         card.duel.cards[1 - card.playerId][Zone.Field].some(destroyCriteria)
       ) {
-        card.duel.startHandSelection(
+        card.duel.startSelection(
           card.playerId,
+          Zone.Hand,
           (availableCard) => availableCard !== card
         );
         card.duel.discard(() => card.duel.selectedTarget);
-        card.duel.startFieldSelection(1 - card.playerId, destroyCriteria);
+        card.duel.startSelection(
+          1 - card.playerId,
+          Zone.Field,
+          destroyCriteria
+        );
         card.duel.destroy(() => card.duel.selectedTarget);
         card.duel.discard(() => card);
       }
