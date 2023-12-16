@@ -10,6 +10,7 @@ import hammerDwarf from "assets/cards/hammerDwarf.png";
 import wizard from "assets/cards/wizard.png";
 import blackDragon from "assets/cards/blackDragon.png";
 import vortex from "assets/cards/vortex.png";
+import owlGuardian from "assets/cards/owlGuardian.png";
 import { Zone } from "./zone";
 
 function simpleInvokation(card: Card) {
@@ -25,13 +26,17 @@ function oneSacrificeInvokation(card: Card) {
 }
 
 function simpleAttack(card: Card) {
+  const selectTargetCriteria = (opponentCard: Card) =>
+    opponentCard.model.defense < card.model.attack;
   if (
     card.duel.cards[1 - card.playerId][Zone.Field].length == 0 ||
-    card.duel.cards[1 - card.playerId][Zone.Field].some(
-      (opponentCard) => opponentCard.model.defense < card.model.attack
-    )
+    card.duel.cards[1 - card.playerId][Zone.Field].some(selectTargetCriteria)
   ) {
-    card.duel.startSelection(1 - card.playerId, Zone.Field);
+    card.duel.startSelection(
+      1 - card.playerId,
+      Zone.Field,
+      selectTargetCriteria
+    );
     card.duel.attack(
       () => card,
       () => card.duel.selectedTarget
@@ -123,6 +128,35 @@ export const cardModels: any = {
       }
     },
     () => null
+  ),
+  OwlGuardian: new CardModel(
+    "Owl Guardian",
+    owlGuardian,
+    12,
+    5,
+    Color.Green,
+    simpleInvokation,
+    (card: Card) => {
+      const selectTargetCriteria = (opponentCard: Card) =>
+        opponentCard.model.defense < card.model.attack;
+      if (
+        card.duel.cards[1 - card.playerId][Zone.Field].length == 0 ||
+        card.duel.cards[1 - card.playerId][Zone.Field].some(
+          selectTargetCriteria
+        )
+      ) {
+        card.duel.startSelection(
+          1 - card.playerId,
+          Zone.Field,
+          selectTargetCriteria
+        );
+        card.duel.attack(
+          () => card,
+          () => card.duel.selectedTarget
+        );
+        card.duel.draw(card.playerId);
+      }
+    }
   ),
 };
 
