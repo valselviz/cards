@@ -13,10 +13,13 @@ import vortex from "assets/cards/vortex.png";
 import owlGuardian from "assets/cards/owlGuardian.png";
 import { Zone } from "./zone";
 
+const simpleInvokationInfo = "Invoke.";
 function simpleInvokation(card: Card) {
   card.duel.invoke(() => card);
 }
 
+const oneSacrificeInvokationInfo =
+  "Invoke by sacrifying a card from your field.";
 function oneSacrificeInvokation(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length == 0) {
     alert("You need one card in the field to offer as sacrifice.");
@@ -27,6 +30,8 @@ function oneSacrificeInvokation(card: Card) {
   card.duel.invoke(() => card);
 }
 
+const twoSacrificesInvokationInfo =
+  "Invoke by sacrifying two cards from your field.";
 function twoSacrificesInvokation(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length < 2) {
     alert("You need two cards in the field to offer as sacrifices.");
@@ -39,6 +44,7 @@ function twoSacrificesInvokation(card: Card) {
   card.duel.invoke(() => card);
 }
 
+const simpleAttackInfo = "Attack.";
 function simpleAttack(card: Card) {
   const selectTargetCriteria = (opponentCard: Card) =>
     opponentCard.model.defense < card.model.attack;
@@ -68,7 +74,9 @@ export const cardModels: any = {
     10,
     Color.Yellow,
     simpleInvokation,
-    simpleAttack
+    simpleAttack,
+    simpleInvokationInfo,
+    simpleAttackInfo
   ),
   GiantSpider: new CardModel(
     "Giant Spider",
@@ -77,7 +85,9 @@ export const cardModels: any = {
     10,
     Color.Red,
     oneSacrificeInvokation,
-    simpleAttack
+    simpleAttack,
+    oneSacrificeInvokationInfo,
+    simpleAttackInfo
   ),
   Golem: new CardModel(
     "Golem",
@@ -86,7 +96,9 @@ export const cardModels: any = {
     29,
     Color.Red,
     oneSacrificeInvokation,
-    simpleAttack
+    simpleAttack,
+    oneSacrificeInvokationInfo,
+    simpleAttackInfo
   ),
   HammerDwarf: new CardModel(
     "Hammer Dwarf",
@@ -95,7 +107,9 @@ export const cardModels: any = {
     16,
     Color.Blue,
     simpleInvokation,
-    simpleAttack
+    simpleAttack,
+    simpleInvokationInfo,
+    simpleAttackInfo
   ),
   Wizard: new CardModel(
     "Wizard",
@@ -104,7 +118,9 @@ export const cardModels: any = {
     15,
     Color.Green,
     simpleInvokation,
-    simpleAttack
+    simpleAttack,
+    simpleInvokationInfo,
+    simpleAttackInfo
   ),
   BlackDragon: new CardModel(
     "Black Dragon",
@@ -113,7 +129,9 @@ export const cardModels: any = {
     25,
     Color.Blue,
     twoSacrificesInvokation,
-    simpleAttack
+    simpleAttack,
+    twoSacrificesInvokationInfo,
+    simpleAttackInfo
   ),
   Vortex: new CardModel(
     "Vortex",
@@ -149,7 +167,9 @@ export const cardModels: any = {
       card.duel.destroy(() => card.duel.selectedTarget);
       card.duel.discard(() => card);
     },
-    () => null
+    () => null,
+    "Discard a card from your hand. Then select a card from your opponent’s field with 20 defense or less and destroy it.",
+    null
   ),
   OwlGuardian: new CardModel(
     "Owl Guardian",
@@ -180,7 +200,9 @@ export const cardModels: any = {
       } else {
         alert("Your opponent cards have too much defense to be attacked.");
       }
-    }
+    },
+    simpleInvokationInfo,
+    "Attack. Then draw a card."
   ),
 };
 
