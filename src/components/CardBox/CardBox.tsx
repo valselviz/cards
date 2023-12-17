@@ -45,12 +45,12 @@ export default function CardBox({
   }
 
   const usableStyles =
-    !card.usableFromField && card.zone == Zone.Field ? styles.notUsable : "";
+    !card.usableFromField && card.zone === Zone.Field ? styles.notUsable : "";
 
   const selectableStyles =
-    card.duel.waitingForCardSelection == true &&
-    card.zone == card.duel.selectingFromZone &&
-    card.playerId == card.duel.selectedCardOwner &&
+    card.duel.waitingForCardSelection === true &&
+    card.zone === card.duel.selectingFromZone &&
+    card.playerId === card.duel.selectedCardOwner &&
     card.duel.selectionCriteria(card)
       ? styles.selectable
       : "";
@@ -63,17 +63,33 @@ export default function CardBox({
     >
       <div className={usableStyles}></div>
       <div className={`${styles.cardBox} ${colorClass}`}>
-        <div className={styles.title}>{card.model.name}</div>
-        <img src={card.model.image} className={styles.portrait} />
-        <div className={styles.bottomLine}>
-          <div className={styles.attribute}>
-            <img src={swordIcon} className={styles.icon} />
-            {card.model.attack}
+        <div className={styles.cardContent}>
+          <div className={styles.title}>{card.model.name}</div>
+          <img src={card.model.image} className={styles.portrait} alt="" />
+          <div className={styles.bottomLine}>
+            <div className={styles.attribute}>
+              <img src={swordIcon} className={styles.icon} alt="" />
+              {card.model.attack}
+            </div>
+            <div className={styles.attribute}>
+              <img src={shieldIcon} className={styles.icon} alt="" />
+              {card.model.defense}
+            </div>
           </div>
-          <div className={styles.attribute}>
-            <img src={shieldIcon} className={styles.icon} />
-            {card.model.defense}
-          </div>
+        </div>
+        <div className={styles.descriptionBox}>
+          {card.model.handInfo && (
+            <p className={styles.infoP}>
+              <b>Hand effect: </b>
+              {card.model.handInfo}
+            </p>
+          )}
+          {card.model.fieldInfo && (
+            <p className={styles.infoP}>
+              <b>Field effect: </b>
+              {card.model.fieldInfo}
+            </p>
+          )}
         </div>
       </div>
     </div>
