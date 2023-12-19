@@ -11,7 +11,9 @@ import wizard from "assets/cards/wizard.png";
 import blackDragon from "assets/cards/blackDragon.png";
 import vortex from "assets/cards/vortex.png";
 import owlGuardian from "assets/cards/owlGuardian.png";
+import magicCup from "assets/cards/magicCup.png";
 import { Zone } from "./zone";
+import { Action } from "./action";
 
 const simpleInvokationInfo = "Invoke.";
 function simpleInvokation(card: Card) {
@@ -203,6 +205,35 @@ export const cardModels: any = {
     },
     simpleInvokationInfo,
     "Attack. Then draw a card."
+  ),
+  MagicCup: new CardModel(
+    "Magic Cup",
+    magicCup,
+    0,
+    0,
+    Color.Red,
+    (card: Card) => {
+      card.duel.discard(() => card);
+      function drawCardAndCheckRepetition() {
+        card.duel.draw(card.playerId);
+        const newAction = new Action(() => {
+          const handClone = [...card.duel.cards[card.playerId][Zone.Hand]];
+          const lastDrawnCard = handClone.pop();
+          if (
+            !handClone.some(
+              (handCard) => handCard.model.color === lastDrawnCard?.model.color
+            )
+          ) {
+            drawCardAndCheckRepetition();
+          }
+        });
+        card.duel.actionsQueue.push(newAction);
+      }
+      drawCardAndCheckRepetition();
+    },
+    () => null,
+    "Discard this card. Then draw cards until you draw a card of a color that is in your hand already.",
+    null
   ),
 };
 
