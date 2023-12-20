@@ -4,6 +4,7 @@ import { Color } from "./color";
 import { rndInt } from "./utils";
 
 import elfArcher from "assets/cards/elfArcher.png";
+import minotaur from "assets/cards/minotaur.png";
 import giantSpider from "assets/cards/giantSpider.png";
 import golem from "assets/cards/golem.png";
 import hammerDwarf from "assets/cards/hammerDwarf.png";
@@ -76,6 +77,17 @@ export const cardModels: any = {
     10,
     10,
     Color.Yellow,
+    simpleInvokation,
+    simpleAttack,
+    simpleInvokationInfo,
+    simpleAttackInfo
+  ),
+  Minotaur: new CardModel(
+    "Minotaur",
+    minotaur,
+    14,
+    16,
+    Color.Red,
     simpleInvokation,
     simpleAttack,
     simpleInvokationInfo,
@@ -249,7 +261,7 @@ export const cardModels: any = {
       }
       card.duel.startSelection(card.playerId, Zone.Field);
       card.duel.destroy(() => card.duel.selectedTarget);
-      card.duel.startSelection(1 - card.playerId, Zone.Field,);
+      card.duel.startSelection(1 - card.playerId, Zone.Field);
       card.duel.withdraw(() => card.duel.selectedTarget);
       card.duel.invoke(() => card);
     },
