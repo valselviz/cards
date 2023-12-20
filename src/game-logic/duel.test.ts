@@ -102,3 +102,33 @@ describe("duel invoke", () => {
     expect(duel.cards[0][Zone.Hand]).toHaveLength(1);
   });
 });
+
+describe("duel withdraw", () => {
+  test("queue and execute withdraw", () => {
+    const duel = createDuel();
+    const card = new Card(cardModels.ElfArcher, duel, 0);
+    card.zone = Zone.Field;
+    duel.cards[0][Zone.Field].push(card);
+    const cardProvider = () => card;
+    duel.withdraw(cardProvider);
+
+    // Check the action was queued
+    expect(duel.actionsQueue.length).toBe(1);
+
+    // Check the action is executed properly
+    duel.executeOneAction();
+    expect(card.zone).toBe(Zone.Hand);
+    expect(duel.cards[0][Zone.Hand]).toHaveLength(1);
+    expect(duel.cards[0][Zone.Hand][0]).toBe(card);
+    expect(duel.cards[0][Zone.Field]).toHaveLength(0);
+  });
+
+  test("with null card provider", () => {
+    const duel = createDuel();
+    const cardProvider = () => null;
+    duel.invoke(cardProvider);
+
+    // Check the action was not queued
+    expect(duel.actionsQueue.length).toBe(0);
+  });
+});
