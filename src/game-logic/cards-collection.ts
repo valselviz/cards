@@ -12,6 +12,7 @@ import blackDragon from "assets/cards/blackDragon.png";
 import vortex from "assets/cards/vortex.png";
 import owlGuardian from "assets/cards/owlGuardian.png";
 import magicCup from "assets/cards/magicCup.png";
+import dragonMistress from "assets/cards/dragonMistress.png";
 import { Zone } from "./zone";
 import { Action } from "./action";
 
@@ -234,6 +235,27 @@ export const cardModels: any = {
     () => null,
     "Discard this card. Then draw cards until you draw a card of a color that is in your hand already.",
     null
+  ),
+  DragonMistress: new CardModel(
+    "Dragon Mistress",
+    dragonMistress,
+    14,
+    0,
+    Color.Blue,
+    (card: Card) => {
+      if (card.duel.cards[card.playerId][Zone.Field].length === 0) {
+        alert("You need one card in the field to offer as sacrifice.");
+        return;
+      }
+      card.duel.startSelection(card.playerId, Zone.Field);
+      card.duel.destroy(() => card.duel.selectedTarget);
+      card.duel.startSelection(1 - card.playerId, Zone.Field,);
+      card.duel.withdraw(() => card.duel.selectedTarget);
+      card.duel.invoke(() => card);
+    },
+    simpleAttack,
+    "Invoke by sacrifying a card from your field. Then withdraw a card from your opponent field.",
+    simpleAttackInfo
   ),
 };
 
