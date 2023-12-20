@@ -9,6 +9,7 @@ import sandClockImage from "assets/clock.png";
 
 import styles from "./DuelBoard.module.css";
 import { Player } from "../../game-logic/player";
+import DuelEndMessage from "components/DuelEndMessage/DuelEndMessage";
 
 interface DuelBoardProps {
   players: Player[];
@@ -47,6 +48,10 @@ export default function DuelBoard({ players }: DuelBoardProps) {
     duel.draw(duel.playerTurn);
     executeOneActionWithDelay();
   }
+
+  const firstPlayerDefeater = duel.cards[0][Zone.Deck].length === 0;
+  const secondPlayerDefeater = duel.cards[1][Zone.Deck].length === 0;
+  const duelOver = firstPlayerDefeater || secondPlayerDefeater;
 
   return (
     <div className={styles.duelBoard}>
@@ -93,6 +98,7 @@ export default function DuelBoard({ players }: DuelBoardProps) {
         cards={cardsState[0][Zone.Hand]}
         executeOneActionWithDelay={executeOneActionWithDelay}
       />
+      {duelOver && <DuelEndMessage victory={!firstPlayerDefeater} />}
     </div>
   );
 }

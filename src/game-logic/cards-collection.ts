@@ -23,7 +23,7 @@ function simpleInvokation(card: Card) {
 const oneSacrificeInvokationInfo =
   "Invoke by sacrifying a card from your field.";
 function oneSacrificeInvokation(card: Card) {
-  if (card.duel.cards[card.playerId][Zone.Field].length == 0) {
+  if (card.duel.cards[card.playerId][Zone.Field].length === 0) {
     alert("You need one card in the field to offer as sacrifice.");
     return;
   }
@@ -51,7 +51,7 @@ function simpleAttack(card: Card) {
   const selectTargetCriteria = (opponentCard: Card) =>
     opponentCard.model.defense < card.model.attack;
   if (
-    card.duel.cards[1 - card.playerId][Zone.Field].length == 0 ||
+    card.duel.cards[1 - card.playerId][Zone.Field].length === 0 ||
     card.duel.cards[1 - card.playerId][Zone.Field].some(selectTargetCriteria)
   ) {
     card.duel.startSelection(
@@ -184,7 +184,7 @@ export const cardModels: any = {
       const selectTargetCriteria = (opponentCard: Card) =>
         opponentCard.model.defense < card.model.attack;
       if (
-        card.duel.cards[1 - card.playerId][Zone.Field].length == 0 ||
+        card.duel.cards[1 - card.playerId][Zone.Field].length === 0 ||
         card.duel.cards[1 - card.playerId][Zone.Field].some(
           selectTargetCriteria
         )

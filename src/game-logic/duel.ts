@@ -95,8 +95,8 @@ export class Duel {
 
   discard(cardProvider: () => Card | null) {
     const discardAction = new Action(() => {
-      const card = cardProvider();
       console.log("Discard action");
+      const card = cardProvider();
       if (!card) return;
       const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
       this.cards[card.playerId][Zone.Hand].splice(position, 1);
@@ -107,8 +107,8 @@ export class Duel {
 
   destroy(cardProvider: () => Card | null) {
     const destroyAction = new Action(() => {
-      const card = cardProvider();
       console.log("Destroy action");
+      const card = cardProvider();
       if (!card) return;
       const position = this.cards[card.playerId][Zone.Field].indexOf(card);
       this.cards[card.playerId][Zone.Field].splice(position, 1);
@@ -122,6 +122,7 @@ export class Duel {
     defenderProvider: () => Card | null
   ) {
     const attackAction = new Action(() => {
+      console.log("Attack action");
       const attackCard = attackProvider();
       if (!attackCard) return;
       const defenderCard = defenderProvider();
@@ -146,11 +147,13 @@ export class Duel {
     const startSelectionAction = new Action(
       () => {
         if (this.cards[selectedCardOwner][zone].some(selectionCriteria)) {
+          console.log("Start selection action");
           this.waitingForCardSelection = true;
           this.selectingFromZone = zone;
           this.selectedCardOwner = selectedCardOwner;
           this.selectionCriteria = selectionCriteria;
         } else {
+          console.log("Skipping selection");
           this.selectedTarget = null;
         }
       },
@@ -162,6 +165,7 @@ export class Duel {
 
   draw(playerId: number) {
     const drawAction = new Action(() => {
+      if (this.cards[playerId][Zone.Deck].length === 0) return;
       console.log("Draw action");
       const deckPosition = rndInt(this.cards[playerId][Zone.Deck].length);
       const card = this.cards[playerId][Zone.Deck].splice(deckPosition, 1)[0];
