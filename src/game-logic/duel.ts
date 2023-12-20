@@ -174,4 +174,17 @@ export class Duel {
     });
     this.actionsQueue.push(drawAction);
   }
+
+  withdraw(cardProvider: () => Card | null) {
+    const withdrawAction = new Action(() => {
+      console.log("Withdraw action");
+      const card = cardProvider();
+      if (!card) return;
+      const position = this.cards[card.playerId][Zone.Field].indexOf(card);
+      this.cards[card.playerId][Zone.Field].splice(position, 1);
+      this.cards[card.playerId][Zone.Hand].push(card);
+      card.zone = Zone.Hand;
+    });
+    this.actionsQueue.push(withdrawAction)
+  };
 }
