@@ -36,7 +36,11 @@ export default function CardBox({
       if (card.zone == Zone.Hand) {
         card.model.useFromHand(card);
         executeOneActionWithDelay();
-      } else if (card.zone == Zone.Field && card.usableFromField) {
+      } else if (card.zone == Zone.Field) {
+        if (!card.usableFromField) {
+          alert("Card not available. It'll be available the next turn.");
+          return;
+        }
         card.model.useFromField(card);
         card.usableFromField = false;
         executeOneActionWithDelay();
