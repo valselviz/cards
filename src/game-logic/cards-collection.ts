@@ -269,6 +269,17 @@ export const cardModels: any = {
     "Invoke by sacrifying a card from your field. Then withdraw a card from your opponent field.",
     simpleAttackInfo
   ),
+  Raid: new CardModel(
+    "Raid",
+    raid,
+    0,
+    0,
+    (card: Card) => {
+      if (card.duel.cards[card.playerId][Zone.Deck].length >= 3 && card.duel.cards[1 - card.playerId][Zone.Field].length >= 3) {
+        
+      }
+    }
+  )
 };
 
 export default function getRandomCardModel(): CardModel {

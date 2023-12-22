@@ -139,6 +139,18 @@ export class Duel {
     this.actionsQueue.push(attackAction);
   }
 
+  damagePlayer(playerId: number, amount: number) {
+    const damagePlayerAction = new Action(() => {
+      console.log("Damage player action");
+      for (let i = 0; i < amount; i++) {
+        if (this.cards[playerId][Zone.Deck].length > 0) {
+          this.cards[playerId][Zone.Deck].shift();
+        }
+      }
+    });
+    this.actionsQueue.push(damagePlayerAction);
+  }
+
   startSelection(
     selectedCardOwner: number,
     zone: Zone,
@@ -185,6 +197,6 @@ export class Duel {
       this.cards[card.playerId][Zone.Hand].push(card);
       card.zone = Zone.Hand;
     });
-    this.actionsQueue.push(withdrawAction)
-  };
+    this.actionsQueue.push(withdrawAction);
+  }
 }
