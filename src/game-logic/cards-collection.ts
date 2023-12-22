@@ -14,6 +14,7 @@ import vortex from "assets/cards/vortex.png";
 import owlGuardian from "assets/cards/owlGuardian.png";
 import magicCup from "assets/cards/magicCup.png";
 import dragonMistress from "assets/cards/dragonMistress.png";
+import raid from "assets/cards/raid.png";
 import { Zone } from "./zone";
 import { Action } from "./action";
 
@@ -274,12 +275,22 @@ export const cardModels: any = {
     raid,
     0,
     0,
+    Color.Red,
     (card: Card) => {
-      if (card.duel.cards[card.playerId][Zone.Deck].length >= 3 && card.duel.cards[1 - card.playerId][Zone.Field].length >= 3) {
-        
+      if (
+        card.duel.cards[card.playerId][Zone.Deck].length >= 3 &&
+        card.duel.cards[1 - card.playerId][Zone.Field].length >= 3
+      ) {
+        card.duel.damagePlayer(card.playerId, 3);
+        card.duel.startSelection(1 - card.playerId, Zone.Field);
+        card.duel.destroy(() => card.duel.selectedTarget);
+        card.duel.discard(() => card);
       }
-    }
-  )
+    },
+    () => null,
+    "Discard this card. Then draw cards until you draw a card of a color that is in your hand already.",
+    null
+  ),
 };
 
 export default function getRandomCardModel(): CardModel {

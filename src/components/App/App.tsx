@@ -5,7 +5,7 @@ import { Player } from "../../game-logic/player";
 function App() {
   const deck0 = [];
   const deck1 = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 40; i++) {
     deck0.push(getRandomCardModel());
     deck1.push(getRandomCardModel());
   }
