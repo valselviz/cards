@@ -45,7 +45,10 @@ export default function CardBox({
   }
 
   const usableStyles =
-    !card.usableFromField && card.zone === Zone.Field ? styles.notUsable : "";
+    (!card.usableFromField && card.zone === Zone.Field) ||
+    card.duel.playerTurn !== card.playerId
+      ? styles.notUsable
+      : "";
 
   const selectableStyles =
     card.duel.waitingForCardSelection === true &&
