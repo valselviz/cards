@@ -277,18 +277,23 @@ export const cardModels: any = {
     0,
     Color.Red,
     (card: Card) => {
-      if (
-        card.duel.cards[card.playerId][Zone.Deck].length >= 3 &&
-        card.duel.cards[1 - card.playerId][Zone.Field].length >= 3
-      ) {
-        card.duel.damagePlayer(card.playerId, 3);
-        card.duel.startSelection(1 - card.playerId, Zone.Field);
-        card.duel.destroy(() => card.duel.selectedTarget);
-        card.duel.discard(() => card);
+      if (card.duel.cards[card.playerId][Zone.Deck].length < 3) {
+        alert("You need at least 3 cards in your deck to offer as sacrifice.");
+        return;
       }
+      if (card.duel.cards[1 - card.playerId][Zone.Field].length < 3) {
+        alert(
+          "Your opponent needs 3 or more cards on the field for you to use this card."
+        );
+        return;
+      }
+      card.duel.damagePlayer(card.playerId, 3);
+      card.duel.startSelection(1 - card.playerId, Zone.Field);
+      card.duel.destroy(() => card.duel.selectedTarget);
+      card.duel.discard(() => card);
     },
     () => null,
-    "Discard this card. Then draw cards until you draw a card of a color that is in your hand already.",
+    "Usable only if your opponent has 3 or more cards on the field. Discard 3 cards from your deck, then select and destroy one card from your opponent's field.",
     null
   ),
 };
