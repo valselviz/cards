@@ -263,9 +263,9 @@ export const cardModels: any = {
       }
       card.duel.startSelection(card.playerId, Zone.Field);
       card.duel.destroy(() => card.duel.selectedTarget);
+      card.duel.invoke(() => card);
       card.duel.startSelection(1 - card.playerId, Zone.Field);
       card.duel.withdraw(() => card.duel.selectedTarget);
-      card.duel.invoke(() => card);
     },
     simpleAttack,
     "Invoke by sacrifying a card from your field. Then withdraw a card from your opponent field.",
