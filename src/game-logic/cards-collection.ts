@@ -198,24 +198,25 @@ export const cardModels: any = {
       const selectTargetCriteria = (opponentCard: Card) =>
         opponentCard.model.defense < card.model.attack;
       if (
-        card.duel.cards[1 - card.playerId][Zone.Field].length === 0 ||
-        card.duel.cards[1 - card.playerId][Zone.Field].some(
+        card.duel.cards[1 - card.playerId][Zone.Field].length > 0 &&
+        !card.duel.cards[1 - card.playerId][Zone.Field].some(
           selectTargetCriteria
         )
       ) {
-        card.duel.startSelection(
-          1 - card.playerId,
-          Zone.Field,
-          selectTargetCriteria
-        );
-        card.duel.attack(
-          () => card,
-          () => card.duel.selectedTarget
-        );
-        card.duel.draw(card.playerId);
-      } else {
         alert("Your opponent cards have too much defense to be attacked.");
+        return;
       }
+
+      card.duel.startSelection(
+        1 - card.playerId,
+        Zone.Field,
+        selectTargetCriteria
+      );
+      card.duel.attack(
+        () => card,
+        () => card.duel.selectedTarget
+      );
+      card.duel.draw(card.playerId);
     },
     simpleInvokationInfo,
     "Attack. Then draw a card."
