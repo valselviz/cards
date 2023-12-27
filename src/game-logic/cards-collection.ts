@@ -14,6 +14,7 @@ import vortex from "assets/cards/vortex.png";
 import owlGuardian from "assets/cards/owlGuardian.png";
 import magicCup from "assets/cards/magicCup.png";
 import dragonMistress from "assets/cards/dragonMistress.png";
+import raid from "assets/cards/raid.png";
 import { Zone } from "./zone";
 import { Action } from "./action";
 
@@ -197,24 +198,25 @@ export const cardModels: any = {
       const selectTargetCriteria = (opponentCard: Card) =>
         opponentCard.model.defense < card.model.attack;
       if (
-        card.duel.cards[1 - card.playerId][Zone.Field].length === 0 ||
-        card.duel.cards[1 - card.playerId][Zone.Field].some(
+        card.duel.cards[1 - card.playerId][Zone.Field].length > 0 &&
+        !card.duel.cards[1 - card.playerId][Zone.Field].some(
           selectTargetCriteria
         )
       ) {
-        card.duel.startSelection(
-          1 - card.playerId,
-          Zone.Field,
-          selectTargetCriteria
-        );
-        card.duel.attack(
-          () => card,
-          () => card.duel.selectedTarget
-        );
-        card.duel.draw(card.playerId);
-      } else {
         alert("Your opponent cards have too much defense to be attacked.");
+        return;
       }
+
+      card.duel.startSelection(
+        1 - card.playerId,
+        Zone.Field,
+        selectTargetCriteria
+      );
+      card.duel.attack(
+        () => card,
+        () => card.duel.selectedTarget
+      );
+      card.duel.draw(card.playerId);
     },
     simpleInvokationInfo,
     "Attack. Then draw a card."
@@ -268,6 +270,32 @@ export const cardModels: any = {
     simpleAttack,
     "Invoke by sacrifying a card from your field. Then withdraw a card from your opponent field.",
     simpleAttackInfo
+  ),
+  Raid: new CardModel(
+    "Raid",
+    raid,
+    0,
+    0,
+    Color.Red,
+    (card: Card) => {
+      if (card.duel.cards[card.playerId][Zone.Deck].length < 3) {
+        alert("You need at least 3 cards in your deck to offer as sacrifice.");
+        return;
+      }
+      if (card.duel.cards[1 - card.playerId][Zone.Field].length < 3) {
+        alert(
+          "Your opponent needs 3 or more cards on the field for you to use this card."
+        );
+        return;
+      }
+      card.duel.damagePlayer(card.playerId, 3);
+      card.duel.startSelection(1 - card.playerId, Zone.Field);
+      card.duel.destroy(() => card.duel.selectedTarget);
+      card.duel.discard(() => card);
+    },
+    () => null,
+    "Usable only if your opponent has 3 or more cards on the field. Discard 3 cards from your deck, then select and destroy one card from your opponent's field.",
+    null
   ),
 };
 
