@@ -18,7 +18,6 @@ export default function CardBox({
 }: CardBoxProps) {
   function clickCard() {
     const duel = card.duel;
-    if (!duel.players[duel.playerTurn].human) return;
     // Card Selection
     if (duel.waitingForCardSelection) {
       if (
@@ -37,12 +36,7 @@ export default function CardBox({
         card.model.useFromHand(card);
         executeOneActionWithDelay();
       } else if (card.zone == Zone.Field) {
-        if (!card.usableFromField) {
-          alert("Card not available. It'll be available the next turn.");
-          return;
-        }
-        card.model.useFromField(card);
-        card.usableFromField = false;
+        duel.useFromField(card);
         executeOneActionWithDelay();
       }
     }

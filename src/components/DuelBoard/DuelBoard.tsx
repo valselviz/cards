@@ -35,18 +35,22 @@ export default function DuelBoard({ players }: DuelBoardProps) {
           executeOneActionWithDelay();
         }
       }, 300);
+    } else {
+      const ai = duel.players[duel.playerTurn].ai;
+      if (ai) {
+        ai.play(duel);
+        executeOneActionWithDelay();
+      }
     }
   }
 
   useEffect(executeOneActionWithDelay, []);
 
-  function passTurn() {
-    duel.cards[duel.playerTurn][Zone.Field].forEach(
-      (card) => (card.usableFromField = true)
-    );
-    duel.playerTurn = 1 - duel.playerTurn;
-    duel.draw(duel.playerTurn);
-    executeOneActionWithDelay();
+  function passPlayerTurn() {
+    if (duel.players[duel.playerTurn].human) {
+      duel.passTurn();
+      executeOneActionWithDelay();
+    }
   }
 
   const firstPlayerDefeater = duel.cards[0][Zone.Deck].length === 0;
@@ -85,7 +89,7 @@ export default function DuelBoard({ players }: DuelBoardProps) {
           />
         </div>
         <div className={styles.sideSection}>
-          <button className={styles.passTurnButton} onClick={passTurn}>
+          <button className={styles.passTurnButton} onClick={passPlayerTurn}>
             <img
               src={sandClockImage}
               className={styles.passTurnImage}

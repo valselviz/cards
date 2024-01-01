@@ -8,8 +8,8 @@ import { Zone } from "./zone";
 
 function createDuel() {
   const players = [
-    new Player("Player", true, []),
-    new Player("Opponent", true, []),
+    new Player("Player", true, [], null),
+    new Player("Opponent", true, [], null),
   ];
   const duel = new Duel(players);
   duel.actionsQueue = [];
