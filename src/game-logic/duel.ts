@@ -74,6 +74,14 @@ export class Duel {
     return action;
   }
 
+  passTurn() {
+    this.cards[this.playerTurn][Zone.Field].forEach(
+      (card) => (card.usableFromField = true)
+    );
+    this.playerTurn = 1 - this.playerTurn;
+    this.draw(this.playerTurn);
+  }
+
   refreshUI() {}
 
   invoke(cardProvider: () => Card | null) {
@@ -85,6 +93,7 @@ export class Duel {
         const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
         this.cards[card.playerId][Zone.Hand].splice(position, 1);
         card.zone = Zone.Field;
+        card.usableFromField = false;
         this.cards[card.playerId][Zone.Field].push(card);
       } else {
         console.log("Field is full");
@@ -198,5 +207,20 @@ export class Duel {
       card.zone = Zone.Hand;
     });
     this.actionsQueue.push(withdrawAction);
+  }
+
+  alertPlayer(message: string) {
+    if (this.players[this.playerTurn].human) {
+      alert(message);
+    }
+  }
+
+  useFromField(card: Card) {
+    if (!card.usableFromField) {
+      this.alertPlayer("Card not available. It'll be available the next turn.");
+      return;
+    }
+    card.model.useFromField(card);
+    card.usableFromField = false;
   }
 }

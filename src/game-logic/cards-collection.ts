@@ -27,7 +27,7 @@ const oneSacrificeInvokationInfo =
   "Invoke by sacrifying a card from your field.";
 function oneSacrificeInvokation(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length === 0) {
-    alert("You need one card in the field to offer as sacrifice.");
+    card.duel.alertPlayer("You need one card in the field to offer as sacrifice.");
     return;
   }
   card.duel.startSelection(card.playerId, Zone.Field);
@@ -39,7 +39,7 @@ const twoSacrificesInvokationInfo =
   "Invoke by sacrifying two cards from your field.";
 function twoSacrificesInvokation(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length < 2) {
-    alert("You need two cards in the field to offer as sacrifices.");
+    card.duel.alertPlayer("You need two cards in the field to offer as sacrifices.");
     return;
   }
   card.duel.startSelection(card.playerId, Zone.Field);
@@ -67,7 +67,7 @@ function simpleAttack(card: Card) {
       () => card.duel.selectedTarget
     );
   } else {
-    alert("Your opponent cards have too much defense to be attacked.");
+    card.duel.alertPlayer("Your opponent cards have too much defense to be attacked.");
   }
 }
 
@@ -157,7 +157,7 @@ export const cardModels: any = {
     Color.Yellow,
     (card: Card) => {
       if (card.duel.cards[card.playerId][Zone.Hand].length < 2) {
-        alert(
+        card.duel.alertPlayer(
           "You need an additional card in your hand to offer as sacrifice."
         );
         return;
@@ -168,7 +168,7 @@ export const cardModels: any = {
       if (
         !card.duel.cards[1 - card.playerId][Zone.Field].some(destroyCriteria)
       ) {
-        alert(
+        card.duel.alertPlayer(
           `You opponent does not have any card with ${destroyCriteriaDefense} defense or less.`
         );
         return;
@@ -203,7 +203,7 @@ export const cardModels: any = {
           selectTargetCriteria
         )
       ) {
-        alert("Your opponent cards have too much defense to be attacked.");
+        card.duel.alertPlayer("Your opponent cards have too much defense to be attacked.");
         return;
       }
 
@@ -258,7 +258,7 @@ export const cardModels: any = {
     Color.Blue,
     (card: Card) => {
       if (card.duel.cards[card.playerId][Zone.Field].length === 0) {
-        alert("You need one card in the field to offer as sacrifice.");
+        card.duel.alertPlayer("You need one card in the field to offer as sacrifice.");
         return;
       }
       card.duel.startSelection(card.playerId, Zone.Field);
@@ -279,11 +279,11 @@ export const cardModels: any = {
     Color.Red,
     (card: Card) => {
       if (card.duel.cards[card.playerId][Zone.Deck].length < 3) {
-        alert("You need at least 3 cards in your deck to offer as sacrifice.");
+        card.duel.alertPlayer("You need at least 3 cards in your deck to offer as sacrifice.");
         return;
       }
       if (card.duel.cards[1 - card.playerId][Zone.Field].length < 3) {
-        alert(
+        card.duel.alertPlayer(
           "Your opponent needs 3 or more cards on the field for you to use this card."
         );
         return;
