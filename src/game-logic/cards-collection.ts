@@ -5,6 +5,7 @@ import { rndInt } from "./utils";
 
 import elfArcher from "assets/cards/elfArcher.png";
 import minotaur from "assets/cards/minotaur.png";
+import fireDemon from "assets/cards/fireDemon.png";
 import giantSpider from "assets/cards/giantSpider.png";
 import golem from "assets/cards/golem.png";
 import hammerDwarf from "assets/cards/hammerDwarf.png";
@@ -27,7 +28,9 @@ const oneSacrificeInvokationInfo =
   "Invoke by sacrifying a card from your field.";
 function oneSacrificeInvokation(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length === 0) {
-    card.duel.alertPlayer("You need one card in the field to offer as sacrifice.");
+    card.duel.alertPlayer(
+      "You need one card in the field to offer as sacrifice."
+    );
     return;
   }
   card.duel.startSelection(card.playerId, Zone.Field);
@@ -39,7 +42,9 @@ const twoSacrificesInvokationInfo =
   "Invoke by sacrifying two cards from your field.";
 function twoSacrificesInvokation(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length < 2) {
-    card.duel.alertPlayer("You need two cards in the field to offer as sacrifices.");
+    card.duel.alertPlayer(
+      "You need two cards in the field to offer as sacrifices."
+    );
     return;
   }
   card.duel.startSelection(card.playerId, Zone.Field);
@@ -67,7 +72,9 @@ function simpleAttack(card: Card) {
       () => card.duel.selectedTarget
     );
   } else {
-    card.duel.alertPlayer("Your opponent cards have too much defense to be attacked.");
+    card.duel.alertPlayer(
+      "Your opponent cards have too much defense to be attacked."
+    );
   }
 }
 
@@ -83,12 +90,45 @@ export const cardModels: any = {
     simpleInvokationInfo,
     simpleAttackInfo
   ),
+  FireDemon: new CardModel(
+    "Fire Demon",
+    fireDemon,
+    9,
+    13,
+    Color.Red,
+    simpleInvokation,
+    simpleAttack,
+    simpleInvokationInfo,
+    simpleAttackInfo
+  ),
   Minotaur: new CardModel(
     "Minotaur",
     minotaur,
     14,
     16,
     Color.Red,
+    simpleInvokation,
+    simpleAttack,
+    simpleInvokationInfo,
+    simpleAttackInfo
+  ),
+  HammerDwarf: new CardModel(
+    "Hammer Dwarf",
+    hammerDwarf,
+    8,
+    16,
+    Color.Blue,
+    simpleInvokation,
+    simpleAttack,
+    simpleInvokationInfo,
+    simpleAttackInfo
+  ),
+  Wizard: new CardModel(
+    "Wizard",
+    wizard,
+    15,
+    15,
+    Color.Green,
     simpleInvokation,
     simpleAttack,
     simpleInvokationInfo,
@@ -114,28 +154,6 @@ export const cardModels: any = {
     oneSacrificeInvokation,
     simpleAttack,
     oneSacrificeInvokationInfo,
-    simpleAttackInfo
-  ),
-  HammerDwarf: new CardModel(
-    "Hammer Dwarf",
-    hammerDwarf,
-    8,
-    16,
-    Color.Blue,
-    simpleInvokation,
-    simpleAttack,
-    simpleInvokationInfo,
-    simpleAttackInfo
-  ),
-  Wizard: new CardModel(
-    "Wizard",
-    wizard,
-    15,
-    15,
-    Color.Green,
-    simpleInvokation,
-    simpleAttack,
-    simpleInvokationInfo,
     simpleAttackInfo
   ),
   BlackDragon: new CardModel(
@@ -203,7 +221,9 @@ export const cardModels: any = {
           selectTargetCriteria
         )
       ) {
-        card.duel.alertPlayer("Your opponent cards have too much defense to be attacked.");
+        card.duel.alertPlayer(
+          "Your opponent cards have too much defense to be attacked."
+        );
         return;
       }
 
@@ -258,7 +278,9 @@ export const cardModels: any = {
     Color.Blue,
     (card: Card) => {
       if (card.duel.cards[card.playerId][Zone.Field].length === 0) {
-        card.duel.alertPlayer("You need one card in the field to offer as sacrifice.");
+        card.duel.alertPlayer(
+          "You need one card in the field to offer as sacrifice."
+        );
         return;
       }
       card.duel.startSelection(card.playerId, Zone.Field);
@@ -279,7 +301,9 @@ export const cardModels: any = {
     Color.Red,
     (card: Card) => {
       if (card.duel.cards[card.playerId][Zone.Deck].length < 3) {
-        card.duel.alertPlayer("You need at least 3 cards in your deck to offer as sacrifice.");
+        card.duel.alertPlayer(
+          "You need at least 3 cards in your deck to offer as sacrifice."
+        );
         return;
       }
       if (card.duel.cards[1 - card.playerId][Zone.Field].length < 3) {
