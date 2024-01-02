@@ -1,3 +1,4 @@
+import { Card } from "./card";
 import { Duel } from "./duel";
 import { Zone } from "./zone";
 
@@ -23,7 +24,16 @@ export class ArtificialIntelligence {
         return;
       }
     }
-
     duel.passTurn();
+  }
+
+  selectTarget(
+    duel: Duel,
+    selectedCardOwner: number,
+    zone: Zone,
+    selectionCriteria: (card: Card) => boolean = () => true
+  ): Card | null {
+    const target = duel.cards[selectedCardOwner][zone].find(selectionCriteria);
+    return target ? target : null;
   }
 }

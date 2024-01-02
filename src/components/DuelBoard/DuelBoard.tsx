@@ -31,10 +31,10 @@ export default function DuelBoard({ players }: DuelBoardProps) {
     if (duel.hasNextAction()) {
       setTimeout(() => {
         const action = duel.executeOneAction();
-        if (action && !action.shouldSelectTarget()) {
+        if (action && !action.shouldWaitForTargetSelection()) {
           executeOneActionWithDelay();
         }
-      }, 300);
+      }, 400);
     } else {
       const ai = duel.players[duel.playerTurn].ai;
       if (ai) {
