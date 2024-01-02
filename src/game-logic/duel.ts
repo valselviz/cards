@@ -168,17 +168,31 @@ export class Duel {
     const startSelectionAction = new Action(
       () => {
         if (this.cards[selectedCardOwner][zone].some(selectionCriteria)) {
-          console.log("Start selection action");
-          this.waitingForCardSelection = true;
-          this.selectingFromZone = zone;
-          this.selectedCardOwner = selectedCardOwner;
-          this.selectionCriteria = selectionCriteria;
+          if (this.players[this.playerTurn].human) {
+            console.log("Start selection action");
+            this.waitingForCardSelection = true;
+            this.selectingFromZone = zone;
+            this.selectedCardOwner = selectedCardOwner;
+            this.selectionCriteria = selectionCriteria;
+          } else {
+            const ai = this.players[this.playerTurn].ai;
+            if (ai) {
+              this.selectedTarget = ai.selectTarget(
+                this,
+                selectedCardOwner,
+                zone,
+                selectionCriteria
+              );
+            }
+          }
         } else {
           console.log("Skipping selection");
           this.selectedTarget = null;
         }
       },
-      () => this.cards[selectedCardOwner][zone].some(selectionCriteria),
+      () =>
+        this.cards[selectedCardOwner][zone].some(selectionCriteria) &&
+        this.players[this.playerTurn].human,
       ""
     );
     this.actionsQueue.push(startSelectionAction);

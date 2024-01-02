@@ -1,7 +1,7 @@
 import { Card } from "./card";
 
 export class Action {
-  shouldSelectTarget: () => boolean;
+  shouldWaitForTargetSelection: () => boolean;
 
   selectionInfo: string;
 
@@ -9,11 +9,11 @@ export class Action {
 
   constructor(
     execute: () => void,
-    shouldSelectTarget: () => boolean = () => false,
+    shouldWaitForTargetSelection: () => boolean = () => false,
     selectionInfo: string = ""
   ) {
     this.execute = execute;
-    this.shouldSelectTarget = shouldSelectTarget;
+    this.shouldWaitForTargetSelection = shouldWaitForTargetSelection;
     this.selectionInfo = selectionInfo;
   }
 }
