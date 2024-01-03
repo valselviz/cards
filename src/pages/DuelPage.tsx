@@ -1,9 +1,9 @@
-import getRandomCardModel from "../../game-logic/cards-collection";
-import DuelComp from "../DuelBoard/DuelBoard";
-import { Player } from "../../game-logic/player";
+import getRandomCardModel from "../game-logic/cards-collection";
+import DuelBoard from "../components/DuelBoard/DuelBoard";
+import { Player } from "../game-logic/player";
 import { ArtificialIntelligence } from "game-logic/ArtificialIntelligence";
 
-function App() {
+function DuelPage() {
   const deck0 = [];
   const deck1 = [];
   for (let i = 0; i < 30; i++) {
@@ -16,7 +16,7 @@ function App() {
     new Player("Opponent", false, deck1, new ArtificialIntelligence()),
   ];
 
-  return <DuelComp players={players} />;
+  return <DuelBoard players={players} />;
 }
 
-export default App;
+export default DuelPage;
