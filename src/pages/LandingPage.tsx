@@ -1,13 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
-  const navigate = useNavigate();
-
   return (
     <>
       <title>Collectable Cards Game</title>
-      <button onClick={() => navigate("/home")}>Continue</button>
-      <button onClick={() => navigate("/home")}>Start New Game</button>
+      <Link to="/home">Continue</Link>
+      <Link to="/home">Start New Game</Link>
     </>
   );
 }

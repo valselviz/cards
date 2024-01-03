@@ -1,13 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
-  const navigate = useNavigate();
-
   return (
     <>
-      <button onClick={() => navigate("/deck")}>Manage Deck</button>
-      <button onClick={() => navigate("/store")}>Cards Store</button>
-      <button onClick={() => navigate("/rivals")}>Face Rival</button>
+      <Link to="/deck">Manage Deck</Link>
+      <Link to="/store">Cards Store</Link>
+      <Link to="/rivals">Face Rival</Link>
     </>
   );
 }
