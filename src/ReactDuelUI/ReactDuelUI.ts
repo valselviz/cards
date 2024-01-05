@@ -1,33 +1,32 @@
 import { Dispatch, SetStateAction } from "react";
 import { Zone } from "../game-logic/zone";
 import { Card } from "../game-logic/card";
-import { Duel } from "../game-logic/duel";
-import { Player } from "../game-logic/player";
+import { DuelUI } from "game-logic/DuelUI";
 
-export class ReactDuel extends Duel {
+export class ReactDuelUI extends DuelUI {
   setCardsState: Dispatch<SetStateAction<Card[][][]>>;
 
-  activeCardSetters: Dispatch<SetStateAction<boolean>>[][][];
+  activatedCardSetters: Dispatch<SetStateAction<boolean>>[][][];
 
-  constructor(
-    players: Player[],
-    setCardsState: Dispatch<SetStateAction<Card[][][]>>
-  ) {
-    super(players);
+  constructor(setCardsState: Dispatch<SetStateAction<Card[][][]>>) {
+    super();
     this.setCardsState = setCardsState;
-    this.activeCardSetters = [[[], [], []],[[], [], []]]
+    this.activatedCardSetters = [
+      [[], [], []],
+      [[], [], []],
+    ];
   }
 
-  refreshUI() {
+  refreshUI(cards: Card[][][]) {
     // Note that when a React state is an array or object,
     // just the content changing is not enough to trigger a rerender.
     // In order to trigger the rerendering of the game's board
     // I need to create a new array.
-    const newState = [...this.cards];
+    const newState = [...cards];
     this.setCardsState(newState);
   }
 
   notifyCardUsage(playerId: number, zone: Zone, position: number) {
-    this.activeCardSetters[playerId][zone][position](true)
+    this.activatedCardSetters[playerId][zone][position](true);
   }
 }

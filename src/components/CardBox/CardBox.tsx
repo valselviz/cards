@@ -8,7 +8,7 @@ import { Color } from "../../game-logic/color";
 
 import swordIcon from "assets/icons/sword.svg";
 import shieldIcon from "assets/icons/shield.svg";
-import { ReactDuel } from "react-duel/react-duel";
+import { ReactDuelUI } from "ReactDuelUI/ReactDuelUI";
 
 interface CardBoxProps {
   card: Card;
@@ -23,9 +23,9 @@ export default function CardBox({
 
   useEffect(() => {
     setActivated(false);
-    const reactDuel: ReactDuel = card.duel as ReactDuel;
-    const position = reactDuel.cards[card.playerId][card.zone].indexOf(card);
-    reactDuel.activeCardSetters[card.playerId][card.zone][position] =
+    const reactDuelUI: ReactDuelUI = card.duel.ui as ReactDuelUI;
+    const position = card.duel.cards[card.playerId][card.zone].indexOf(card);
+    reactDuelUI.activatedCardSetters[card.playerId][card.zone][position] =
       setActivated;
   }, [card]);
 

@@ -1,17 +1,17 @@
-import { escape } from "querystring";
 import { Action } from "./action";
 import { Duel } from "./duel";
 import { Player } from "./player";
 import { Card } from "./card";
 import { cardModels } from "./cards-collection";
 import { Zone } from "./zone";
+import { DuelUI } from "./DuelUI";
 
 function createDuel() {
   const players = [
     new Player("Player", true, [], null),
     new Player("Opponent", true, [], null),
   ];
-  const duel = new Duel(players);
+  const duel = new Duel(players, new DuelUI());
   duel.actionsQueue = [];
   return duel;
 }
