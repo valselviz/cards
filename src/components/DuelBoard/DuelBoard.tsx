@@ -1,7 +1,7 @@
 import { Card } from "../../game-logic/card";
 import { Zone } from "../../game-logic/zone";
 import { useEffect, useMemo, useState } from "react";
-import { ReactDuel } from "../../react-duel/react-duel";
+import { ReactDuelUI } from "../../ReactDuelUI/ReactDuelUI";
 import CardsRow from "../CardsRow/CardsRow";
 import Hand from "../Hand/Hand";
 import PlayerStatus from "../PlayerStatus/PlayerStatus";
@@ -10,6 +10,7 @@ import sandClockImage from "assets/clock.png";
 import styles from "./DuelBoard.module.css";
 import { Player } from "../../game-logic/player";
 import DuelEndMessage from "components/DuelEndMessage/DuelEndMessage";
+import { Duel } from "game-logic/duel";
 
 interface DuelBoardProps {
   players: Player[];
@@ -25,7 +26,10 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   // The duel object should be created only once.
   // It shouldn't be created on each rerender.
   // This is achived with useMemo
-  const duel = useMemo(() => new ReactDuel(players, setCardsState), [players]);
+  const duel = useMemo(
+    () => new Duel(players, new ReactDuelUI(setCardsState)),
+    [players]
+  );
 
   function executeOneActionWithDelay() {
     if (duel.hasNextAction()) {

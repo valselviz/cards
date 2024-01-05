@@ -1,11 +1,14 @@
 import styles from "./CardBox.module.css";
 
+import { useEffect, useState } from "react";
+
 import { Card } from "../../game-logic/card";
 import { Zone } from "../../game-logic/zone";
 import { Color } from "../../game-logic/color";
 
 import swordIcon from "assets/icons/sword.svg";
 import shieldIcon from "assets/icons/shield.svg";
+import { ReactDuelUI } from "ReactDuelUI/ReactDuelUI";
 
 interface CardBoxProps {
   card: Card;
@@ -16,13 +19,23 @@ export default function CardBox({
   card,
   executeOneActionWithDelay,
 }: CardBoxProps) {
+  const [activated, setActivated] = useState(false);
+
+  useEffect(() => {
+    setActivated(false);
+    const reactDuelUI: ReactDuelUI = card.duel.ui as ReactDuelUI;
+    const position = card.duel.cards[card.playerId][card.zone].indexOf(card);
+    reactDuelUI.activatedCardSetters[card.playerId][card.zone][position] =
+      setActivated;
+  }, [card]);
+
   function clickCard() {
     const duel = card.duel;
     // Card Selection
     if (duel.waitingForCardSelection) {
       if (
-        card.playerId == duel.selectedCardOwner &&
-        card.zone == duel.selectingFromZone &&
+        card.playerId === duel.selectedCardOwner &&
+        card.zone === duel.selectingFromZone &&
         duel.selectionCriteria(card)
       ) {
         duel.selectedTarget = card;
@@ -31,16 +44,21 @@ export default function CardBox({
       }
     } else if (!duel.hasNextAction()) {
       // Manually triggered actions
-      if (card.playerId != duel.playerTurn) return;
-      if (card.zone == Zone.Hand) {
+      if (card.playerId !== duel.playerTurn) return;
+      if (card.zone === Zone.Hand) {
         card.model.useFromHand(card);
         executeOneActionWithDelay();
-      } else if (card.zone == Zone.Field) {
+      } else if (card.zone === Zone.Field) {
         duel.useFromField(card);
-        executeOneActionWithDelay();
+        if (duel.actionsQueue.length > 0) {
+          setActivated(true);
+          executeOneActionWithDelay();
+        }
       }
     }
   }
+
+  const littleSpinAnimation = activated ? styles.littleSpin : "";
 
   const usableStyles =
     (!card.usableFromField && card.zone === Zone.Field) ||
@@ -59,7 +77,7 @@ export default function CardBox({
   const colorClass = getColorClass(card.model.color);
   return (
     <div
-      className={`${styles.cardBackground} ${selectableStyles}`}
+      className={`${styles.cardBackground} ${selectableStyles} ${littleSpinAnimation}`}
       onClick={clickCard}
     >
       <div className={usableStyles}></div>

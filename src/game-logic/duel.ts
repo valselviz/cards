@@ -1,3 +1,4 @@
+import { DuelUI } from "./DuelUI";
 import { Action } from "./action";
 import { Card } from "./card";
 import { Player } from "./player";
@@ -25,10 +26,13 @@ export class Duel {
 
   selectingFromZone: Zone | null = null;
 
+  ui: DuelUI;
+
   selectionCriteria: (card: Card) => boolean = () => false;
 
-  constructor(players: Player[]) {
+  constructor(players: Player[], ui: DuelUI) {
     this.players = players;
+    this.ui = ui;
     this.cards = [
       [
         // Player0
@@ -70,7 +74,7 @@ export class Duel {
     const action = this.actionsQueue.shift();
     if (!action) return null;
     action.execute();
-    this.refreshUI();
+    this.ui.refreshUI(this.cards);
     return action;
   }
 
@@ -81,8 +85,6 @@ export class Duel {
     this.playerTurn = 1 - this.playerTurn;
     this.draw(this.playerTurn);
   }
-
-  refreshUI() {}
 
   invoke(cardProvider: () => Card | null) {
     const card = cardProvider();
