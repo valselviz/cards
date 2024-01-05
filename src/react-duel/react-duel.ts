@@ -7,12 +7,15 @@ import { Player } from "../game-logic/player";
 export class ReactDuel extends Duel {
   setCardsState: Dispatch<SetStateAction<Card[][][]>>;
 
+  activeCardSetters: Dispatch<SetStateAction<boolean>>[][][];
+
   constructor(
     players: Player[],
     setCardsState: Dispatch<SetStateAction<Card[][][]>>
   ) {
     super(players);
     this.setCardsState = setCardsState;
+    this.activeCardSetters = [[[], [], []],[[], [], []]]
   }
 
   refreshUI() {
@@ -22,5 +25,9 @@ export class ReactDuel extends Duel {
     // I need to create a new array.
     const newState = [...this.cards];
     this.setCardsState(newState);
+  }
+
+  notifyCardUsage(playerId: number, zone: Zone, position: number) {
+    this.activeCardSetters[playerId][zone][position](true)
   }
 }

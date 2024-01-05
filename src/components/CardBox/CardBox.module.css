@@ -154,3 +154,17 @@
     background-color: var(--lightBlue);
   }
 }
+
+.littleSpin {
+  animation-name: littleSpinAnimation;
+  animation-duration: 400ms;
+}
+
+@keyframes littleSpinAnimation {
+  25% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+}

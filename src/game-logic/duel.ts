@@ -84,6 +84,8 @@ export class Duel {
 
   refreshUI() {}
 
+  notifyCardUsage(playerId: number, zone: Zone, position: number) {}
+
   invoke(cardProvider: () => Card | null) {
     const card = cardProvider();
     if (!card) return;
