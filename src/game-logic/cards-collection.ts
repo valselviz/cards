@@ -8,6 +8,7 @@ import minotaur from "assets/cards/minotaur.png";
 import fireDemon from "assets/cards/fireDemon.png";
 import giantSpider from "assets/cards/giantSpider.png";
 import golem from "assets/cards/golem.png";
+import griffin from "assets/cards/griffin.png";
 import hammerDwarf from "assets/cards/hammerDwarf.png";
 import wizard from "assets/cards/wizard.png";
 import blackDragon from "assets/cards/blackDragon.png";
@@ -140,7 +141,7 @@ export const cardModels: any = {
     giantSpider,
     25,
     10,
-    Color.Red,
+    Color.Green,
     oneSacrificeInvokation,
     simpleAttack,
     oneSacrificeInvokationInfo,
@@ -349,6 +350,41 @@ export const cardModels: any = {
     simpleAttack,
     "Invoke this card. Then select a not usable card from your field and make it usable.",
     simpleAttackInfo
+  ),
+  Griffin: new CardModel(
+    "Griffin",
+    griffin,
+    22,
+    20,
+    Color.Yellow,
+    simpleInvokation,
+    (card: Card) => {
+      const selectTargetCriteria = (opponentCard: Card) =>
+        opponentCard.model.defense < card.model.attack;
+      if (
+        card.duel.cards[1 - card.playerId][Zone.Field].length > 0 &&
+        !card.duel.cards[1 - card.playerId][Zone.Field].some(
+          selectTargetCriteria
+        )
+      ) {
+        card.duel.alertPlayer(
+          "Your opponent cards have too much defense to be attacked."
+        );
+        return;
+      }
+      card.duel.startSelection(
+        1 - card.playerId,
+        Zone.Field,
+        selectTargetCriteria
+      );
+      card.duel.attack(
+        () => card,
+        () => card.duel.selectedTarget
+      );
+      card.duel.withdraw(() => card);
+    },
+    simpleInvokationInfo,
+    "Attack. Then withdraw this card."
   ),
 };
 
