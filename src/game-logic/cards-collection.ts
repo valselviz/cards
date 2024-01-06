@@ -325,7 +325,7 @@ export const cardModels: any = {
   Siren: new CardModel(
     "Siren",
     siren,
-    15,
+    5,
     13,
     Color.Blue,
     (card: Card) => {
@@ -347,7 +347,7 @@ export const cardModels: any = {
       card.duel.actionsQueue.push(newAction);
     },
     simpleAttack,
-    "",
+    "Invoke this card. Then select a not usable card from your field and make it usable.",
     simpleAttackInfo
   ),
 };
