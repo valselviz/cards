@@ -96,7 +96,7 @@ export class Duel {
         card.usableFromField = false;
         this.cards[card.playerId][Zone.Field].push(card);
       } else {
-        console.log("Field is full");
+        this.alertPlayer("Field is full");
       }
     });
     this.actionsQueue.push(invokeAction);
