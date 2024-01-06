@@ -16,6 +16,7 @@ import owlGuardian from "assets/cards/owlGuardian.png";
 import magicCup from "assets/cards/magicCup.png";
 import dragonMistress from "assets/cards/dragonMistress.png";
 import raid from "assets/cards/raid.png";
+import siren from "assets/cards/siren.png";
 import { Zone } from "./zone";
 import { Action } from "./action";
 
@@ -320,6 +321,34 @@ export const cardModels: any = {
     () => null,
     "Usable only if your opponent has 3 or more cards on the field. Discard 3 cards from your deck, then select and destroy one card from your opponent's field.",
     null
+  ),
+  Siren: new CardModel(
+    "Siren",
+    siren,
+    15,
+    13,
+    Color.Blue,
+    (card: Card) => {
+      if (card.duel.cards[card.playerId][Zone.Field].length === 5) {
+        card.duel.alertPlayer("Field is full");
+        return;
+      }
+      card.duel.invoke(() => card);
+      card.duel.startSelection(
+        card.playerId,
+        Zone.Field,
+        (ownedCard: Card) => !ownedCard.usableFromField
+      );
+      const newAction = new Action(() => {
+        if (card.duel.selectedTarget) {
+          card.duel.selectedTarget.usableFromField = true;
+        }
+      });
+      card.duel.actionsQueue.push(newAction);
+    },
+    simpleAttack,
+    "",
+    simpleAttackInfo
   ),
 };
 
