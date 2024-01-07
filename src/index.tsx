@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "../src/pages/LandingPage"
 import HomePage from "../src/pages/HomePage"
 import DeckPage from "../src/pages/DeckPage"
@@ -14,15 +14,15 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<HomePage />}/>
-        <Route path="/deck" element={<DeckPage />}/>
-        <Route path="/store" element={<StorePage />}/>
-        <Route path="/rivals" element={<RivalsPage />}/>
-        <Route path="/duel" element={<DuelPage />}/>
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/deck" element={<DeckPage />} />
+        <Route path="/store" element={<StorePage />} />
+        <Route path="/rivals" element={<RivalsPage />} />
+        <Route path="/duel" element={<DuelPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );
