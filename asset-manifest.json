@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/duel/static/css/main.536fd472.css",
-    "main.js": "/duel/static/js/main.0de3256c.js",
+    "main.js": "/duel/static/js/main.ab4bc9e4.js",
     "static/media/background.jpg": "/duel/static/media/background.edb11edf8fd9f43fc0ef.jpg",
     "static/media/fireDemon.png": "/duel/static/media/fireDemon.aeae5b33bcb134baa20c.png",
     "static/media/owlGuardian.png": "/duel/static/media/owlGuardian.0ee9072657bdb7fb9e74.png",
@@ -29,10 +29,10 @@
     "static/media/shield.svg": "/duel/static/media/shield.0973822d078a4e746fe5de6ff3720221.svg",
     "index.html": "/duel/index.html",
     "main.536fd472.css.map": "/duel/static/css/main.536fd472.css.map",
-    "main.0de3256c.js.map": "/duel/static/js/main.0de3256c.js.map"
+    "main.ab4bc9e4.js.map": "/duel/static/js/main.ab4bc9e4.js.map"
   },
   "entrypoints": [
     "static/css/main.536fd472.css",
-    "static/js/main.0de3256c.js"
+    "static/js/main.ab4bc9e4.js"
   ]
 }
