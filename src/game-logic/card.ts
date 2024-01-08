@@ -3,13 +3,15 @@ import { Duel } from "./duel";
 import { CardModel } from "./card-model";
 
 export class Card {
+  id: number;
   model: CardModel;
   duel: Duel;
   playerId: number;
   zone: Zone;
   usableFromField: boolean;
 
-  constructor(model: CardModel, duel: Duel, playerId: number) {
+  constructor(id: number, model: CardModel, duel: Duel, playerId: number) {
+    this.id = id;
     this.model = model;
     this.duel = duel;
     this.playerId = playerId;

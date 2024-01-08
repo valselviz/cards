@@ -12,7 +12,7 @@ export default function Hand({ cards, executeOneActionWithDelay }: HandProps) {
     <div className={styles.hand}>
       {cards.map((card, index) => (
         <CardBox
-          key={index}
+          key={index + card.id}
           card={card}
           executeOneActionWithDelay={executeOneActionWithDelay}
         />

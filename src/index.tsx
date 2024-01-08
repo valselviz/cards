@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "../src/pages/LandingPage"
-import HomePage from "../src/pages/HomePage"
-import DeckPage from "../src/pages/DeckPage"
-import StorePage from "../src/pages/StorePage"
-import RivalsPage from "../src/pages/RivalsPage"
-import DuelPage from "../src/pages/DuelPage"
+import LandingPage from "../src/pages/LandingPage";
+import HomePage from "../src/pages/HomePage";
+import DeckPage from "../src/pages/DeckPage";
+import StorePage from "../src/pages/StorePage";
+import RivalsPage from "../src/pages/RivalsPage";
+import DuelPage from "../src/pages/DuelPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
