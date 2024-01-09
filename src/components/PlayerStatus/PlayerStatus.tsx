@@ -1,4 +1,5 @@
 import styles from "./PlayerStatus.module.css";
+import damagedPlayerStatusBox from "assets/damagedStatusBox.png";
 
 interface PlayerStatusProps {
   playerName: string;
@@ -10,18 +11,18 @@ interface PlayerStatusProps {
 export default function PlayerStatus({
   playerName,
   playerDeckCards,
-  playerId,
-  playerTurn,
 }: PlayerStatusProps) {
-  const hasTurnStyle =
-    playerTurn === playerId ? styles.onTurn : styles.notOnTurn;
-
-  const specificPlayerClass =
-    playerId === 0 ? styles.playerStatusLeft : styles.playerStatusRight;
   return (
-    <div className={styles.playerStatus}>
-      <p className={styles.statusText}>{playerName}</p>
-      <div className={styles.deckIcon}>{playerDeckCards}</div>
+    <div>
+      <img
+        className={styles.damagedPlayerStatus}
+        src={damagedPlayerStatusBox}
+        alt=""
+      ></img>
+      <div className={styles.playerStatus}>
+        <p className={styles.statusText}>{playerName}</p>
+        <div className={styles.deckIcon}>{playerDeckCards}</div>
+      </div>
     </div>
   );
 }

@@ -1,13 +1,33 @@
 .playerStatus {
+  box-sizing: border-box;
+  padding: 15px;
+  width: 200px;
+  height: 90px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("/src/assets/statusBox.png");
   background-size: 100% 100%;
   color: #fff8e0;
   font-weight: 600;
-  padding: 15px;
-  width: 100%;
+  background-image: url("/src/assets/statusBox.png");
+}
+
+.damagedPlayerStatus {
+  position: absolute;
+  width: 200px;
+  height: 90px;
+  animation-name: fadeOutAnimation;
+  animation-duration: 1s;
+  opacity: 0;
+}
+
+@keyframes fadeOutAnimation {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .statusText {
