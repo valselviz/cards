@@ -52,7 +52,7 @@ describe("duel executeOneAction", () => {
 describe("duel invoke", () => {
   test("queue and execute invoke", () => {
     const duel = createDuel();
-    const card = new Card(0, cardModels.ElfArcher, duel, 0);
+    const card = new Card(cardModels.ElfArcher, duel, 0);
     card.zone = Zone.Hand;
     duel.cards[0][Zone.Hand].push(card);
     const cardProvider = () => card;
@@ -81,11 +81,11 @@ describe("duel invoke", () => {
   test("queue and execute with full field", () => {
     const duel = createDuel();
     for (let i = 0; i < 5; i++) {
-      const fieldCard = new Card(0, cardModels.ElfArcher, duel, 0);
+      const fieldCard = new Card(cardModels.ElfArcher, duel, 0);
       fieldCard.zone = Zone.Field;
       duel.cards[0][Zone.Field].push(fieldCard);
     }
-    const card = new Card(0, cardModels.ElfArcher, duel, 0);
+    const card = new Card(cardModels.ElfArcher, duel, 0);
     card.zone = Zone.Hand;
     duel.cards[0][Zone.Hand].push(card);
     const cardProvider = () => card;
@@ -106,7 +106,7 @@ describe("duel invoke", () => {
 describe("duel withdraw", () => {
   test("queue and execute withdraw", () => {
     const duel = createDuel();
-    const card = new Card(0, cardModels.ElfArcher, duel, 0);
+    const card = new Card(cardModels.ElfArcher, duel, 0);
     card.zone = Zone.Field;
     duel.cards[0][Zone.Field].push(card);
     const cardProvider = () => card;

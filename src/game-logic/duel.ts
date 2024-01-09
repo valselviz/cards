@@ -49,10 +49,10 @@ export class Duel {
     ];
 
     this.cards[0][Zone.Deck] = players[0].deck.map(
-      (cardModel, index) => new Card(index, cardModel, this, 0)
+      (cardModel) => new Card(cardModel, this, 0)
     );
     this.cards[1][Zone.Deck] = players[1].deck.map(
-      (cardModel, index) => new Card(100 + index, cardModel, this, 1)
+      (cardModel) => new Card(cardModel, this, 1)
     );
 
     for (let i = 0; i < 5; i++) {
