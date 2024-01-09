@@ -32,18 +32,21 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   );
 
   function executeOneActionWithDelay() {
+    const actionDelay = 400;
     if (duel.hasNextAction()) {
       setTimeout(() => {
         const action = duel.executeOneAction();
         if (action && !action.shouldWaitForTargetSelection()) {
           executeOneActionWithDelay();
         }
-      }, 400);
+      }, actionDelay);
     } else {
       const ai = duel.players[duel.playerTurn].ai;
       if (ai) {
-        ai.play(duel);
-        executeOneActionWithDelay();
+        setTimeout(() => {
+          ai.play(duel);
+          executeOneActionWithDelay();
+        }, actionDelay);
       }
     }
   }
