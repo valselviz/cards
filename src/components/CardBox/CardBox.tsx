@@ -101,6 +101,7 @@ export default function CardBox({
       <div
         className={`${styles.flippableCard} ${flipAnimation} ${selectableStyles} ${littleSpinAnimation}`}
         onClick={clickCard}
+        onAnimationEnd={() => setActivated(false)}
       >
         <div className={`${styles.flippableFace} ${styles.cardBackground}`}>
           <div className={usableStyles}></div>
