@@ -10,6 +10,7 @@ import giantSpider from "assets/cards/giantSpider.jpg";
 import golem from "assets/cards/golem.jpg";
 import griffin from "assets/cards/griffin.jpg";
 import hammerDwarf from "assets/cards/hammerDwarf.jpg";
+import lizardSpearman from "assets/cards/lizardSpearman.jpg";
 import wizard from "assets/cards/wizard.jpg";
 import blackDragon from "assets/cards/blackDragon.jpg";
 import vortex from "assets/cards/vortex.jpg";
@@ -168,6 +169,21 @@ export const cardModels: any = {
     twoSacrificesInvokation,
     simpleAttack,
     twoSacrificesInvokationInfo,
+    simpleAttackInfo
+  ),
+  LizardSpearman: new CardModel(
+    "Lizard Spearman",
+    lizardSpearman,
+    12,
+    8,
+    Color.Green,
+    (card: Card) => {
+      card.duel.queueInvokeAction(() => card);
+      const newAction = new Action(() => (card.usableFromField = true));
+      card.duel.actionsQueue.push(newAction);
+    },
+    simpleAttack,
+    "Invoke. This card is ready to attack immediately.",
     simpleAttackInfo
   ),
   Vortex: new CardModel(
