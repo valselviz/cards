@@ -23,7 +23,7 @@ import { Action } from "./action";
 
 const simpleInvokationInfo = "Invoke.";
 function simpleInvokation(card: Card) {
-  card.duel.invoke(() => card);
+  card.duel.queueInvokeAction(() => card);
 }
 
 const oneSacrificeInvokationInfo =
@@ -35,9 +35,9 @@ function oneSacrificeInvokation(card: Card) {
     );
     return;
   }
-  card.duel.startSelection(card.playerId, Zone.Field);
-  card.duel.destroy(() => card.duel.selectedTarget);
-  card.duel.invoke(() => card);
+  card.duel.queueStartSelectionAction(card.playerId, Zone.Field);
+  card.duel.queueDestroyAction(() => card.duel.selectedTarget);
+  card.duel.queueInvokeAction(() => card);
 }
 
 const twoSacrificesInvokationInfo =
@@ -49,11 +49,11 @@ function twoSacrificesInvokation(card: Card) {
     );
     return;
   }
-  card.duel.startSelection(card.playerId, Zone.Field);
-  card.duel.destroy(() => card.duel.selectedTarget);
-  card.duel.startSelection(card.playerId, Zone.Field);
-  card.duel.destroy(() => card.duel.selectedTarget);
-  card.duel.invoke(() => card);
+  card.duel.queueStartSelectionAction(card.playerId, Zone.Field);
+  card.duel.queueDestroyAction(() => card.duel.selectedTarget);
+  card.duel.queueStartSelectionAction(card.playerId, Zone.Field);
+  card.duel.queueDestroyAction(() => card.duel.selectedTarget);
+  card.duel.queueInvokeAction(() => card);
 }
 
 const simpleAttackInfo = "Attack.";
@@ -64,12 +64,12 @@ function simpleAttack(card: Card) {
     card.duel.cards[1 - card.playerId][Zone.Field].length === 0 ||
     card.duel.cards[1 - card.playerId][Zone.Field].some(selectTargetCriteria)
   ) {
-    card.duel.startSelection(
+    card.duel.queueStartSelectionAction(
       1 - card.playerId,
       Zone.Field,
       selectTargetCriteria
     );
-    card.duel.attack(
+    card.duel.queueAttackAction(
       () => card,
       () => card.duel.selectedTarget
     );
@@ -193,15 +193,19 @@ export const cardModels: any = {
         );
         return;
       }
-      card.duel.startSelection(
+      card.duel.queueStartSelectionAction(
         card.playerId,
         Zone.Hand,
         (availableCard) => availableCard !== card
       );
-      card.duel.discard(() => card.duel.selectedTarget);
-      card.duel.startSelection(1 - card.playerId, Zone.Field, destroyCriteria);
-      card.duel.destroy(() => card.duel.selectedTarget);
-      card.duel.discard(() => card);
+      card.duel.queueDiscardAction(() => card.duel.selectedTarget);
+      card.duel.queueStartSelectionAction(
+        1 - card.playerId,
+        Zone.Field,
+        destroyCriteria
+      );
+      card.duel.queueDestroyAction(() => card.duel.selectedTarget);
+      card.duel.queueDiscardAction(() => card);
     },
     () => null,
     "Discard a card from your hand. Then select a card from your opponent’s field with 20 defense or less and destroy it.",
@@ -229,16 +233,16 @@ export const cardModels: any = {
         return;
       }
 
-      card.duel.startSelection(
+      card.duel.queueStartSelectionAction(
         1 - card.playerId,
         Zone.Field,
         selectTargetCriteria
       );
-      card.duel.attack(
+      card.duel.queueAttackAction(
         () => card,
         () => card.duel.selectedTarget
       );
-      card.duel.draw(card.playerId);
+      card.duel.queueDrawAction(card.playerId);
     },
     simpleInvokationInfo,
     "Attack. Then draw a card."
@@ -250,9 +254,9 @@ export const cardModels: any = {
     0,
     Color.Red,
     (card: Card) => {
-      card.duel.discard(() => card);
+      card.duel.queueDiscardAction(() => card);
       function drawCardAndCheckRepetition() {
-        card.duel.draw(card.playerId);
+        card.duel.queueDrawAction(card.playerId);
         const newAction = new Action(() => {
           const handClone = [...card.duel.cards[card.playerId][Zone.Hand]];
           const lastDrawnCard = handClone.pop();
@@ -285,11 +289,11 @@ export const cardModels: any = {
         );
         return;
       }
-      card.duel.startSelection(card.playerId, Zone.Field);
-      card.duel.destroy(() => card.duel.selectedTarget);
-      card.duel.invoke(() => card);
-      card.duel.startSelection(1 - card.playerId, Zone.Field);
-      card.duel.withdraw(() => card.duel.selectedTarget);
+      card.duel.queueStartSelectionAction(card.playerId, Zone.Field);
+      card.duel.queueDestroyAction(() => card.duel.selectedTarget);
+      card.duel.queueInvokeAction(() => card);
+      card.duel.queueStartSelectionAction(1 - card.playerId, Zone.Field);
+      card.duel.queueWithdrawAction(() => card.duel.selectedTarget);
     },
     simpleAttack,
     "Invoke by sacrifying a card from your field. Then withdraw a card from your opponent field.",
@@ -314,10 +318,10 @@ export const cardModels: any = {
         );
         return;
       }
-      card.duel.damagePlayer(card.playerId, 3);
-      card.duel.startSelection(1 - card.playerId, Zone.Field);
-      card.duel.destroy(() => card.duel.selectedTarget);
-      card.duel.discard(() => card);
+      card.duel.queueDamagePlayerAction(card.playerId, 3);
+      card.duel.queueStartSelectionAction(1 - card.playerId, Zone.Field);
+      card.duel.queueDestroyAction(() => card.duel.selectedTarget);
+      card.duel.queueDiscardAction(() => card);
     },
     () => null,
     "Usable only if your opponent has 3 or more cards on the field. Discard 3 cards from your deck, then select and destroy one card from your opponent's field.",
@@ -334,8 +338,8 @@ export const cardModels: any = {
         card.duel.alertPlayer("Field is full");
         return;
       }
-      card.duel.invoke(() => card);
-      card.duel.startSelection(
+      card.duel.queueInvokeAction(() => card);
+      card.duel.queueStartSelectionAction(
         card.playerId,
         Zone.Field,
         (ownedCard: Card) => !ownedCard.usableFromField
@@ -348,7 +352,7 @@ export const cardModels: any = {
       card.duel.actionsQueue.push(newAction);
     },
     simpleAttack,
-    "Invoke this card. Then select a not usable card from your field and make it usable.",
+    "Invoke this card. Then select a not-ready card from your field and make it ready for use.",
     simpleAttackInfo
   ),
   Griffin: new CardModel(
@@ -372,16 +376,16 @@ export const cardModels: any = {
         );
         return;
       }
-      card.duel.startSelection(
+      card.duel.queueStartSelectionAction(
         1 - card.playerId,
         Zone.Field,
         selectTargetCriteria
       );
-      card.duel.attack(
+      card.duel.queueAttackAction(
         () => card,
         () => card.duel.selectedTarget
       );
-      card.duel.withdraw(() => card);
+      card.duel.queueWithdrawAction(() => card);
     },
     simpleInvokationInfo,
     "Attack. Then withdraw this card."

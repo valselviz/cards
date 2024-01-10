@@ -49,14 +49,14 @@ describe("duel executeOneAction", () => {
   });
 });
 
-describe("duel invoke", () => {
+describe("duel queueInvokeAction", () => {
   test("queue and execute invoke", () => {
     const duel = createDuel();
     const card = new Card(cardModels.ElfArcher, duel, 0);
     card.zone = Zone.Hand;
     duel.cards[0][Zone.Hand].push(card);
     const cardProvider = () => card;
-    duel.invoke(cardProvider);
+    duel.queueInvokeAction(cardProvider);
 
     // Check the action was queued
     expect(duel.actionsQueue.length).toBe(1);
@@ -72,7 +72,7 @@ describe("duel invoke", () => {
   test("with null card provider", () => {
     const duel = createDuel();
     const cardProvider = () => null;
-    duel.invoke(cardProvider);
+    duel.queueInvokeAction(cardProvider);
 
     // Check the action was not queued
     expect(duel.actionsQueue.length).toBe(0);
@@ -89,7 +89,7 @@ describe("duel invoke", () => {
     card.zone = Zone.Hand;
     duel.cards[0][Zone.Hand].push(card);
     const cardProvider = () => card;
-    duel.invoke(cardProvider);
+    duel.queueInvokeAction(cardProvider);
 
     // Check the action was queued
     expect(duel.actionsQueue.length).toBe(1);
@@ -103,14 +103,14 @@ describe("duel invoke", () => {
   });
 });
 
-describe("duel withdraw", () => {
+describe("duel queueWithdrawAction", () => {
   test("queue and execute withdraw", () => {
     const duel = createDuel();
     const card = new Card(cardModels.ElfArcher, duel, 0);
     card.zone = Zone.Field;
     duel.cards[0][Zone.Field].push(card);
     const cardProvider = () => card;
-    duel.withdraw(cardProvider);
+    duel.queueWithdrawAction(cardProvider);
 
     // Check the action was queued
     expect(duel.actionsQueue.length).toBe(1);
@@ -126,7 +126,7 @@ describe("duel withdraw", () => {
   test("with null card provider", () => {
     const duel = createDuel();
     const cardProvider = () => null;
-    duel.invoke(cardProvider);
+    duel.queueWithdrawAction(cardProvider);
 
     // Check the action was not queued
     expect(duel.actionsQueue.length).toBe(0);

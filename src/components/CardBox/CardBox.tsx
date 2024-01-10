@@ -65,7 +65,7 @@ export default function CardBox({
     activated && card.zone === Zone.Field ? styles.littleSpin : "";
 
   let flipAnimation = "";
-  if (card.zone == Zone.Hand) {
+  if (card.zone === Zone.Hand) {
     if (activated) {
       if (card.playerId === 0) {
         flipAnimation = styles.doubleFlipFaceUp;
@@ -99,12 +99,10 @@ export default function CardBox({
   return (
     <div className={styles.flippableCard3DContainer}>
       <div
-        className={`${styles.flippableCard} ${flipAnimation}`}
+        className={`${styles.flippableCard} ${flipAnimation} ${selectableStyles} ${littleSpinAnimation}`}
         onClick={clickCard}
       >
-        <div
-          className={`${styles.flippableFace} ${styles.cardBackground} ${selectableStyles} ${littleSpinAnimation}`}
-        >
+        <div className={`${styles.flippableFace} ${styles.cardBackground}`}>
           <div className={usableStyles}></div>
           <div className={`${styles.cardBox} ${colorClass}`}>
             <div className={styles.cardContent}>

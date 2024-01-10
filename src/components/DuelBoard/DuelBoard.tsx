@@ -32,6 +32,7 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   );
 
   function executeOneActionWithDelay() {
+    if (duel.isDuelOver()) return;
     const actionDelay = 400;
     if (duel.hasNextAction()) {
       setTimeout(() => {
@@ -59,10 +60,6 @@ export default function DuelBoard({ players }: DuelBoardProps) {
       executeOneActionWithDelay();
     }
   }
-
-  const firstPlayerDefeater = duel.cards[0][Zone.Deck].length === 0;
-  const secondPlayerDefeater = duel.cards[1][Zone.Deck].length === 0;
-  const duelOver = firstPlayerDefeater || secondPlayerDefeater;
 
   return (
     <div className={styles.duelBoard}>
@@ -109,7 +106,9 @@ export default function DuelBoard({ players }: DuelBoardProps) {
         cards={cardsState[0][Zone.Hand]}
         executeOneActionWithDelay={executeOneActionWithDelay}
       />
-      {duelOver && <DuelEndMessage victory={!firstPlayerDefeater} />}
+      {duel.isDuelOver() && (
+        <DuelEndMessage victory={duel.cards[0][Zone.Deck].length > 0} />
+      )}
     </div>
   );
 }

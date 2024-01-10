@@ -56,8 +56,8 @@ export class Duel {
     );
 
     for (let i = 0; i < 5; i++) {
-      this.draw(0);
-      this.draw(1);
+      this.queueDrawAction(0);
+      this.queueDrawAction(1);
     }
 
     this.playerTurn = 0;
@@ -67,6 +67,13 @@ export class Duel {
   // Returns false if it is time for the player to play
   hasNextAction(): boolean {
     return this.actionsQueue.length > 0;
+  }
+
+  isDuelOver() {
+    return (
+      this.cards[0][Zone.Deck].length === 0 ||
+      this.cards[1][Zone.Deck].length === 0
+    );
   }
 
   // Executes one automatic action
@@ -79,14 +86,14 @@ export class Duel {
   }
 
   passTurn() {
+    this.playerTurn = 1 - this.playerTurn;
     this.cards[this.playerTurn][Zone.Field].forEach(
       (card) => (card.usableFromField = true)
     );
-    this.playerTurn = 1 - this.playerTurn;
-    this.draw(this.playerTurn);
+    this.queueDrawAction(this.playerTurn);
   }
 
-  invoke(cardProvider: () => Card | null) {
+  queueInvokeAction(cardProvider: () => Card | null) {
     const card = cardProvider();
     if (!card) return;
     const invokeAction = new Action(() => {
@@ -103,7 +110,7 @@ export class Duel {
     this.actionsQueue.push(invokeAction);
   }
 
-  discard(cardProvider: () => Card | null) {
+  queueDiscardAction(cardProvider: () => Card | null) {
     const discardAction = new Action(() => {
       const card = cardProvider();
       if (!card) return;
@@ -114,7 +121,7 @@ export class Duel {
     this.actionsQueue.push(discardAction);
   }
 
-  destroy(cardProvider: () => Card | null) {
+  queueDestroyAction(cardProvider: () => Card | null) {
     const destroyAction = new Action(() => {
       const card = cardProvider();
       if (!card) return;
@@ -125,7 +132,7 @@ export class Duel {
     this.actionsQueue.push(destroyAction);
   }
 
-  attack(
+  queueAttackAction(
     attackProvider: () => Card | null,
     defenderProvider: () => Card | null
   ) {
@@ -146,7 +153,7 @@ export class Duel {
     this.actionsQueue.push(attackAction);
   }
 
-  damagePlayer(playerId: number, amount: number) {
+  queueDamagePlayerAction(playerId: number, amount: number) {
     const damagePlayerAction = new Action(() => {
       for (let i = 0; i < amount; i++) {
         if (this.cards[playerId][Zone.Deck].length > 0) {
@@ -157,7 +164,7 @@ export class Duel {
     this.actionsQueue.push(damagePlayerAction);
   }
 
-  startSelection(
+  queueStartSelectionAction(
     selectedCardOwner: number,
     zone: Zone,
     selectionCriteria: (card: Card) => boolean = () => true
@@ -193,7 +200,7 @@ export class Duel {
     this.actionsQueue.push(startSelectionAction);
   }
 
-  draw(playerId: number) {
+  queueDrawAction(playerId: number) {
     const drawAction = new Action(() => {
       if (this.cards[playerId][Zone.Deck].length === 0) return;
       const deckPosition = rndInt(this.cards[playerId][Zone.Deck].length);
@@ -204,7 +211,7 @@ export class Duel {
     this.actionsQueue.push(drawAction);
   }
 
-  withdraw(cardProvider: () => Card | null) {
+  queueWithdrawAction(cardProvider: () => Card | null) {
     const withdrawAction = new Action(() => {
       const card = cardProvider();
       if (!card) return;
@@ -224,7 +231,7 @@ export class Duel {
 
   useFromField(card: Card) {
     if (!card.usableFromField) {
-      this.alertPlayer("Card not available. It'll be available the next turn.");
+      this.alertPlayer("Card not ready. It'll be ready next turn.");
       return;
     }
     card.model.useFromField(card);
