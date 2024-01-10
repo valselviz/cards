@@ -18,6 +18,7 @@ import magicCup from "assets/cards/magicCup.jpg";
 import dragonMistress from "assets/cards/dragonMistress.jpg";
 import raid from "assets/cards/raid.jpg";
 import siren from "assets/cards/siren.jpg";
+import tigerWarrior from "assets/cards/tigerWarrior.jpg";
 import { Zone } from "./zone";
 import { Action } from "./action";
 
@@ -61,23 +62,23 @@ function simpleAttack(card: Card) {
   const selectTargetCriteria = (opponentCard: Card) =>
     opponentCard.model.defense < card.model.attack;
   if (
-    card.duel.cards[1 - card.playerId][Zone.Field].length === 0 ||
-    card.duel.cards[1 - card.playerId][Zone.Field].some(selectTargetCriteria)
+    card.duel.cards[1 - card.playerId][Zone.Field].length > 0 &&
+    !card.duel.cards[1 - card.playerId][Zone.Field].some(selectTargetCriteria)
   ) {
-    card.duel.queueStartSelectionAction(
-      1 - card.playerId,
-      Zone.Field,
-      selectTargetCriteria
-    );
-    card.duel.queueAttackAction(
-      () => card,
-      () => card.duel.selectedTarget
-    );
-  } else {
     card.duel.alertPlayer(
       "Your opponent cards have too much defense to be attacked."
     );
+    return;
   }
+  card.duel.queueStartSelectionAction(
+    1 - card.playerId,
+    Zone.Field,
+    selectTargetCriteria
+  );
+  card.duel.queueAttackAction(
+    () => card,
+    () => card.duel.selectedTarget
+  );
 }
 
 export const cardModels: any = {
@@ -151,7 +152,7 @@ export const cardModels: any = {
     "Golem",
     golem,
     12,
-    29,
+    27,
     Color.Red,
     oneSacrificeInvokation,
     simpleAttack,
@@ -359,7 +360,7 @@ export const cardModels: any = {
     "Griffin",
     griffin,
     22,
-    20,
+    19,
     Color.Yellow,
     simpleInvokation,
     (card: Card) => {
@@ -389,6 +390,44 @@ export const cardModels: any = {
     },
     simpleInvokationInfo,
     "Attack. Then withdraw this card."
+  ),
+  TigerWarrior: new CardModel(
+    "Tiger Warrior",
+    tigerWarrior,
+    30,
+    13,
+    Color.Yellow,
+    oneSacrificeInvokation,
+    (card: Card) => {
+      const selectTargetCriteria = (opponentCard: Card) =>
+        opponentCard.model.defense < card.model.attack;
+      if (
+        card.duel.cards[1 - card.playerId][Zone.Field].length > 0 &&
+        !card.duel.cards[1 - card.playerId][Zone.Field].some(
+          selectTargetCriteria
+        )
+      ) {
+        card.duel.alertPlayer(
+          "Your opponent cards have too much defense to be attacked."
+        );
+        return;
+      }
+      if (card.duel.cards[card.playerId][Zone.Hand].length === 0) {
+        card.duel.alertPlayer(
+          "You need at least one card in your hand to offer as sacrifice."
+        );
+        return;
+      }
+      card.duel.queueStartSelectionAction(card.playerId, Zone.Hand);
+      card.duel.queueDiscardAction(() => card.duel.selectedTarget);
+      card.duel.queueStartSelectionAction(1 - card.playerId, Zone.Field);
+      card.duel.queueAttackAction(
+        () => card,
+        () => card.duel.selectedTarget
+      );
+    },
+    oneSacrificeInvokationInfo,
+    "Discard a card from your hand. Then attack."
   ),
 };
 
