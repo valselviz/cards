@@ -6,4 +6,6 @@ export class DuelUI {
   refreshUI(cards: Card[][][]) {}
 
   notifyCardUsage(playerId: number, zone: Zone, position: number) {}
+
+  notifyCardTargeted(playerId: number, zone: Zone, position: number) {}
 }

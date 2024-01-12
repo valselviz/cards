@@ -20,13 +20,16 @@ export default function CardBox({
   executeOneActionWithDelay,
 }: CardBoxProps) {
   const [activated, setActivated] = useState(false);
+  const [targeted, setTargeted] = useState(false);
 
   useEffect(() => {
     setActivated(false);
     const reactDuelUI: ReactDuelUI = card.duel.ui as ReactDuelUI;
     const position = card.duel.cards[card.playerId][card.zone].indexOf(card);
-    reactDuelUI.activatedCardSetters[card.playerId][card.zone][position] =
-      setActivated;
+    reactDuelUI.boardStateSetters[card.playerId][card.zone][position] = {
+      setActivated,
+      setTargeted,
+    };
   }, [card]);
 
   function clickCard() {
@@ -40,6 +43,7 @@ export default function CardBox({
       ) {
         duel.selectedTarget = card;
         duel.waitingForCardSelection = false;
+        setTargeted(true);
         executeOneActionWithDelay();
       }
     } else if (!duel.hasNextAction()) {
@@ -60,6 +64,8 @@ export default function CardBox({
       }
     }
   }
+
+  const shakeAnimation = targeted ? styles.shake : "";
 
   const littleSpinAnimation =
     activated && card.zone === Zone.Field ? styles.littleSpin : "";
@@ -99,7 +105,7 @@ export default function CardBox({
   return (
     <div className={styles.flippableCard3DContainer}>
       <div
-        className={`${styles.flippableCard} ${flipAnimation} ${selectableStyles} ${littleSpinAnimation}`}
+        className={`${styles.flippableCard} ${flipAnimation} ${selectableStyles} ${littleSpinAnimation} ${shakeAnimation}`}
         onClick={clickCard}
         onAnimationEnd={() => setActivated(false)}
       >

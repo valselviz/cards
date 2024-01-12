@@ -42,6 +42,14 @@ export class ArtificialIntelligence {
     selectionCriteria: (card: Card) => boolean = () => true
   ): Card | null {
     const target = duel.cards[selectedCardOwner][zone].find(selectionCriteria);
-    return target ? target : null;
+    if (target) {
+      duel.ui.notifyCardTargeted(
+        selectedCardOwner,
+        zone,
+        duel.cards[selectedCardOwner][zone].indexOf(target)
+      );
+      return target;
+    }
+    return null;
   }
 }
