@@ -18,7 +18,7 @@ export default function Slot({
     <div className={styles.slot}>
       {card && (
         <CardBox
-          key={position}
+          key={card.id}
           card={card}
           executeOneActionWithDelay={executeOneActionWithDelay}
         />
