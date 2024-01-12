@@ -11,7 +11,12 @@ function createDuel() {
     new Player("Player", true, [], null),
     new Player("Opponent", true, [], null),
   ];
-  const duel = new Duel(players, new DuelUI());
+  const dummyInterface = {
+    refreshUI: () => {},
+    notifyCardUsage: () => {},
+    notifyCardTargeted: () => {},
+  };
+  const duel = new Duel(players, dummyInterface);
   duel.actionsQueue = [];
   return duel;
 }

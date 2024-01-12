@@ -8,15 +8,12 @@ interface CardBoxStateSetters {
   setTargeted: Dispatch<SetStateAction<boolean>>;
 }
 
-export class ReactDuelUI extends DuelUI {
+export class ReactDuelUI implements DuelUI {
   setCardsState: Dispatch<SetStateAction<Card[][][]>>;
 
   boardStateSetters: CardBoxStateSetters[][][];
 
-  //activatedCardSetters: Dispatch<SetStateAction<boolean>>[][][];
-
   constructor(setCardsState: Dispatch<SetStateAction<Card[][][]>>) {
-    super();
     this.setCardsState = setCardsState;
     this.boardStateSetters = [
       [[], [], []],
