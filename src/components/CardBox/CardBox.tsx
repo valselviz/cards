@@ -23,7 +23,6 @@ export default function CardBox({
   const [targeted, setTargeted] = useState(false);
 
   useEffect(() => {
-    setActivated(false);
     const reactDuelUI: ReactDuelUI = card.duel.ui as ReactDuelUI;
     const position = card.duel.cards[card.playerId][card.zone].indexOf(card);
     reactDuelUI.boardStateSetters[card.playerId][card.zone][position] = {
@@ -107,7 +106,6 @@ export default function CardBox({
       <div
         className={`${styles.flippableCard} ${flipAnimation} ${selectableStyles} ${littleSpinAnimation} ${shakeAnimation}`}
         onClick={clickCard}
-        onAnimationEnd={() => setActivated(false)}
       >
         <div className={`${styles.flippableFace} ${styles.cardBackground}`}>
           <div className={usableStyles}></div>
