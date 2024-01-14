@@ -72,15 +72,15 @@ export default function CardBox({
   let flipAnimation = "";
   if (card.zone === Zone.Hand) {
     if (activated) {
-      if (card.playerId === 0) {
+      if (card.duel.players[card.playerId].human) {
         flipAnimation = styles.doubleFlipFaceUp;
-      } else if (card.playerId === 1) {
+      } else {
         flipAnimation = styles.faceUp;
       }
     } else {
-      if (card.playerId === 0) {
+      if (card.duel.players[card.playerId].human) {
         flipAnimation = styles.faceUp;
-      } else if (card.playerId === 1) {
+      } else {
         flipAnimation = styles.faceDown;
       }
     }

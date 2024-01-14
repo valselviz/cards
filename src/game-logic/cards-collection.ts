@@ -23,8 +23,17 @@ import tigerWarrior from "assets/cards/tigerWarrior.jpg";
 import { Zone } from "./zone";
 import { Action } from "./action";
 
+function checkFullField(card: Card) {
+  if (card.duel.cards[card.playerId][Zone.Field].length === 5) {
+    card.duel.alertPlayer("Field is full.");
+    return true;
+  }
+  return false;
+}
+
 const simpleInvokationInfo = "Invoke.";
 function simpleInvokation(card: Card) {
+  if (checkFullField(card)) return;
   card.duel.queueInvokeAction(() => card);
 }
 
@@ -178,6 +187,7 @@ export const cardModels: any = {
     8,
     Color.Green,
     (card: Card) => {
+      if (checkFullField(card)) return;
       card.duel.queueInvokeAction(() => card);
       const newAction = new Action(() => (card.usableFromField = true));
       card.duel.actionsQueue.push(newAction);
@@ -351,10 +361,7 @@ export const cardModels: any = {
     13,
     Color.Blue,
     (card: Card) => {
-      if (card.duel.cards[card.playerId][Zone.Field].length === 5) {
-        card.duel.alertPlayer("Field is full");
-        return;
-      }
+      if (checkFullField(card)) return;
       card.duel.queueInvokeAction(() => card);
       card.duel.queueStartSelectionAction(
         card.playerId,
