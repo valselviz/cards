@@ -9,27 +9,29 @@ import { Color } from "../../game-logic/color";
 import swordIcon from "assets/icons/sword.svg";
 import shieldIcon from "assets/icons/shield.svg";
 import { ReactDuelUI } from "ReactDuelUI/ReactDuelUI";
+import { constants } from "buffer";
 
 interface CardBoxProps {
   card: Card;
   executeOneActionWithDelay: () => void;
+  position: number
 }
 
 export default function CardBox({
   card,
   executeOneActionWithDelay,
+  position,
 }: CardBoxProps) {
   const [activated, setActivated] = useState(false);
   const [targeted, setTargeted] = useState(false);
 
   useEffect(() => {
     const reactDuelUI: ReactDuelUI = card.duel.ui as ReactDuelUI;
-    const position = card.duel.cards[card.playerId][card.zone].indexOf(card);
     reactDuelUI.boardStateSetters[card.playerId][card.zone][position] = {
       setActivated,
       setTargeted,
     };
-  }, [card]);
+  }, [card, position]);
 
   function clickCard() {
     const duel = card.duel;
@@ -106,6 +108,10 @@ export default function CardBox({
       <div
         className={`${styles.flippableCard} ${flipAnimation} ${selectableStyles} ${littleSpinAnimation} ${shakeAnimation}`}
         onClick={clickCard}
+        onAnimationEnd={() => {
+          setActivated(false);
+          setTargeted(false);
+        }}
       >
         <div className={`${styles.flippableFace} ${styles.cardBackground}`}>
           <div className={usableStyles}></div>

@@ -20,6 +20,7 @@ export default function Slot({
         <CardBox
           key={card.id}
           card={card}
+          position={position}
           executeOneActionWithDelay={executeOneActionWithDelay}
         />
       )}
