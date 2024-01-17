@@ -23,13 +23,11 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   ];
   const [cardsState, setCardsState] = useState<Card[][][]>(emptyBoard);
 
-  // The duel object should be created only once.
+  // The duel and duelUI objects should be created only once.
   // It shouldn't be created on each rerender.
   // This is achived with useMemo
-  const duel = useMemo(
-    () => new Duel(players, new ReactDuelUI(setCardsState)),
-    [players]
-  );
+  const duelUI = useMemo(() => new ReactDuelUI(setCardsState), []);
+  const duel = useMemo(() => new Duel(players, duelUI), [players, duelUI]);
 
   function executeOneActionWithDelay() {
     if (duel.isDuelOver()) return;
@@ -73,13 +71,13 @@ export default function DuelBoard({ players }: DuelBoardProps) {
             playerName={players[1].name}
             playerDeckCards={cardsState[1][Zone.Deck].length}
             playerId={1}
-            playerTurn={duel.playerTurn}
+            duelUI={duelUI}
           />
           <PlayerStatus
             playerName={players[0].name}
             playerDeckCards={cardsState[0][Zone.Deck].length}
             playerId={0}
-            playerTurn={duel.playerTurn}
+            duelUI={duelUI}
           />
         </div>
         <div className={`${styles.fieldArea} ${styles.onTurn}`}>

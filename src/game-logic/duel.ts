@@ -143,6 +143,7 @@ export class Duel {
       if (!defenderCard) {
         const defenderPlayer = 1 - attackCard.playerId;
         this.cards[defenderPlayer][Zone.Deck].shift();
+        this.ui.notifyDamage(defenderPlayer);
       } else if (attackCard.model.attack > defenderCard.model.defense) {
         const position =
           this.cards[defenderCard.playerId][Zone.Field].indexOf(defenderCard);
@@ -155,10 +156,13 @@ export class Duel {
 
   queueDamagePlayerAction(playerId: number, amount: number) {
     const damagePlayerAction = new Action(() => {
-      for (let i = 0; i < amount; i++) {
-        if (this.cards[playerId][Zone.Deck].length > 0) {
-          this.cards[playerId][Zone.Deck].shift();
+      if (this.cards[playerId][Zone.Deck].length > 0) {
+        for (let i = 0; i < amount; i++) {
+          if (this.cards[playerId][Zone.Deck].length > 0) {
+            this.cards[playerId][Zone.Deck].shift();
+          }
         }
+        this.ui.notifyDamage(playerId);
       }
     });
     this.actionsQueue.push(damagePlayerAction);

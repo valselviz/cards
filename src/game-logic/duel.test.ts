@@ -15,6 +15,7 @@ function createDuel() {
     refreshUI: () => {},
     notifyCardUsage: () => {},
     notifyCardTargeted: () => {},
+    notifyDamage: () => {},
   };
   const duel = new Duel(players, dummyInterface);
   duel.actionsQueue = [];

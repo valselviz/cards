@@ -8,4 +8,6 @@ export interface DuelUI {
   notifyCardUsage(playerId: number, zone: Zone, position: number): void;
 
   notifyCardTargeted(playerId: number, zone: Zone, position: number): void;
+  
+  notifyDamage(playerId: number): void;
 }

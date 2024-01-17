@@ -13,12 +13,15 @@ export class ReactDuelUI implements DuelUI {
 
   boardStateSetters: CardBoxStateSetters[][][];
 
+  setDamaged: Dispatch<SetStateAction<boolean>>[];
+
   constructor(setCardsState: Dispatch<SetStateAction<Card[][][]>>) {
     this.setCardsState = setCardsState;
     this.boardStateSetters = [
       [[], [], []],
       [[], [], []],
     ];
+    this.setDamaged = [];
   }
 
   refreshUI(cards: Card[][][]) {
@@ -36,5 +39,9 @@ export class ReactDuelUI implements DuelUI {
 
   notifyCardTargeted(playerId: number, zone: Zone, position: number) {
     this.boardStateSetters[playerId][zone][position].setTargeted(true);
+  }
+
+  notifyDamage(playerId: number) {
+    this.setDamaged[playerId](true);
   }
 }
