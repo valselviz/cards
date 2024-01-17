@@ -21,6 +21,10 @@
   opacity: 0;
 }
 
+.invisible {
+  display: none;
+}
+
 @keyframes fadeOutAnimation {
   from {
     opacity: 0.9;
