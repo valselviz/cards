@@ -20,6 +20,7 @@ import dragonMistress from "assets/cards/dragonMistress.jpg";
 import raid from "assets/cards/raid.jpg";
 import siren from "assets/cards/siren.jpg";
 import tigerWarrior from "assets/cards/tigerWarrior.jpg";
+import tundraSkeleton from "assets/cards/tundraSkeleton.jpg";
 import { Zone } from "./zone";
 import { Action } from "./action";
 
@@ -98,6 +99,17 @@ export const cardModels: any = {
     10,
     10,
     Color.Yellow,
+    simpleInvokation,
+    simpleAttack,
+    simpleInvokationInfo,
+    simpleAttackInfo
+  ),
+  TundraSkeleton: new CardModel(
+    "Tundra Skeleton",
+    tundraSkeleton,
+    12,
+    13,
+    Color.Blue,
     simpleInvokation,
     simpleAttack,
     simpleInvokationInfo,
@@ -382,10 +394,10 @@ export const cardModels: any = {
   Griffin: new CardModel(
     "Griffin",
     griffin,
-    22,
+    28,
     19,
     Color.Yellow,
-    simpleInvokation,
+    oneSacrificeInvokation,
     (card: Card) => {
       const selectTargetCriteria = (opponentCard: Card) =>
         opponentCard.model.defense < card.model.attack;
@@ -411,7 +423,7 @@ export const cardModels: any = {
       );
       card.duel.queueWithdrawAction(() => card);
     },
-    simpleInvokationInfo,
+    oneSacrificeInvokationInfo,
     "Attack. Then withdraw this card."
   ),
   TigerWarrior: new CardModel(

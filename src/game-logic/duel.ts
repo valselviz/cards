@@ -94,18 +94,15 @@ export class Duel {
   }
 
   queueInvokeAction(cardProvider: () => Card | null) {
-    const card = cardProvider();
-    if (!card) return;
     const invokeAction = new Action(() => {
-      if (this.cards[card.playerId][Zone.Field].length < 5) {
-        const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
-        this.cards[card.playerId][Zone.Hand].splice(position, 1);
-        card.zone = Zone.Field;
-        card.usableFromField = false;
-        this.cards[card.playerId][Zone.Field].push(card);
-      } else {
-        this.alertPlayer("Field is full");
-      }
+      const card = cardProvider();
+      if (!card) return;
+      if (this.cards[card.playerId][Zone.Field].length == 5) return;
+      const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
+      this.cards[card.playerId][Zone.Hand].splice(position, 1);
+      card.zone = Zone.Field;
+      card.usableFromField = false;
+      this.cards[card.playerId][Zone.Field].push(card);
     });
     this.actionsQueue.push(invokeAction);
   }

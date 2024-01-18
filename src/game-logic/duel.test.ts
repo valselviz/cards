@@ -4,7 +4,6 @@ import { Player } from "./player";
 import { Card } from "./card";
 import { cardModels } from "./cards-collection";
 import { Zone } from "./zone";
-import { DuelUI } from "./DuelUI";
 
 function createDuel() {
   const players = [
@@ -75,15 +74,6 @@ describe("duel queueInvokeAction", () => {
     expect(duel.cards[0][Zone.Hand]).toHaveLength(0);
   });
 
-  test("with null card provider", () => {
-    const duel = createDuel();
-    const cardProvider = () => null;
-    duel.queueInvokeAction(cardProvider);
-
-    // Check the action was not queued
-    expect(duel.actionsQueue.length).toBe(0);
-  });
-
   test("queue and execute with full field", () => {
     const duel = createDuel();
     for (let i = 0; i < 5; i++) {
@@ -127,14 +117,5 @@ describe("duel queueWithdrawAction", () => {
     expect(duel.cards[0][Zone.Hand]).toHaveLength(1);
     expect(duel.cards[0][Zone.Hand][0]).toBe(card);
     expect(duel.cards[0][Zone.Field]).toHaveLength(0);
-  });
-
-  test("with null card provider", () => {
-    const duel = createDuel();
-    const cardProvider = () => null;
-    duel.queueWithdrawAction(cardProvider);
-
-    // Check the action was not queued
-    expect(duel.actionsQueue.length).toBe(0);
   });
 });
