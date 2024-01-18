@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/cards/static/css/main.8a8eb95a.css",
-    "main.js": "/cards/static/js/main.1a81deef.js",
+    "main.js": "/cards/static/js/main.09028e9f.js",
     "static/media/background.jpg": "/cards/static/media/background.af467ed16ec7b3bdbb34.jpg",
     "static/media/cardBack.jpg": "/cards/static/media/cardBack.a74b4d4355663af9d55f.jpg",
     "static/media/owlGuardian.jpg": "/cards/static/media/owlGuardian.b569dd038afa13d90680.jpg",
@@ -14,6 +14,7 @@
     "static/media/damagedStatusBox.png": "/cards/static/media/damagedStatusBox.be2ae022c43d5fd3fe7b.png",
     "static/media/statusBox.png": "/cards/static/media/statusBox.6f84971a19dd53b06163.png",
     "static/media/siren.jpg": "/cards/static/media/siren.4e7d3b03ef730037f26b.jpg",
+    "static/media/tundraSkeleton.jpg": "/cards/static/media/tundraSkeleton.e0fd900d7cc6f5c99d03.jpg",
     "static/media/raid.jpg": "/cards/static/media/raid.42caf3327f7908b2e59d.jpg",
     "static/media/lizardSpearman.jpg": "/cards/static/media/lizardSpearman.a7df8bdc3fd5fe2784b8.jpg",
     "static/media/griffin.jpg": "/cards/static/media/griffin.b157729d19ba2cc2d7e2.jpg",
@@ -30,10 +31,10 @@
     "static/media/shield.svg": "/cards/static/media/shield.0973822d078a4e746fe5de6ff3720221.svg",
     "index.html": "/cards/index.html",
     "main.8a8eb95a.css.map": "/cards/static/css/main.8a8eb95a.css.map",
-    "main.1a81deef.js.map": "/cards/static/js/main.1a81deef.js.map"
+    "main.09028e9f.js.map": "/cards/static/js/main.09028e9f.js.map"
   },
   "entrypoints": [
     "static/css/main.8a8eb95a.css",
-    "static/js/main.1a81deef.js"
+    "static/js/main.09028e9f.js"
   ]
 }
