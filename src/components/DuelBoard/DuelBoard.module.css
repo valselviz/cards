@@ -43,11 +43,25 @@
   background-position: center;
   box-shadow: 2px 2px 4px black;
 }
-.passTurnButton:hover {
-  background-image: url("/src/assets/clockBackgroundHover.png");
+
+/*A transparent white layer on top of the button, that shows up on hover or click*/
+.passTurnButton:after {
+  content: "";
+  background: white;
+  display: block;
+  position: absolute;
+  width: 120px;
+  height: 180px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: 0.3s;
 }
-.passTurnButton:active {
-  background-image: url("/src/assets/clockBackgroundClick.png");
+.passTurnButton:hover:after {
+  opacity: 0.15;
+}
+.passTurnButton:active:after {
+  opacity: 0.3;
+  transition: 0s;
 }
 
 .bottonRow {
