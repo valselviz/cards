@@ -1,8 +1,9 @@
 .playerStatus {
   box-sizing: border-box;
+  flex-direction: column;
   padding: 15px;
-  width: 200px;
-  height: 90px;
+  width: 160px;
+  height: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,8 +15,8 @@
 
 .damagedPlayerStatus {
   position: absolute;
-  width: 200px;
-  height: 90px;
+  width: 160px;
+  height: 120px;
   animation-name: fadeOutAnimation;
   animation-duration: 1s;
   opacity: 0;
@@ -36,6 +37,7 @@
 
 .statusText {
   align-items: center;
+  margin: 2px;
 }
 
 .deckIcon {
@@ -46,5 +48,5 @@
   height: 45px;
   background-image: url("/src/assets/icons/deckIcon.png");
   background-size: 100% 100%;
-  margin: 4px 0 4px 0;
+  margin: 2px;
 }
