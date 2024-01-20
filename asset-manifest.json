@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/cards/static/css/main.29088404.css",
+    "main.css": "/cards/static/css/main.e75abbc1.css",
     "main.js": "/cards/static/js/main.09028e9f.js",
     "static/media/background.jpg": "/cards/static/media/background.af467ed16ec7b3bdbb34.jpg",
     "static/media/cardBack.jpg": "/cards/static/media/cardBack.a74b4d4355663af9d55f.jpg",
@@ -18,9 +18,7 @@
     "static/media/raid.jpg": "/cards/static/media/raid.42caf3327f7908b2e59d.jpg",
     "static/media/lizardSpearman.jpg": "/cards/static/media/lizardSpearman.a7df8bdc3fd5fe2784b8.jpg",
     "static/media/griffin.jpg": "/cards/static/media/griffin.b157729d19ba2cc2d7e2.jpg",
-    "static/media/clockBackgroundHover.png": "/cards/static/media/clockBackgroundHover.3e267b3d759b63bf3e6c.png",
     "static/media/clockBackground.png": "/cards/static/media/clockBackground.7c872117b78d68e36127.png",
-    "static/media/clockBackgroundClick.png": "/cards/static/media/clockBackgroundClick.783da3caddeefe3773c1.png",
     "static/media/vortex.jpg": "/cards/static/media/vortex.fe3346da044db4572214.jpg",
     "static/media/hammerDwarf.jpg": "/cards/static/media/hammerDwarf.e22de13515efaf85d69b.jpg",
     "static/media/minotaur.jpg": "/cards/static/media/minotaur.e1c265e8963a140fda1a.jpg",
@@ -30,11 +28,11 @@
     "static/media/sword.svg": "/cards/static/media/sword.32a9ce28c6ecc9f42c11c4be9c6f36b0.svg",
     "static/media/shield.svg": "/cards/static/media/shield.0973822d078a4e746fe5de6ff3720221.svg",
     "index.html": "/cards/index.html",
-    "main.29088404.css.map": "/cards/static/css/main.29088404.css.map",
+    "main.e75abbc1.css.map": "/cards/static/css/main.e75abbc1.css.map",
     "main.09028e9f.js.map": "/cards/static/js/main.09028e9f.js.map"
   },
   "entrypoints": [
-    "static/css/main.29088404.css",
+    "static/css/main.e75abbc1.css",
     "static/js/main.09028e9f.js"
   ]
 }
