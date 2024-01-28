@@ -1,0 +1,30 @@
+.navBar {
+  display: flex;
+  position: relative;
+  width: 100vw;
+  height: 48px;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-shadow: 0px 0px 5px black;
+}
+
+.navLink {
+  display: flex;
+  width: 160px;
+  align-self: center;
+  font-weight: 300;
+  justify-content: center;
+  text-decoration-line: none;
+  color: black;
+  font-size: 14px;
+  line-height: 48px;
+}
+
+.navLink:hover {
+  text-decoration-line: underline;
+}
+
+.navLinkActive {
+  text-decoration-line: underline;
+  background-color: #FFFFFF25;
+}

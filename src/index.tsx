@@ -17,10 +17,11 @@ root.render(
     <HashRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/deck" element={<DeckPage />} />
-        <Route path="/store" element={<StorePage />} />
-        <Route path="/rivals" element={<RivalsPage />} />
+        <Route path="/" element={<HomePage />}>
+          <Route path="/deck" element={<DeckPage />} />
+          <Route path="/store" element={<StorePage />} />
+          <Route path="/rivals" element={<RivalsPage />} />
+        </Route>
         <Route path="/duel" element={<DuelPage />} />
       </Routes>
     </HashRouter>

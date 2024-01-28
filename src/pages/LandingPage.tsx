@@ -5,8 +5,8 @@ export default function LandingPage() {
     <div>
       <h1>Collectable Cards Game</h1>
       <p>by Valeria Selviz</p>
-      <Link to="/home">Continue</Link>
-      <Link to="/home">Start New Game</Link>
+      <Link to="/deck">Continue</Link>
+      <Link to="/deck">Start New Game</Link>
     </div>
   );
 }
