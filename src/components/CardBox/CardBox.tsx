@@ -2,7 +2,7 @@ import styles from "./CardBox.module.css";
 
 import { useEffect, useState } from "react";
 
-import { Card } from "../../game-logic/card";
+import { Card } from "../../game-logic/Card";
 import { Zone } from "../../game-logic/zone";
 import { Color } from "../../game-logic/color";
 
@@ -14,7 +14,7 @@ import { constants } from "buffer";
 interface CardBoxProps {
   card: Card;
   executeOneActionWithDelay: () => void;
-  position: number
+  position: number;
 }
 
 export default function CardBox({

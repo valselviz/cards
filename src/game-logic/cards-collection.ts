@@ -1,5 +1,5 @@
-import { Card } from "./card";
-import { CardModel } from "./card-model";
+import { Card } from "./Card";
+import { CardModel } from "./CardModel";
 import { Color } from "./color";
 import { rndInt } from "./utils";
 
@@ -22,7 +22,7 @@ import siren from "assets/cards/siren.jpg";
 import tigerWarrior from "assets/cards/tigerWarrior.jpg";
 import tundraSkeleton from "assets/cards/tundraSkeleton.jpg";
 import { Zone } from "./zone";
-import { Action } from "./action";
+import { Action } from "./Action";
 
 function checkFullField(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length === 5) {

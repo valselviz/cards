@@ -1,14 +1,14 @@
-import { Action } from "./action";
-import { Duel } from "./duel";
-import { Player } from "./player";
-import { Card } from "./card";
+import { Action } from "./Action";
+import { Duel } from "./Duel";
+import { Duelist } from "./Duelist";
+import { Card } from "./Card";
 import { cardModels } from "./cards-collection";
 import { Zone } from "./zone";
 
 function createDuel() {
   const players = [
-    new Player("Player", true, [], null),
-    new Player("Opponent", true, [], null),
+    new Duelist("Player", true, [], null),
+    new Duelist("Opponent", true, [], null),
   ];
   const dummyInterface = {
     refreshUI: () => {},

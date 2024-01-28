@@ -1,6 +1,6 @@
 import CardBox from "../CardBox/CardBox";
 import styles from "./Hand.module.css";
-import { Card } from "../../game-logic/card";
+import { Card } from "../../game-logic/Card";
 
 interface HandProps {
   cards: Card[];

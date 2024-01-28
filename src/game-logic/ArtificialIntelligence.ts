@@ -1,5 +1,5 @@
-import { Card } from "./card";
-import { Duel } from "./duel";
+import { Card } from "./Card";
+import { Duel } from "./Duel";
 import { Zone } from "./zone";
 
 export class ArtificialIntelligence {

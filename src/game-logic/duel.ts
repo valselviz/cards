@@ -1,7 +1,7 @@
 import { DuelUI } from "./DuelUI";
-import { Action } from "./action";
-import { Card } from "./card";
-import { Player } from "./player";
+import { Action } from "./Action";
+import { Card } from "./Card";
+import { Duelist } from "./Duelist";
 import { rndInt } from "./utils";
 import { Zone } from "./zone";
 
@@ -16,7 +16,7 @@ export class Duel {
 
   actionsQueue: Action[] = [];
 
-  players: Player[];
+  players: Duelist[];
 
   waitingForCardSelection: boolean = false;
 
@@ -30,7 +30,7 @@ export class Duel {
 
   selectionCriteria: (card: Card) => boolean = () => false;
 
-  constructor(players: Player[], ui: DuelUI) {
+  constructor(players: Duelist[], ui: DuelUI) {
     this.players = players;
     this.ui = ui;
     this.cards = [
