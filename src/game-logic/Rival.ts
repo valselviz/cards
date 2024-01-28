@@ -8,7 +8,6 @@ export class Rival {
 
   constructor(portraitCard: CardModel) {
     this.portraitCard = portraitCard;
-
     for (let i = 0; i < 27; i++) {
       this.deck.push(getRandomCardModel());
     }

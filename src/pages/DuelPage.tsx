@@ -1,12 +1,19 @@
-import getRandomCardModel from "../game-logic/cards-collection";
 import DuelBoard from "../components/DuelBoard/DuelBoard";
 import { Duelist } from "../game-logic/Duelist";
 import { ArtificialIntelligence } from "game-logic/ArtificialIntelligence";
+import { useContext } from "react";
+import MacroGameContext from "MacroGameContext";
 
 function DuelPage() {
+  const macroGame = useContext(MacroGameContext);
   const players = [
-    new Duelist("Player", true, deck0, null),
-    new Duelist("Opponent", false, deck1, new ArtificialIntelligence()),
+    new Duelist("Player", true, macroGame.deck, null),
+    new Duelist(
+      "Opponent",
+      false,
+      macroGame.rivals[0].deck,
+      new ArtificialIntelligence()
+    ),
   ];
 
   return <DuelBoard players={players} />;
