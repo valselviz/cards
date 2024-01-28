@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import NavBar from "../components/NavBar/NavBar";
 
 export default function HomePage() {
   return (
-    <>
-      <Link to="/deck">Manage Deck</Link>
-      <Link to="/store">Cards Store</Link>
-      <Link to="/rivals">Face Rival</Link>
-    </>
+    <div>
+      <NavBar />
+      <Outlet />
+    </div>
   );
 }
