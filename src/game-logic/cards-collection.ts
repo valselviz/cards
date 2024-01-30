@@ -3,6 +3,7 @@ import { CardModel } from "./card-model";
 import { Color } from "./color";
 import { rndInt } from "./utils";
 
+import centaurSocerer from "assets/cards/centaurSorcerer.jpg";
 import elfArcher from "assets/cards/elfArcher.jpg";
 import minotaur from "assets/cards/minotaur.jpg";
 import fireDemon from "assets/cards/fireDemon.jpg";
@@ -10,12 +11,14 @@ import giantSpider from "assets/cards/giantSpider.jpg";
 import golem from "assets/cards/golem.jpg";
 import griffin from "assets/cards/griffin.jpg";
 import hammerDwarf from "assets/cards/hammerDwarf.jpg";
+import knight from "assets/cards/knight.jpg";
 import lizardSpearman from "assets/cards/lizardSpearman.jpg";
 import wizard from "assets/cards/wizard.jpg";
 import blackDragon from "assets/cards/blackDragon.jpg";
 import vortex from "assets/cards/vortex.jpg";
 import owlGuardian from "assets/cards/owlGuardian.jpg";
 import magicCup from "assets/cards/magicCup.jpg";
+import natureAmulet from "assets/cards/natureAmulet.jpg";
 import dragonMistress from "assets/cards/dragonMistress.jpg";
 import raid from "assets/cards/raid.jpg";
 import siren from "assets/cards/siren.jpg";
@@ -148,6 +151,17 @@ export const cardModels: any = {
     simpleInvokationInfo,
     simpleAttackInfo
   ),
+  Knight: new CardModel(
+    "Knight",
+    knight,
+    5,
+    17,
+    Color.Yellow,
+    simpleInvokation,
+    simpleAttack,
+    simpleInvokationInfo,
+    simpleAttackInfo
+  ),
   Wizard: new CardModel(
     "Wizard",
     wizard,
@@ -250,6 +264,34 @@ export const cardModels: any = {
     "Discard a card from your hand. Then select a card from your opponent’s field with 20 defense or less and destroy it.",
     null
   ),
+  natureAmulet: new CardModel(
+    "Nature Amulet",
+    natureAmulet,
+    0,
+    0,
+    Color.Green,
+    (card: Card) => {
+      const sacrificeCriteria = (sacrificedCard: Card) =>
+        sacrificedCard.model.color == Color.Green;
+      if (!card.duel.cards[card.playerId][Zone.Field].some(sacrificeCriteria)) {
+        card.duel.alertPlayer(
+          "You need one Green card in your field to offer as sacrifice"
+        );
+        return;
+      }
+      card.duel.queueStartSelectionAction(
+        card.playerId,
+        Zone.Field,
+        sacrificeCriteria
+      );
+      card.duel.queueDestroyAction(() => card.duel.selectedTarget);
+      card.duel.queueDamagePlayerAction(1 - card.playerId, 5);
+      card.duel.queueDiscardAction(() => card);
+    },
+    () => null,
+    "Sacrifice a green card from your field. Your rival loses 5 cards.",
+    null
+  ),
   OwlGuardian: new CardModel(
     "Owl Guardian",
     owlGuardian,
@@ -285,6 +327,26 @@ export const cardModels: any = {
     },
     simpleInvokationInfo,
     "Attack. Then draw a card."
+  ),
+  CentaurSocerer: new CardModel(
+    "Centaur Socerer",
+    centaurSocerer,
+    18,
+    18,
+    Color.Green,
+    (card: Card) => {
+      if (checkFullField(card)) return;
+      if (card.duel.cards[card.playerId][Zone.Hand].length > 1) {
+        card.duel.alertPlayer(
+          "You can invoke this card only if it is the only card in your hand."
+        );
+        return;
+      }
+      card.duel.queueInvokeAction(() => card);
+    },
+    simpleAttack,
+    "You can invoke this card only if it is the only card in your hand.",
+    simpleAttackInfo
   ),
   MagicCup: new CardModel(
     "Magic Cup",
