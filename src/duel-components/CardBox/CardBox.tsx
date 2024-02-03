@@ -5,10 +5,9 @@ import { useEffect, useState } from "react";
 import { Card } from "../../duel/Card";
 import { Zone } from "../../duel/zone";
 import { Color } from "../../duel/color";
-
-import swordIcon from "assets/icons/sword.svg";
-import shieldIcon from "assets/icons/shield.svg";
 import { ReactDuelUI } from "ReactDuelUI/ReactDuelUI";
+import CardBoxMainContent from "./CardBoxMainContent";
+import CardBoxDescription from "./CardBoxDescription";
 
 interface CardBoxProps {
   card: Card;
@@ -115,35 +114,8 @@ export default function CardBox({
         <div className={`${styles.flippableFace} ${styles.cardBackground}`}>
           <div className={usableStyles}></div>
           <div className={`${styles.cardBox} ${colorClass}`}>
-            <div className={styles.cardContent}>
-              <div className={styles.title}>{card.model.name}</div>
-              <img src={card.model.image} className={styles.portrait} alt="" />
-              <div className={styles.bottomLine}>
-                <div className={styles.attribute}>
-                  <img src={swordIcon} className={styles.icon} alt="" />
-                  {card.model.attack}
-                </div>
-                <div className={styles.attribute}>
-                  <img src={shieldIcon} className={styles.icon} alt="" />
-                  {card.model.defense}
-                </div>
-              </div>
-            </div>
-            <div className={styles.descriptionBox}>
-              {card.model.handInfo && (
-                <p className={styles.infoP}>
-                  <b>Hand effect: </b>
-                  {card.model.handInfo}
-                </p>
-              )}
-              <br />
-              {card.model.fieldInfo && (
-                <p className={styles.infoP}>
-                  <b>Field effect: </b>
-                  {card.model.fieldInfo}
-                </p>
-              )}
-            </div>
+            <CardBoxMainContent card={card.model} />
+            <CardBoxDescription card={card.model} displayOnlyOnHover={true}/>
           </div>
         </div>
         <div

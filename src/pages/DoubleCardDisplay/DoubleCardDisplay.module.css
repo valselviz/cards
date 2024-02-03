@@ -1,0 +1,10 @@
+.doubleCardDisplay {
+  width: 200px;
+}
+
+.doubleCardDisplayContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
