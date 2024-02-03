@@ -8,6 +8,7 @@ export class MacroGame {
   cardsPool: CardModel[] = [];
   cardsInStore: CardModel[] = [];
   rivals: Rival[] = [];
+  facingRival: Rival | null = null;
 
   constructor() {
     for (let i = 0; i < 5; i++) {

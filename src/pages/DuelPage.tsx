@@ -6,17 +6,22 @@ import MacroGameContext from "MacroGameContext";
 
 function DuelPage() {
   const macroGame = useContext(MacroGameContext);
-  const players = [
-    new Duelist("Player", true, macroGame.deck, null),
-    new Duelist(
-      "Opponent",
-      false,
-      macroGame.rivals[0].deck,
-      new ArtificialIntelligence()
-    ),
-  ];
-
-  return <DuelBoard players={players} />;
+  if (macroGame.facingRival) {
+    const players = [
+      new Duelist("Player", true, macroGame.deck, null),
+      new Duelist(
+        "Opponent",
+        false,
+        macroGame.facingRival.deck,
+        new ArtificialIntelligence()
+      ),
+    ];
+    return <DuelBoard players={players} />;
+  } else {
+    alert("You can not got to /duel directly");
+    window.location.href = "/";
+    return <></>;
+  }
 }
 
 export default DuelPage;
