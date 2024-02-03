@@ -1,13 +1,18 @@
-import { CardModel } from "./card-model";
+import { CardModel } from "./CardModel";
 import { ArtificialIntelligence } from "./ArtificialIntelligence";
 
-export class Player {
+export class Duelist {
   name: string;
   human: boolean;
   deck: CardModel[];
   ai: ArtificialIntelligence | null;
 
-  constructor(name: string, human: boolean, deck: CardModel[], ai: ArtificialIntelligence | null) {
+  constructor(
+    name: string,
+    human: boolean,
+    deck: CardModel[],
+    ai: ArtificialIntelligence | null
+  ) {
     this.name = name;
     this.human = human;
     this.deck = deck;

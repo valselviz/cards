@@ -123,6 +123,9 @@
 .descriptionBox {
   display: none;
 }
+.descriptionBox.alwaysShow {
+  display: flex;
+}
 
 .cardBackground:hover .cardContent {
   display: none;

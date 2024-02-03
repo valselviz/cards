@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { Zone } from "../game-logic/zone";
-import { Card } from "../game-logic/card";
-import { DuelUI } from "game-logic/DuelUI";
+import { Zone } from "../duel/zone";
+import { Card } from "../duel/Card";
+import { DuelUI } from "duel/DuelUI";
 
 interface CardBoxStateSetters {
   setActivated: Dispatch<SetStateAction<boolean>>;

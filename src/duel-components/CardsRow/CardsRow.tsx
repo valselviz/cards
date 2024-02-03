@@ -1,5 +1,5 @@
 import Slot from "../Slot/Slot";
-import { Card } from "../../game-logic/card";
+import { Card } from "../../duel/Card";
 
 import styles from "./CardsRow.module.css";
 

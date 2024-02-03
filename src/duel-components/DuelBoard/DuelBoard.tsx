@@ -1,5 +1,5 @@
-import { Card } from "../../game-logic/card";
-import { Zone } from "../../game-logic/zone";
+import { Card } from "../../duel/Card";
+import { Zone } from "../../duel/zone";
 import { useEffect, useMemo, useState } from "react";
 import { ReactDuelUI } from "../../ReactDuelUI/ReactDuelUI";
 import CardsRow from "../CardsRow/CardsRow";
@@ -8,12 +8,12 @@ import PlayerStatus from "../PlayerStatus/PlayerStatus";
 import sandClockImage from "assets/clock.png";
 
 import styles from "./DuelBoard.module.css";
-import { Player } from "../../game-logic/player";
-import DuelEndMessage from "components/DuelEndMessage/DuelEndMessage";
-import { Duel } from "game-logic/duel";
+import { Duelist } from "../../duel/Duelist";
+import DuelEndMessage from "duel-components/DuelEndMessage/DuelEndMessage";
+import { Duel } from "duel/Duel";
 
 interface DuelBoardProps {
-  players: Player[];
+  players: Duelist[];
 }
 
 export default function DuelBoard({ players }: DuelBoardProps) {

@@ -1,5 +1,3 @@
-import { Card } from "./card";
-
 export class Action {
   shouldWaitForTargetSelection: () => boolean;
 

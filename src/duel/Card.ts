@@ -1,6 +1,6 @@
 import { Zone } from "./zone";
-import { Duel } from "./duel";
-import { CardModel } from "./card-model";
+import { Duel } from "./Duel";
+import { CardModel } from "./CardModel";
 
 export class Card {
   id: string;

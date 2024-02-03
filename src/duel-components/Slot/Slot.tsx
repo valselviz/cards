@@ -1,6 +1,6 @@
 import styles from "./Slot.module.css";
 
-import { Card } from "../../game-logic/card";
+import { Card } from "../../duel/Card";
 import CardBox from "../CardBox/CardBox";
 
 interface SlotProps {

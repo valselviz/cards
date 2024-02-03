@@ -1,22 +1,27 @@
-import getRandomCardModel from "../game-logic/cards-collection";
-import DuelBoard from "../components/DuelBoard/DuelBoard";
-import { Player } from "../game-logic/player";
-import { ArtificialIntelligence } from "game-logic/ArtificialIntelligence";
+import DuelBoard from "../duel-components/DuelBoard/DuelBoard";
+import { Duelist } from "../duel/Duelist";
+import { ArtificialIntelligence } from "duel/ArtificialIntelligence";
+import { useContext } from "react";
+import MacroGameContext from "MacroGameContext";
 
 function DuelPage() {
-  const deck0 = [];
-  const deck1 = [];
-  for (let i = 0; i < 30; i++) {
-    deck0.push(getRandomCardModel());
-    deck1.push(getRandomCardModel());
+  const macroGame = useContext(MacroGameContext);
+  if (macroGame.facingRival) {
+    const players = [
+      new Duelist("Player", true, macroGame.deck, null),
+      new Duelist(
+        "Opponent",
+        false,
+        macroGame.facingRival.deck,
+        new ArtificialIntelligence()
+      ),
+    ];
+    return <DuelBoard players={players} />;
+  } else {
+    alert("You can not got to /duel directly");
+    window.location.href = "/";
+    return <></>;
   }
-
-  const players = [
-    new Player("Player", true, deck0, null),
-    new Player("Opponent", false, deck1, new ArtificialIntelligence()),
-  ];
-
-  return <DuelBoard players={players} />;
 }
 
 export default DuelPage;
