@@ -1,5 +1,5 @@
-import { Link, Outlet } from "react-router-dom";
-import NavBar from "../duel-components/NavBar/NavBar";
+import { Outlet } from "react-router-dom";
+import NavBar from "./NavBar/NavBar";
 
 export default function HomePage() {
   return (
