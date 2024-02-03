@@ -1,13 +1,13 @@
 import { createContext } from "react";
 
-import { MacroGame } from "game-logic/MacroGame";
+import { MacroGame } from "macrogame/MacroGame";
 
 const macroGame = new MacroGame();
 const MacroGameContext = createContext(macroGame);
 
-export function MacroGameContextProvider({ children } : { children: any}) {
+export function MacroGameContextProvider({ children }: { children: any }) {
   return (
-    <MacroGameContext.Provider value={ macroGame }>
+    <MacroGameContext.Provider value={macroGame}>
       {children}
     </MacroGameContext.Provider>
   );

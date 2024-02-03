@@ -1,12 +1,14 @@
-import { CardModel } from "./CardModel";
-import getRandomCardModel from "./cards-collection";
+import { CardModel } from "../duel/CardModel";
+import getRandomCardModel from "../duel/cards-collection";
 
 export class Rival {
   portraitCard: CardModel;
   deck: CardModel[] = [];
   level: number = 1;
+  unlocked: boolean;
+  reward: CardModel | null;
 
-  constructor(portraitCard: CardModel) {
+  constructor(portraitCard: CardModel, unlocked: boolean) {
     this.portraitCard = portraitCard;
     for (let i = 0; i < 27; i++) {
       this.deck.push(getRandomCardModel());
@@ -14,5 +16,7 @@ export class Rival {
     for (let i = 0; i < 3; i++) {
       this.deck.push(portraitCard);
     }
+    this.unlocked = unlocked;
+    this.reward = getRandomCardModel()
   }
 }

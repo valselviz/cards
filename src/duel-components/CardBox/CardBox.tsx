@@ -2,14 +2,13 @@ import styles from "./CardBox.module.css";
 
 import { useEffect, useState } from "react";
 
-import { Card } from "../../game-logic/Card";
-import { Zone } from "../../game-logic/zone";
-import { Color } from "../../game-logic/color";
+import { Card } from "../../duel/Card";
+import { Zone } from "../../duel/zone";
+import { Color } from "../../duel/color";
 
 import swordIcon from "assets/icons/sword.svg";
 import shieldIcon from "assets/icons/shield.svg";
 import { ReactDuelUI } from "ReactDuelUI/ReactDuelUI";
-import { constants } from "buffer";
 
 interface CardBoxProps {
   card: Card;
