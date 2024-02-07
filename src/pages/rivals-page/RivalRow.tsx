@@ -1,8 +1,7 @@
 import { Rival } from "macrogame/Rival";
-import styles from "./RivalRow.module.css";
+import styles from "../TableRow.module.css";
 import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
-import { MacroGame } from "macrogame/MacroGame";
 import MacroGameContext from "MacroGameContext";
 
 interface RivalRowProps {
@@ -26,7 +25,7 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
         <img
           src={rival.portraitCard.image}
           alt={rival.portraitCard.name}
-          className={styles.rivalImage}
+          className={styles.image}
         />
       </td>
       <td className={styles.tableData}>

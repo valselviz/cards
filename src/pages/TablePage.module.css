@@ -1,11 +1,11 @@
-.rivalsPage {
+.page {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.rivalsPageContent {
+.pageContent {
   display: flex;
   flex-direction: row;
 }
@@ -16,16 +16,18 @@
   text-align: center;
 }
 
-/*
-.rivalsTable td {
-  width: 160px;
-}*/
-
 .tableHeader {
   display: flex;
   flex-direction: row;
 }
+
 .tableHeader div {
   width: 160px;
   text-align: center;
+}
+
+.line {
+  width: 680px;
+  display: flex;
+  justify-content: space-between;
 }
