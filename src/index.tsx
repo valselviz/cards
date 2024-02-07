@@ -5,7 +5,7 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "../src/pages/LandingPage";
 import HomePage from "../src/pages/HomePage";
 import DeckPage from "../src/pages/DeckPage";
-import StorePage from "../src/pages/StorePage";
+import StorePage from "./pages/store-page/StorePage";
 import RivalsPage from "../src/pages/rivals-page/RivalsPage";
 import DuelPage from "../src/pages/DuelPage";
 import { MacroGameContextProvider } from "MacroGameContext";

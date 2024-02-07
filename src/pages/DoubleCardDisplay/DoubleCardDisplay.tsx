@@ -7,17 +7,19 @@ import styles from "./DoubleCardDisplay.module.css";
 
 interface DoubleCardDisplayProps {
   hoveredCard: CardModel | null;
+  title: string;
 }
 
 export default function DoubleCardDisplay({
   hoveredCard,
+  title,
 }: DoubleCardDisplayProps) {
   let content = null;
   if (hoveredCard) {
     const colorClass = getColorClass(hoveredCard.color);
     content = (
       <div className={styles.doubleCardDisplayContent}>
-        Reward detail
+        {title}
         <div className={cardBoxStyles.flippableCard3DContainer}>
           <div className={cardBoxStyles.flippableCard}>
             <div
