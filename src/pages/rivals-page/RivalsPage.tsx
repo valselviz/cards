@@ -2,7 +2,7 @@ import MacroGameContext from "MacroGameContext";
 import RivalRow from "./RivalRow";
 import { useContext, useState } from "react";
 import styles from "../TablePage.module.css";
-import DoubleCardDisplay from "pages/DoubleCardDisplay/DoubleCardDisplay";
+import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCardDisplay";
 import { CardModel } from "duel/CardModel";
 
 export default function RivalsPage() {
@@ -43,7 +43,10 @@ export default function RivalsPage() {
           </div>
         </div>
         <div>
-          <DoubleCardDisplay hoveredCard={hoveredCard} title={"Reward Details"} />
+          <DoubleCardDisplay
+            hoveredCard={hoveredCard}
+            title={"Reward Details"}
+          />
         </div>
       </div>
     </div>

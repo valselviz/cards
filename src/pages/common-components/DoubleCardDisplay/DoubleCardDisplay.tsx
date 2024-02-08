@@ -2,7 +2,7 @@ import CardBoxMainContent from "duel-components/CardBox/CardBoxMainContent";
 import CardBoxDescription from "duel-components/CardBox/CardBoxDescription";
 import { CardModel } from "duel/CardModel";
 import { Color } from "duel/color";
-import cardBoxStyles from "../../duel-components/CardBox/CardBox.module.css";
+import cardBoxStyles from "../../../duel-components/CardBox/CardBox.module.css";
 import styles from "./DoubleCardDisplay.module.css";
 
 interface DoubleCardDisplayProps {

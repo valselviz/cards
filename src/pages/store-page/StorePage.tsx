@@ -1,7 +1,7 @@
 import MacroGameContext from "MacroGameContext";
 import { CardModel } from "duel/CardModel";
 import { useContext, useState } from "react";
-import DoubleCardDisplay from "../DoubleCardDisplay/DoubleCardDisplay";
+import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCardDisplay";
 import styles from "../TablePage.module.css";
 import OnSaleCardRow from "./OnSaleCardRow";
 

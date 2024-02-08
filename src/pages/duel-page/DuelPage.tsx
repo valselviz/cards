@@ -1,5 +1,5 @@
-import DuelBoard from "../duel-components/DuelBoard/DuelBoard";
-import { Duelist } from "../duel/Duelist";
+import DuelBoard from "../../duel-components/DuelBoard/DuelBoard";
+import { Duelist } from "../../duel/Duelist";
 import { ArtificialIntelligence } from "duel/ArtificialIntelligence";
 import { useContext } from "react";
 import MacroGameContext from "MacroGameContext";

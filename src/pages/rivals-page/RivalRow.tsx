@@ -18,6 +18,7 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
       onMouseEnter={() => setHoveredCard(rival.reward)}
       onClick={() => {
         macrogame.facingRival = rival;
+        console.log(rival);
         window.location.href = "/#/duel";
       }}
     >
