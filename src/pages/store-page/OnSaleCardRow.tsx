@@ -1,4 +1,4 @@
-import styles from "../TableRow.module.css";
+import styles from "../common-components/MainTable/MainTableRow.module.css";
 import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext from "MacroGameContext";
@@ -23,8 +23,8 @@ export default function OnSaleCardRow({
       onMouseEnter={() => setHoveredCard(onSaleCard.model)}
       onClick={() => {
         if (macrogame.gold < onSaleCard.price) {
-          alert("You don't have enough gold to buy this card.")
-          return
+          alert("You don't have enough gold to buy this card.");
+          return;
         }
         macrogame.cardsInStore.splice(
           macrogame.cardsInStore.indexOf(onSaleCard),
@@ -33,21 +33,21 @@ export default function OnSaleCardRow({
         macrogame.cardsPool.push(onSaleCard.model);
         const newCardsInStore = [...macrogame.cardsInStore];
         setOnSaleCardsArray(newCardsInStore);
-        setHoveredCard(null)
+        setHoveredCard(null);
         macrogame.gold -= onSaleCard.price;
       }}
     >
-      <td className={styles.tableData}>
+      <td className={styles.tableDataCell}>
         <img
           src={onSaleCard.model.image}
           alt={onSaleCard.model.name}
           className={styles.image}
         />
       </td>
-      <td className={styles.tableData}>
+      <td className={styles.tableDataCell}>
         <p>{onSaleCard.model.name}</p>
       </td>
-      <td className={styles.tableData}>
+      <td className={styles.tableDataCell}>
         <p>{onSaleCard.price}</p>
       </td>
     </tr>

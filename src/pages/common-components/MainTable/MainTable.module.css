@@ -1,19 +1,13 @@
-.page {
+.mainTable {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.pageContent {
+.mainTableContent {
   display: flex;
   flex-direction: row;
-}
-
-.tableData {
-  overflow: scroll;
-  height: 400px;
-  text-align: center;
 }
 
 .tableHeader {
@@ -23,6 +17,12 @@
 
 .tableHeader div {
   width: 160px;
+  text-align: center;
+}
+
+.tableData {
+  overflow: scroll;
+  height: 400px;
   text-align: center;
 }
 

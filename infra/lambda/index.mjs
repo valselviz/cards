@@ -34,6 +34,7 @@ export const handler = async (event) => {
   };
 };
 
+// Checks if the password is correct, and returns the user data
 async function loginPlayer({ username, password }) {
   return dynamo.send(
     new GetCommand({
@@ -48,6 +49,7 @@ async function loginPlayer({ username, password }) {
   //   also check if the password is right, return error code 401 if the password does not match
 }
 
+// Updates the macrogame data of a player
 async function updatePlayer({ username, macrogame }) {
   // TODO
   // get the user data from Dynamo with a GetCommand
@@ -57,6 +59,7 @@ async function updatePlayer({ username, macrogame }) {
   return null;
 }
 
+// Creates a new player in the database
 async function createPlayer({ username, password, email }) {
   // TODO check the username does not exist already
   //   If it already exists, return an error code 409 and a proper error message
@@ -84,9 +87,9 @@ async function createPlayer({ username, password, email }) {
   }
 }
 
+// This is a very simple hashing function that reduces a string into a 3 digits number.
+// It should be replaced by a proper function in the future.
 function simpleHash(password) {
-  // This is a very simple hashing function that reduces a string into a 3 digits number.
-  // It should be replaced by a proper function in the future.
   let sum = 0;
   for (let i = 0; i < password.length; i++) {
     sum += password.charCodeAt(i);

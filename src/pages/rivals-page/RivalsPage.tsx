@@ -1,7 +1,7 @@
 import MacroGameContext from "MacroGameContext";
 import RivalRow from "./RivalRow";
 import { useContext, useState } from "react";
-import styles from "../TablePage.module.css";
+import styles from "../common-components/MainTable/MainTable.module.css";
 import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCardDisplay";
 import { CardModel } from "duel/CardModel";
 
@@ -21,9 +21,9 @@ export default function RivalsPage() {
   });
 
   return (
-    <div className={styles.page}>
+    <div className={styles.mainTable}>
       <h2>Choose Your Next Rival</h2>
-      <div className={styles.pageContent}>
+      <div className={styles.mainTableContent}>
         <div>
           <div className={styles.tableHeader}>
             <div>Rival</div>

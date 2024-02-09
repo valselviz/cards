@@ -1,5 +1,5 @@
 import { Rival } from "macrogame/Rival";
-import styles from "../TableRow.module.css";
+import styles from "../common-components/MainTable/MainTableRow.module.css";
 import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext from "MacroGameContext";
@@ -29,13 +29,13 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
           className={styles.image}
         />
       </td>
-      <td className={styles.tableData}>
+      <td className={styles.tableDataCell}>
         <p>{rival.level}</p>
       </td>
-      <td className={styles.tableData}>
+      <td className={styles.tableDataCell}>
         <p>{rival.deck.length}</p>
       </td>
-      <td className={styles.tableData}>{rival.reward?.name}</td>
+      <td className={styles.tableDataCell}>{rival.reward?.name}</td>
     </tr>
   );
 }
