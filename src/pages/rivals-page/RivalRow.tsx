@@ -3,6 +3,7 @@ import styles from "../common-components/MainTable/MainTableRow.module.css";
 import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext from "MacroGameContext";
+import { MacroGame } from "macrogame/MacroGame";
 
 interface RivalRowProps {
   rival: Rival;
@@ -10,7 +11,7 @@ interface RivalRowProps {
 }
 
 export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
-  const macrogame = useContext(MacroGameContext);
+  const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
 
   return (
     <tr

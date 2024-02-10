@@ -4,14 +4,15 @@ import { useContext, useState } from "react";
 import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCardDisplay";
 import styles from "../common-components/MainTable/MainTable.module.css";
 import OnSaleCardRow from "./OnSaleCardRow";
+import { MacroGame } from "macrogame/MacroGame";
 
 export default function DeckPage() {
-  const macroGame = useContext(MacroGameContext);
+  const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
 
   const [hoveredCard, setHoveredCard] = useState(null as CardModel | null);
 
   const [onSaleCardsArray, setOnSaleCardsArray] = useState(
-    macroGame.cardsInStore
+    macrogame.cardsInStore
   );
 
   const onSaleCardsRows = onSaleCardsArray.map((onSaleCard, index) => {
@@ -29,7 +30,7 @@ export default function DeckPage() {
     <div className={styles.mainTable}>
       <div className={styles.line}>
         <h2>Buy Cards</h2>
-        <h2>Gold: {macroGame.gold}</h2>
+        <h2>Gold: {macrogame.gold}</h2>
       </div>
       <div className={styles.mainTableContent}>
         <div>

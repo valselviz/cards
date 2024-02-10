@@ -2,7 +2,7 @@ import styles from "../common-components/MainTable/MainTableRow.module.css";
 import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext from "MacroGameContext";
-import { OnSaleCard } from "macrogame/MacroGame";
+import { MacroGame, OnSaleCard } from "macrogame/MacroGame";
 
 interface OnSaleCardRowProps {
   onSaleCard: { model: CardModel; price: number };
@@ -15,7 +15,7 @@ export default function OnSaleCardRow({
   setHoveredCard,
   setOnSaleCardsArray,
 }: OnSaleCardRowProps) {
-  const macrogame = useContext(MacroGameContext);
+  const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
 
   return (
     <tr

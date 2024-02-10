@@ -1,13 +1,13 @@
+import { MacroGame } from "macrogame/MacroGame";
 import { createContext } from "react";
 
-import { MacroGame } from "macrogame/MacroGame";
+const emptyMacrogameContext = { macrogame: null as MacroGame | null };
 
-const macroGame = new MacroGame();
-const MacroGameContext = createContext(macroGame);
+const MacroGameContext = createContext(emptyMacrogameContext);
 
 export function MacroGameContextProvider({ children }: { children: any }) {
   return (
-    <MacroGameContext.Provider value={macroGame}>
+    <MacroGameContext.Provider value={emptyMacrogameContext}>
       {children}
     </MacroGameContext.Provider>
   );
