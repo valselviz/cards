@@ -3,9 +3,10 @@ import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext from "MacroGameContext";
 import { MacroGame, OnSaleCard } from "macrogame/MacroGame";
+import { cardModels } from "duel/cards-collection";
 
 interface OnSaleCardRowProps {
-  onSaleCard: { model: CardModel; price: number };
+  onSaleCard: OnSaleCard;
   setHoveredCard: Dispatch<SetStateAction<CardModel | null>>;
   setOnSaleCardsArray: Dispatch<SetStateAction<OnSaleCard[]>>;
 }
@@ -17,10 +18,12 @@ export default function OnSaleCardRow({
 }: OnSaleCardRowProps) {
   const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
 
+  const onSaleCardModel = cardModels[onSaleCard.model]
+
   return (
     <tr
       className={styles.tableRow}
-      onMouseEnter={() => setHoveredCard(onSaleCard.model)}
+      onMouseEnter={() => setHoveredCard(onSaleCardModel)}
       onClick={() => {
         if (macrogame.gold < onSaleCard.price) {
           alert("You don't have enough gold to buy this card.");
@@ -39,13 +42,13 @@ export default function OnSaleCardRow({
     >
       <td className={styles.tableDataCell}>
         <img
-          src={onSaleCard.model.image}
-          alt={onSaleCard.model.name}
+          src={onSaleCardModel.image}
+          alt={onSaleCardModel.name}
           className={styles.image}
         />
       </td>
       <td className={styles.tableDataCell}>
-        <p>{onSaleCard.model.name}</p>
+        <p>{onSaleCardModel.name}</p>
       </td>
       <td className={styles.tableDataCell}>
         <p>{onSaleCard.price}</p>

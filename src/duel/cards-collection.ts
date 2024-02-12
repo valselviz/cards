@@ -26,6 +26,7 @@ import tigerWarrior from "assets/cards/tigerWarrior.jpg";
 import tundraSkeleton from "assets/cards/tundraSkeleton.jpg";
 import { Zone } from "./zone";
 import { Action } from "./Action";
+import { error } from "console";
 
 function checkFullField(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length === 5) {
@@ -94,9 +95,25 @@ function simpleAttack(card: Card) {
     () => card.duel.selectedTarget
   );
 }
+// This is a list where the cards are ordered arbitrarely (by insertion order).
+// This can be used to iterate over the CardModels.
+const cardModelsList: CardModel[] = [];
 
-export const cardModels: any = {
-  ElfArcher: new CardModel(
+// This is an array of 1000 positions, where the CardModels are scatter across the array .
+// This is used for fast access by id
+export const cardModels: CardModel[] = [];
+
+function addCardModel(cardModel: CardModel) {
+  if (cardModels[cardModel.id]) {
+    throw new Error("There's already a CardModel with id: " + cardModel.id);
+  }
+  cardModels[cardModel.id] = cardModel;
+  cardModelsList.push(cardModel);
+}
+
+addCardModel(
+  new CardModel(
+    470,
     "Elf Archer",
     elfArcher,
     10,
@@ -106,8 +123,12 @@ export const cardModels: any = {
     simpleAttack,
     simpleInvokationInfo,
     simpleAttackInfo
-  ),
-  TundraSkeleton: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    64,
     "Tundra Skeleton",
     tundraSkeleton,
     12,
@@ -117,8 +138,12 @@ export const cardModels: any = {
     simpleAttack,
     simpleInvokationInfo,
     simpleAttackInfo
-  ),
-  FireDemon: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    932,
     "Fire Demon",
     fireDemon,
     9,
@@ -128,8 +153,12 @@ export const cardModels: any = {
     simpleAttack,
     simpleInvokationInfo,
     simpleAttackInfo
-  ),
-  Minotaur: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    755,
     "Minotaur",
     minotaur,
     14,
@@ -139,8 +168,12 @@ export const cardModels: any = {
     simpleAttack,
     simpleInvokationInfo,
     simpleAttackInfo
-  ),
-  HammerDwarf: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    223,
     "Hammer Dwarf",
     hammerDwarf,
     8,
@@ -150,8 +183,12 @@ export const cardModels: any = {
     simpleAttack,
     simpleInvokationInfo,
     simpleAttackInfo
-  ),
-  Knight: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    264,
     "Knight",
     knight,
     5,
@@ -161,8 +198,12 @@ export const cardModels: any = {
     simpleAttack,
     simpleInvokationInfo,
     simpleAttackInfo
-  ),
-  Wizard: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    15,
     "Wizard",
     wizard,
     15,
@@ -172,8 +213,12 @@ export const cardModels: any = {
     simpleAttack,
     simpleInvokationInfo,
     simpleAttackInfo
-  ),
-  GiantSpider: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    889,
     "Giant Spider",
     giantSpider,
     25,
@@ -183,8 +228,12 @@ export const cardModels: any = {
     simpleAttack,
     oneSacrificeInvokationInfo,
     simpleAttackInfo
-  ),
-  Golem: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    431,
     "Golem",
     golem,
     12,
@@ -194,8 +243,12 @@ export const cardModels: any = {
     simpleAttack,
     oneSacrificeInvokationInfo,
     simpleAttackInfo
-  ),
-  BlackDragon: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    133,
     "Black Dragon",
     blackDragon,
     35,
@@ -205,8 +258,12 @@ export const cardModels: any = {
     simpleAttack,
     twoSacrificesInvokationInfo,
     simpleAttackInfo
-  ),
-  LizardSpearman: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    412,
     "Lizard Spearman",
     lizardSpearman,
     12,
@@ -221,8 +278,12 @@ export const cardModels: any = {
     simpleAttack,
     "Invoke. This card is ready to attack immediately.",
     simpleAttackInfo
-  ),
-  Vortex: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    747,
     "Vortex",
     vortex,
     0,
@@ -263,8 +324,12 @@ export const cardModels: any = {
     () => null,
     "Discard a card from your hand. Then select a card from your opponent’s field with 20 defense or less and destroy it.",
     null
-  ),
-  natureAmulet: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    113,
     "Nature Amulet",
     natureAmulet,
     0,
@@ -291,8 +356,12 @@ export const cardModels: any = {
     () => null,
     "Sacrifice a green card from your field. Your rival loses 5 cards.",
     null
-  ),
-  OwlGuardian: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    80,
     "Owl Guardian",
     owlGuardian,
     12,
@@ -327,8 +396,12 @@ export const cardModels: any = {
     },
     simpleInvokationInfo,
     "Attack. Then draw a card."
-  ),
-  CentaurSocerer: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    43,
     "Centaur Socerer",
     centaurSocerer,
     18,
@@ -347,8 +420,12 @@ export const cardModels: any = {
     simpleAttack,
     "You can invoke this card only if it is the only card in your hand.",
     simpleAttackInfo
-  ),
-  MagicCup: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    565,
     "Magic Cup",
     magicCup,
     0,
@@ -376,8 +453,12 @@ export const cardModels: any = {
     () => null,
     "Discard this card. Then draw cards until you draw a card of a color that is in your hand already.",
     null
-  ),
-  DragonMistress: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    76,
     "Dragon Mistress",
     dragonMistress,
     14,
@@ -399,8 +480,12 @@ export const cardModels: any = {
     simpleAttack,
     "Invoke by sacrifying a card from your field. Then withdraw a card from your opponent field.",
     simpleAttackInfo
-  ),
-  Raid: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    567,
     "Raid",
     raid,
     0,
@@ -427,8 +512,12 @@ export const cardModels: any = {
     () => null,
     "Usable only if your opponent has 3 or more cards on the field. Discard 3 cards from your deck, then select and destroy one card from your opponent's field.",
     null
-  ),
-  Siren: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    222,
     "Siren",
     siren,
     5,
@@ -452,8 +541,12 @@ export const cardModels: any = {
     simpleAttack,
     "Invoke this card. Then select a not-ready card from your field and make it ready for use.",
     simpleAttackInfo
-  ),
-  Griffin: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    548,
     "Griffin",
     griffin,
     28,
@@ -487,8 +580,12 @@ export const cardModels: any = {
     },
     oneSacrificeInvokationInfo,
     "Attack. Then withdraw this card."
-  ),
-  TigerWarrior: new CardModel(
+  )
+);
+
+addCardModel(
+  new CardModel(
+    984,
     "Tiger Warrior",
     tigerWarrior,
     30,
@@ -525,10 +622,18 @@ export const cardModels: any = {
     },
     oneSacrificeInvokationInfo,
     "Discard a card from your hand. Then attack."
-  ),
-};
+  )
+);
 
-export default function getRandomCardModel(): CardModel {
-  const keys = Object.keys(cardModels);
-  return cardModels[keys[rndInt(keys.length)]];
+export function getRandomCardModelId(): number {
+  return cardModelsList[rndInt(cardModelsList.length)].id;
+}
+
+export function getCardModelIdByName(name: string) {
+  for (const card of cardModelsList) {
+    if (card.name === name) {
+      return card.id;
+    }
+  }
+  throw new Error("No card with name: " + name);
 }

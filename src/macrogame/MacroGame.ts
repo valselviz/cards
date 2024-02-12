@@ -1,15 +1,14 @@
 import { Rival } from "./Rival";
-import { CardModel } from "../duel/CardModel";
-import getRandomCardModel, { cardModels } from "../duel/cards-collection";
+import { cardModels, getCardModelIdByName, getRandomCardModelId } from "../duel/cards-collection";
 
 export interface OnSaleCard {
-  model: CardModel;
+  model: number;
   price: number;
 }
 export class MacroGame {
   gold: number = 20;
-  deck: CardModel[] = [];
-  cardsPool: CardModel[] = [];
+  deck: number[] = [];
+  cardsPool: number[] = [];
   cardsInStore: OnSaleCard[] = [];
   rivals: Rival[] = [];
   facingRival: Rival | null = null;
@@ -17,18 +16,18 @@ export class MacroGame {
   constructor() {
     for (let i = 0; i < 5; i++) {
       this.cardsInStore.push({
-        model: getRandomCardModel(),
+        model: getRandomCardModelId(),
         price: Math.ceil(Math.random() * 10 + 10),
       });
     }
     for (let i = 0; i < 30; i++) {
-      this.deck.push(getRandomCardModel());
+      this.deck.push(getRandomCardModelId());
     }
 
-    this.rivals.push(new Rival(cardModels.TundraSkeleton, true));
-    this.rivals.push(new Rival(cardModels.ElfArcher, true));
-    this.rivals.push(new Rival(cardModels.LizardSpearman, true));
-    this.rivals.push(new Rival(cardModels.GiantSpider, false));
-    this.rivals.push(new Rival(cardModels.BlackDragon, false));
+    this.rivals.push(new Rival(getCardModelIdByName("Tundra Skeleton"), true));
+    this.rivals.push(new Rival(getCardModelIdByName("Elf Archer"), true));
+    this.rivals.push(new Rival(getCardModelIdByName("Lizard Spearman"), true));
+    this.rivals.push(new Rival(getCardModelIdByName("Giant Spider"), false));
+    this.rivals.push(new Rival(getCardModelIdByName("Black Dragon"), false));
   }
 }

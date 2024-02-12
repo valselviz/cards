@@ -19,7 +19,7 @@ export default function DeckPage() {
     return (
       <OnSaleCardRow
         onSaleCard={onSaleCard}
-        key={onSaleCard.model.name + index}
+        key={onSaleCard.model + index}
         setHoveredCard={setHoveredCard}
         setOnSaleCardsArray={setOnSaleCardsArray}
       ></OnSaleCardRow>

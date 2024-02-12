@@ -2,6 +2,7 @@ import { Card } from "./Card";
 import { Color } from "./color";
 
 export class CardModel {
+  id: number;
   name: string;
   image: any;
   attack: number;
@@ -13,6 +14,7 @@ export class CardModel {
   fieldInfo: string | null;
 
   constructor(
+    id: number,
     name: string,
     image: any,
     attack: number,
@@ -23,6 +25,7 @@ export class CardModel {
     handInfo: string | null,
     fieldInfo: string | null
   ) {
+    this.id = id;
     this.name = name;
     this.image = image;
     this.attack = attack;
