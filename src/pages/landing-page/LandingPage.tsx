@@ -29,8 +29,9 @@ export default function LandingPage() {
           })
             .then((response) => response.json())
             .then((response) => {
-              console.log(response);
+              context.username = username;
               if (response === "") {
+                // If the table record does not have a macrogame, create a new one
                 context.macrogame = new MacroGame();
                 console.log("init new");
                 fetch(backendUrl + "/player", {

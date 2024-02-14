@@ -1,7 +1,15 @@
 import { MacroGame } from "macrogame/MacroGame";
 import { createContext } from "react";
 
-const emptyMacrogameContext = { macrogame: null as MacroGame | null };
+export interface GameContext {
+  macrogame: MacroGame | null;
+  username: string | null;
+}
+
+const emptyMacrogameContext: GameContext = {
+  macrogame: null,
+  username: null,
+};
 
 const MacroGameContext = createContext(emptyMacrogameContext);
 
