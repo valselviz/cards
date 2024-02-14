@@ -1,7 +1,7 @@
 import styles from "../common-components/MainTable/MainTableRow.module.css";
 import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
-import MacroGameContext from "MacroGameContext";
+import MacroGameContext, { GameContext } from "MacroGameContext";
 import { MacroGame, OnSaleCard } from "macrogame/MacroGame";
 import { cardModels } from "duel/cards-collection";
 
@@ -16,7 +16,11 @@ export default function OnSaleCardRow({
   setHoveredCard,
   setOnSaleCardsArray,
 }: OnSaleCardRowProps) {
-  const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
+  const context: GameContext = useContext(MacroGameContext);
+  const macrogame = context.macrogame as MacroGame;
+
+  const backendUrl =
+    "https://nfum7buqpoyqn3visxvthctfa40zyhee.lambda-url.us-east-1.on.aws";
 
   const onSaleCardModel = cardModels[onSaleCard.model]
 
@@ -38,6 +42,10 @@ export default function OnSaleCardRow({
         setOnSaleCardsArray(newCardsInStore);
         setHoveredCard(null);
         macrogame.gold -= onSaleCard.price;
+        fetch(backendUrl + "/player", {
+          method: "PUT",
+          body: JSON.stringify({ username: context.username, macrogame }),
+        }).then((response) => console.log(response));
       }}
     >
       <td className={styles.tableDataCell}>
