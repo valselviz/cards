@@ -21,37 +21,28 @@ export default function LandingPage() {
       <button>Continue</button>
       <button>New Game</button>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          fetch(backendUrl + "/login", {
+          const response = await fetch(backendUrl + "/login", {
             method: "POST",
             body: JSON.stringify({ username, password }),
-          })
-            .then((response) => response.json())
-            .then((response) => {
-              context.username = username;
-              if (response === "") {
-                // If the table record does not have a macrogame, create a new one
-                context.macrogame = new MacroGame();
-                console.log("init new");
-                fetch(backendUrl + "/player", {
-                  method: "PUT",
-                  body: JSON.stringify({
-                    username: username,
-                    macrogame: context.macrogame,
-                  }),
-                })
-                  .then((response) => response.json())
-                  .then((response) => {
-                    console.log(response);
-                    window.location.href = "/#/deck";
-                  });
-              } else {
-                context.macrogame = response;
-                console.log("load old");
-                window.location.href = "/#/deck";
-              }
+          });
+          context.username = username;
+          const responseJson = await response.json();
+          if (responseJson === "") {
+            // If the table record does not have a macrogame, create a new one
+            context.macrogame = new MacroGame();
+            await fetch(backendUrl + "/player", {
+              method: "PUT",
+              body: JSON.stringify({
+                username: username,
+                macrogame: context.macrogame,
+              }),
             });
+          } else {
+            context.macrogame = responseJson;
+          }
+          window.location.href = "/#/deck";
         }}
       >
         <label>
@@ -74,18 +65,34 @@ export default function LandingPage() {
         <button>Back</button>
       </form>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           if (password !== confirmPassword) {
             alert("Password confirmation does not match");
             return;
           }
-          fetch(backendUrl + "/player", {
+          const postResponse = await fetch(backendUrl + "/player", {
             method: "POST",
             body: JSON.stringify({ username, password, email }),
-          })
-            .then((response) => response.json())
-            .then((response) => console.log(response));
+          });
+          if (postResponse.status !== 200) {
+            alert("Unexpected error calling create player endpoint");
+            return;
+          }
+          context.username = username;
+          context.macrogame = new MacroGame();
+          const updateResponse = await fetch(backendUrl + "/player", {
+            method: "PUT",
+            body: JSON.stringify({
+              username: username,
+              macrogame: context.macrogame,
+            }),
+          });
+          if (updateResponse.status !== 200) {
+            alert("Unexpected error calling update player endpoint");
+            return;
+          }
+          window.location.href = "/#/deck";
         }}
       >
         <label>

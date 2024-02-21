@@ -8,7 +8,7 @@ import { MacroGame } from "macrogame/MacroGame";
 
 export default function DeckPage() {
   const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
-
+  
   const [hoveredCard, setHoveredCard] = useState(null as CardModel | null);
 
   const [onSaleCardsArray, setOnSaleCardsArray] = useState(

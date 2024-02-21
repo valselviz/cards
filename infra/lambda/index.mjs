@@ -120,9 +120,29 @@ async function updatePlayer({ username, macrogame }) {
 
 // Creates a new player in the database
 async function createPlayer({ username, password, email }) {
-  // TODO check the username does not exist already
-  //   If it already exists, return an error code 409 and a proper error message
+  // Check if the username is already taken
+  const getResponse = await dynamo.send(
+    new GetCommand({
+      TableName: playerTableName,
+      Key: {
+        username: username,
+      },
+    })
+  );
+  if (getResponse.$metadata.httpStatusCode !== 200) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify(getResponse),
+    };
+  }
+  if (getResponse.Item) {
+    return {
+      statusCode: 409,
+      body: JSON.stringify("Username already taken"),
+    };
+  }
 
+  // Creting username into the data base
   const response = await dynamo.send(
     new PutCommand({
       TableName: playerTableName,
