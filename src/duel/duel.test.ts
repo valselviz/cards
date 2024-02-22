@@ -2,8 +2,11 @@ import { Action } from "./Action";
 import { Duel } from "./Duel";
 import { Duelist } from "./Duelist";
 import { Card } from "./Card";
-import { cardModels } from "./cards-collection";
+import { cardModels, getCardModelIdByName } from "./cards-collection";
 import { Zone } from "./zone";
+
+const elfArcherId = getCardModelIdByName("Elf Archer");
+const elfArcherCardModel = cardModels[elfArcherId]
 
 function createDuel() {
   const players = [
@@ -57,7 +60,7 @@ describe("duel executeOneAction", () => {
 describe("duel queueInvokeAction", () => {
   test("queue and execute invoke", () => {
     const duel = createDuel();
-    const card = new Card(cardModels.ElfArcher, duel, 0);
+    const card = new Card(elfArcherCardModel, duel, 0);
     card.zone = Zone.Hand;
     duel.cards[0][Zone.Hand].push(card);
     const cardProvider = () => card;
@@ -77,11 +80,11 @@ describe("duel queueInvokeAction", () => {
   test("queue and execute with full field", () => {
     const duel = createDuel();
     for (let i = 0; i < 5; i++) {
-      const fieldCard = new Card(cardModels.ElfArcher, duel, 0);
+      const fieldCard = new Card(elfArcherCardModel, duel, 0);
       fieldCard.zone = Zone.Field;
       duel.cards[0][Zone.Field].push(fieldCard);
     }
-    const card = new Card(cardModels.ElfArcher, duel, 0);
+    const card = new Card(elfArcherCardModel, duel, 0);
     card.zone = Zone.Hand;
     duel.cards[0][Zone.Hand].push(card);
     const cardProvider = () => card;
@@ -102,7 +105,7 @@ describe("duel queueInvokeAction", () => {
 describe("duel queueWithdrawAction", () => {
   test("queue and execute withdraw", () => {
     const duel = createDuel();
-    const card = new Card(cardModels.ElfArcher, duel, 0);
+    const card = new Card(elfArcherCardModel, duel, 0);
     card.zone = Zone.Field;
     duel.cards[0][Zone.Field].push(card);
     const cardProvider = () => card;

@@ -6,7 +6,6 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient({});
-
 const dynamo = DynamoDBDocumentClient.from(client);
 
 // The name of the table of users in DynamoDB
@@ -18,14 +17,21 @@ export const handler = async (event) => {
   const method = event.requestContext.http.method;
   const body = event.body ? JSON.parse(event.body) : {};
 
-  if (path === "/login" && method === "POST") {
-    return await loginPlayer(body);
-  }
-  if (path === "/player" && method === "POST") {
-    return await createPlayer(body);
-  }
-  if (path === "/player" && method === "PUT") {
-    return await updatePlayer(body);
+  try {
+    if (path === "/login" && method === "POST") {
+      return await loginPlayer(body);
+    }
+    if (path === "/player" && method === "POST") {
+      return await createPlayer(body);
+    }
+    if (path === "/player" && method === "PUT") {
+      return await updatePlayer(body);
+    }
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify(error),
+    };
   }
 
   return {
@@ -34,9 +40,9 @@ export const handler = async (event) => {
   };
 };
 
-// Checks if the password is correct, and returns the user data
+// Checks if the password is correct and returns the user data
 async function loginPlayer({ username, password }) {
-  return dynamo.send(
+  const response = await dynamo.send(
     new GetCommand({
       TableName: playerTableName,
       Key: {
@@ -45,25 +51,98 @@ async function loginPlayer({ username, password }) {
     })
   );
 
-  // TODO check if the user exists, return error 404 if he doesn't exists
-  //   also check if the password is right, return error code 401 if the password does not match
+  if (response.$metadata.httpStatusCode !== 200) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify(response),
+    };
+  }
+  if (!response.Item) {
+    return {
+      statusCode: 404,
+      body: JSON.stringify("Player not found"),
+    };
+  }
+  if (response.Item.hashedPassword !== simpleHash(password)) {
+    return {
+      statusCode: 401,
+      body: JSON.stringify("Wrong password"),
+    };
+  }
+  return {
+    statusCode: 200,
+    body: JSON.stringify(response.Item.macrogame),
+  };
 }
 
 // Updates the macrogame data of a player
 async function updatePlayer({ username, macrogame }) {
-  // TODO
-  // get the user data from Dynamo with a GetCommand
-  // save the user new data into Dynamo with a PutCommand
-  //   DONT FORGET TO INCLUDE ALL THE ATTRIBUTES: username, hashedPassword, email, macrogame
+  const getResponse = await dynamo.send(
+    new GetCommand({
+      TableName: playerTableName,
+      Key: {
+        username: username,
+      },
+    })
+  );
+  if (getResponse.$metadata.httpStatusCode !== 200) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify(getResponse),
+    };
+  }
+  if (!getResponse.Item) {
+    return {
+      statusCode: 404,
+      body: JSON.stringify("Player not found"),
+    };
+  }
 
-  return null;
+  const item = getResponse.Item;
+  item.macrogame = macrogame;
+  const putResponse = await dynamo.send(
+    new PutCommand({
+      TableName: playerTableName,
+      Item: item,
+    })
+  );
+  if (putResponse.$metadata.httpStatusCode !== 200) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify(getResponse),
+    };
+  }
+  return {
+    statusCode: 200,
+    body: JSON.stringify("Player updated successfully"),
+  };
 }
 
 // Creates a new player in the database
 async function createPlayer({ username, password, email }) {
-  // TODO check the username does not exist already
-  //   If it already exists, return an error code 409 and a proper error message
+  // Check if the username is already taken
+  const getResponse = await dynamo.send(
+    new GetCommand({
+      TableName: playerTableName,
+      Key: {
+        username: username,
+      },
+    })
+  );
+  if (getResponse.$metadata.httpStatusCode !== 200) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify(getResponse),
+    };
+  }
+  if (getResponse.Item) {
+    return {
+      statusCode: 409,
+      body: JSON.stringify("Username already taken"),
+    };
+  }
 
+  // Creting username into the data base
   const response = await dynamo.send(
     new PutCommand({
       TableName: playerTableName,
@@ -71,20 +150,20 @@ async function createPlayer({ username, password, email }) {
         username: username,
         hashedPassword: simpleHash(password),
         email: email,
+        macrogame: "",
       },
     })
   );
-  if (response.$metadata.httpStatusCode === 200) {
-    return {
-      statusCode: 200,
-      body: JSON.stringify("User created successfully"),
-    };
-  } else {
+  if (response.$metadata.httpStatusCode !== 200) {
     return {
       statusCode: 500,
       body: JSON.stringify(response),
     };
   }
+  return {
+    statusCode: 200,
+    body: JSON.stringify("Player created successfully"),
+  };
 }
 
 // This is a very simple hashing function that reduces a string into a 3 digits number.

@@ -4,13 +4,14 @@ import { useContext, useState } from "react";
 import styles from "../common-components/MainTable/MainTable.module.css";
 import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCardDisplay";
 import { CardModel } from "duel/CardModel";
+import { MacroGame } from "macrogame/MacroGame";
 
 export default function RivalsPage() {
-  const macroGame = useContext(MacroGameContext);
+  const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
 
   const [hoveredCard, setHoveredCard] = useState(null as CardModel | null);
 
-  const rivalsRows = macroGame.rivals.map((rival, index) => {
+  const rivalsRows = macrogame.rivals.map((rival, index) => {
     return (
       <RivalRow
         rival={rival}

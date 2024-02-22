@@ -3,6 +3,8 @@ import styles from "../common-components/MainTable/MainTableRow.module.css";
 import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext from "MacroGameContext";
+import { MacroGame } from "macrogame/MacroGame";
+import { cardModels } from "duel/cards-collection";
 
 interface RivalRowProps {
   rival: Rival;
@@ -10,12 +12,16 @@ interface RivalRowProps {
 }
 
 export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
-  const macrogame = useContext(MacroGameContext);
+  const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
+
+  const reward = rival.reward ? cardModels[rival.reward] : null
+
+  const portraitCard = cardModels[rival.portraitCard]
 
   return (
     <tr
       className={styles.tableRow}
-      onMouseEnter={() => setHoveredCard(rival.reward)}
+      onMouseEnter={() => setHoveredCard(reward)}
       onClick={() => {
         macrogame.facingRival = rival;
         console.log(rival);
@@ -24,8 +30,8 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
     >
       <td className={styles.tableData}>
         <img
-          src={rival.portraitCard.image}
-          alt={rival.portraitCard.name}
+          src={portraitCard.image}
+          alt={portraitCard.name}
           className={styles.image}
         />
       </td>
@@ -35,7 +41,7 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
       <td className={styles.tableDataCell}>
         <p>{rival.deck.length}</p>
       </td>
-      <td className={styles.tableDataCell}>{rival.reward?.name}</td>
+      <td className={styles.tableDataCell}>{reward?.name}</td>
     </tr>
   );
 }
