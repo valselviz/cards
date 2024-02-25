@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext, { GameContext } from "MacroGameContext";
 import { MacroGame, OnSaleCard } from "macrogame/MacroGame";
 import { cardModels } from "duel/cards-collection";
+import { update } from "api-client/api-client";
 
 interface OnSaleCardRowProps {
   onSaleCard: OnSaleCard;
@@ -19,16 +20,13 @@ export default function OnSaleCardRow({
   const context: GameContext = useContext(MacroGameContext);
   const macrogame = context.macrogame as MacroGame;
 
-  const backendUrl =
-    "https://nfum7buqpoyqn3visxvthctfa40zyhee.lambda-url.us-east-1.on.aws";
-
-  const onSaleCardModel = cardModels[onSaleCard.model]
+  const onSaleCardModel = cardModels[onSaleCard.model];
 
   return (
     <tr
       className={styles.tableRow}
       onMouseEnter={() => setHoveredCard(onSaleCardModel)}
-      onClick={() => {
+      onClick={async () => {
         if (macrogame.gold < onSaleCard.price) {
           alert("You don't have enough gold to buy this card.");
           return;
@@ -42,10 +40,8 @@ export default function OnSaleCardRow({
         setOnSaleCardsArray(newCardsInStore);
         setHoveredCard(null);
         macrogame.gold -= onSaleCard.price;
-        fetch(backendUrl + "/player", {
-          method: "PUT",
-          body: JSON.stringify({ username: context.username, macrogame }),
-        }).then((response) => console.log(response));
+
+        await update(context.username as string, context.macrogame as MacroGame);
       }}
     >
       <td className={styles.tableDataCell}>

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import styles from "./LandingPage.module.css";
 import { MacroGame } from "macrogame/MacroGame";
 import MacroGameContext from "MacroGameContext";
+import { login, signup, update } from "api-client/api-client";
 
 export default function LandingPage() {
   const [username, setUsername] = useState("");
@@ -10,9 +11,6 @@ export default function LandingPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const context = useContext(MacroGameContext);
-
-  const backendUrl =
-    "https://nfum7buqpoyqn3visxvthctfa40zyhee.lambda-url.us-east-1.on.aws";
 
   return (
     <div className={styles.landingPageDiv}>
@@ -23,26 +21,33 @@ export default function LandingPage() {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const response = await fetch(backendUrl + "/login", {
-            method: "POST",
-            body: JSON.stringify({ username, password }),
-          });
-          context.username = username;
-          const responseJson = await response.json();
-          if (responseJson === "") {
-            // If the table record does not have a macrogame, create a new one
-            context.macrogame = new MacroGame();
-            await fetch(backendUrl + "/player", {
-              method: "PUT",
-              body: JSON.stringify({
-                username: username,
-                macrogame: context.macrogame,
-              }),
-            });
-          } else {
-            context.macrogame = responseJson;
+          try {
+            const loginResponse = await login(username, password);
+            context.username = username;
+            if (loginResponse === "") {
+              // If the table record does not have a macrogame, create a new one
+              context.macrogame = new MacroGame();
+              await update(username, context.macrogame);
+            } else {
+              context.macrogame = loginResponse;
+            }
+            window.location.href = "/#/deck";
+          } catch (error) {
+            if (error instanceof Error) {
+              if (error.message === "404") {
+                alert(`Player ${username} does not exist`);
+                return;
+              }
+              if (error.message === "401") {
+                alert(`Wrong Password`);
+                return;
+              }
+              if (error.message !== "200") {
+                alert(`Unexpected error`);
+                return;
+              }
+            }
           }
-          window.location.href = "/#/deck";
         }}
       >
         <label>
@@ -71,28 +76,25 @@ export default function LandingPage() {
             alert("Password confirmation does not match");
             return;
           }
-          const postResponse = await fetch(backendUrl + "/player", {
-            method: "POST",
-            body: JSON.stringify({ username, password, email }),
-          });
-          if (postResponse.status !== 200) {
-            alert("Unexpected error calling create player endpoint");
-            return;
+          try {
+            await signup(username, password, email);
+            context.username = username;
+            context.macrogame = new MacroGame();
+            await update(username, context.macrogame);
+
+            window.location.href = "/#/deck";
+          } catch (error) {
+            if (error instanceof Error) {
+              if (error.message === "409") {
+                alert(`Username already taken`);
+                return;
+              }
+              if (error.message !== "200") {
+                alert(`Unexpected error calling create player endpoint`);
+                return;
+              }
+            }
           }
-          context.username = username;
-          context.macrogame = new MacroGame();
-          const updateResponse = await fetch(backendUrl + "/player", {
-            method: "PUT",
-            body: JSON.stringify({
-              username: username,
-              macrogame: context.macrogame,
-            }),
-          });
-          if (updateResponse.status !== 200) {
-            alert("Unexpected error calling update player endpoint");
-            return;
-          }
-          window.location.href = "/#/deck";
         }}
       >
         <label>
