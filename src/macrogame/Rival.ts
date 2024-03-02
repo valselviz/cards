@@ -1,4 +1,4 @@
-import { getRandomCardModelId } from "duel/cards-collection";
+import { getRandomCardModelId } from "duel/cards-collection/cards-collection";
 
 export class Rival {
   portraitCard: number;
@@ -16,6 +16,6 @@ export class Rival {
       this.deck.push(portraitCard);
     }
     this.unlocked = unlocked;
-    this.reward = getRandomCardModelId()
+    this.reward = getRandomCardModelId();
   }
 }

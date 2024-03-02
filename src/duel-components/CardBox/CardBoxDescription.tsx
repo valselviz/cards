@@ -22,7 +22,6 @@ export default function CardBoxDescription({
           {card.handInfo}
         </p>
       )}
-      <br />
       {card.fieldInfo && (
         <p className={styles.infoP}>
           <b>Field effect: </b>

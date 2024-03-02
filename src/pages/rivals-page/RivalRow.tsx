@@ -4,7 +4,7 @@ import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext from "MacroGameContext";
 import { MacroGame } from "macrogame/MacroGame";
-import { cardModels } from "duel/cards-collection";
+import { cardModels } from "duel/cards-collection/cards-collection";
 
 interface RivalRowProps {
   rival: Rival;
@@ -14,9 +14,9 @@ interface RivalRowProps {
 export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
   const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
 
-  const reward = rival.reward ? cardModels[rival.reward] : null
+  const reward = rival.reward ? cardModels[rival.reward] : null;
 
-  const portraitCard = cardModels[rival.portraitCard]
+  const portraitCard = cardModels[rival.portraitCard];
 
   return (
     <tr

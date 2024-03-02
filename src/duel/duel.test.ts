@@ -2,11 +2,14 @@ import { Action } from "./Action";
 import { Duel } from "./Duel";
 import { Duelist } from "./Duelist";
 import { Card } from "./Card";
-import { cardModels, getCardModelIdByName } from "./cards-collection";
+import {
+  cardModels,
+  getCardModelIdByName,
+} from "./cards-collection/cards-collection";
 import { Zone } from "./zone";
 
 const elfArcherId = getCardModelIdByName("Elf Archer");
-const elfArcherCardModel = cardModels[elfArcherId]
+const elfArcherCardModel = cardModels[elfArcherId];
 
 function createDuel() {
   const players = [

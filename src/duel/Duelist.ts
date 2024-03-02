@@ -1,6 +1,6 @@
 import { CardModel } from "./CardModel";
 import { ArtificialIntelligence } from "./ArtificialIntelligence";
-import { cardModels } from "./cards-collection";
+import { cardModels } from "./cards-collection/cards-collection";
 
 export class Duelist {
   name: string;

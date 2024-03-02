@@ -12,6 +12,8 @@ export class CardModel {
   useFromField: (card: Card) => void;
   handInfo: string | null;
   fieldInfo: string | null;
+  rarity: number;
+  labels: string[];
 
   constructor(
     id: number,
@@ -23,7 +25,9 @@ export class CardModel {
     useFromHand: (card: Card) => void,
     useFromField: (card: Card) => void,
     handInfo: string | null,
-    fieldInfo: string | null
+    fieldInfo: string | null,
+    rarity: number,
+    labels: string[]
   ) {
     this.id = id;
     this.name = name;
@@ -35,5 +39,7 @@ export class CardModel {
     this.useFromField = useFromField;
     this.handInfo = handInfo;
     this.fieldInfo = fieldInfo;
+    this.rarity = rarity;
+    this.labels = labels;
   }
 }

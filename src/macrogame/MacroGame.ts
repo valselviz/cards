@@ -1,5 +1,13 @@
 import { Rival } from "./Rival";
-import { cardModels, getCardModelIdByName, getRandomCardModelId } from "../duel/cards-collection";
+import {
+  cardModels,
+  getCardModelIdByName,
+  getRandomCardModelId,
+  getRandomCardModelIdByCriteria,
+  labelMagic,
+  labelNoSacrifice,
+  labelOneSacrifice,
+} from "../duel/cards-collection/cards-collection";
 
 export interface OnSaleCard {
   model: number;
@@ -20,8 +28,14 @@ export class MacroGame {
         price: Math.ceil(Math.random() * 10 + 10),
       });
     }
-    for (let i = 0; i < 30; i++) {
-      this.deck.push(getRandomCardModelId());
+    for (let i = 0; i < 18; i++) {
+      this.deck.push(getRandomCardModelIdByCriteria(labelNoSacrifice, 2));
+    }
+    for (let i = 0; i < 6; i++) {
+      this.deck.push(getRandomCardModelIdByCriteria(labelMagic, 2));
+    }
+    for (let i = 0; i < 6; i++) {
+      this.deck.push(getRandomCardModelIdByCriteria(labelOneSacrifice, 2.2));
     }
 
     this.rivals.push(new Rival(getCardModelIdByName("Tundra Skeleton"), true));
