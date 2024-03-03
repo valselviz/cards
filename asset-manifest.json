@@ -1,15 +1,20 @@
 {
   "files": {
-    "main.css": "/cards/static/css/main.1ed46152.css",
-    "main.js": "/cards/static/js/main.85098cc3.js",
+    "main.css": "/cards/static/css/main.762a61b9.css",
+    "main.js": "/cards/static/js/main.55e52b86.js",
     "static/media/background.jpg": "/cards/static/media/background.af467ed16ec7b3bdbb34.jpg",
+    "static/media/bookBackground.jpeg": "/cards/static/media/bookBackground.18c88fdd2238ae5f3613.jpeg",
+    "static/media/darkRitual.jpg": "/cards/static/media/darkRitual.47a55497fbca38df9f38.jpg",
     "static/media/cardBack.jpg": "/cards/static/media/cardBack.a74b4d4355663af9d55f.jpg",
     "static/media/owlGuardian.jpg": "/cards/static/media/owlGuardian.b569dd038afa13d90680.jpg",
     "static/media/elfArcher.jpg": "/cards/static/media/elfArcher.46934703e7746676e84a.jpg",
     "static/media/knight.jpg": "/cards/static/media/knight.d7b1a7fb893c93976356.jpg",
+    "static/media/guardian.jpg": "/cards/static/media/guardian.1f8f6dca8ac05201bc57.jpg",
     "static/media/dragonMistress.jpg": "/cards/static/media/dragonMistress.4d14a69e503b327b6310.jpg",
     "static/media/magicCup.jpg": "/cards/static/media/magicCup.21c0c50b2bda32a99e84.jpg",
+    "static/media/reaper.jpg": "/cards/static/media/reaper.513062dd38e11c287940.jpg",
     "static/media/centaurSorcerer.jpg": "/cards/static/media/centaurSorcerer.36eadf2b4a7be28ed050.jpg",
+    "static/media/goblinWarrior.jpg": "/cards/static/media/goblinWarrior.854dd8b2f7ceff61f80d.jpg",
     "static/media/tigerWarrior.jpg": "/cards/static/media/tigerWarrior.d1d872bbf679b185b473.jpg",
     "static/media/victory.png": "/cards/static/media/victory.659f0d9c525c6a955a14.png",
     "static/media/fireDemon.jpg": "/cards/static/media/fireDemon.e9f796fb9b5bc024e64d.jpg",
@@ -20,6 +25,7 @@
     "static/media/tundraSkeleton.jpg": "/cards/static/media/tundraSkeleton.e0fd900d7cc6f5c99d03.jpg",
     "static/media/raid.jpg": "/cards/static/media/raid.42caf3327f7908b2e59d.jpg",
     "static/media/lizardSpearman.jpg": "/cards/static/media/lizardSpearman.a7df8bdc3fd5fe2784b8.jpg",
+    "static/media/deathLord.jpg": "/cards/static/media/deathLord.e40c4974a531b1959fa7.jpg",
     "static/media/griffin.jpg": "/cards/static/media/griffin.b157729d19ba2cc2d7e2.jpg",
     "static/media/clockBackground.png": "/cards/static/media/clockBackground.7c872117b78d68e36127.png",
     "static/media/vortex.jpg": "/cards/static/media/vortex.fe3346da044db4572214.jpg",
@@ -31,11 +37,11 @@
     "static/media/sword.svg": "/cards/static/media/sword.32a9ce28c6ecc9f42c11c4be9c6f36b0.svg",
     "static/media/shield.svg": "/cards/static/media/shield.0973822d078a4e746fe5de6ff3720221.svg",
     "index.html": "/cards/index.html",
-    "main.1ed46152.css.map": "/cards/static/css/main.1ed46152.css.map",
-    "main.85098cc3.js.map": "/cards/static/js/main.85098cc3.js.map"
+    "main.762a61b9.css.map": "/cards/static/css/main.762a61b9.css.map",
+    "main.55e52b86.js.map": "/cards/static/js/main.55e52b86.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ed46152.css",
-    "static/js/main.85098cc3.js"
+    "static/css/main.762a61b9.css",
+    "static/js/main.55e52b86.js"
   ]
 }
