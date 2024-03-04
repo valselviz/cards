@@ -97,7 +97,7 @@ export class Duel {
     const invokeAction = new Action(() => {
       const card = cardProvider();
       if (!card) return;
-      if (this.cards[card.playerId][Zone.Field].length == 5) return;
+      if (this.cards[card.playerId][Zone.Field].length === 5) return;
       const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
       this.cards[card.playerId][Zone.Hand].splice(position, 1);
       card.zone = Zone.Field;

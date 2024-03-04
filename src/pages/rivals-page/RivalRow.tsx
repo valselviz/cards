@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext from "MacroGameContext";
 import { MacroGame } from "macrogame/MacroGame";
 import { cardModels } from "duel/cards-collection/cards-collection";
+import { useNavigate } from "react-router-dom";
 
 interface RivalRowProps {
   rival: Rival;
@@ -13,6 +14,8 @@ interface RivalRowProps {
 
 export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
   const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
+
+  const navigate = useNavigate();
 
   const reward = rival.reward ? cardModels[rival.reward] : null;
 
@@ -25,7 +28,7 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
       onClick={() => {
         macrogame.facingRival = rival;
         console.log(rival);
-        window.location.href = "/#/duel";
+        navigate("/duel");
       }}
     >
       <td className={styles.tableData}>

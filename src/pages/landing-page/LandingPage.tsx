@@ -3,8 +3,11 @@ import styles from "./LandingPage.module.css";
 import { MacroGame } from "macrogame/MacroGame";
 import MacroGameContext from "MacroGameContext";
 import { login, signup, update } from "api-client/api-client";
+import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -49,7 +52,7 @@ export default function LandingPage() {
                 } else {
                   context.macrogame = loginResponse;
                 }
-                window.location.href = "/#/deck";
+                navigate("/deck");
               } catch (error) {
                 if (error instanceof Error) {
                   if (error.message === "404") {
@@ -101,7 +104,7 @@ export default function LandingPage() {
                 context.macrogame = new MacroGame();
                 await update(username, context.macrogame);
 
-                window.location.href = "/#/deck";
+                navigate("/deck");
               } catch (error) {
                 if (error instanceof Error) {
                   if (error.message === "409") {

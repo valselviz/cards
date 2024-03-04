@@ -1,19 +1,31 @@
 import MacroGameContext from "MacroGameContext";
 import { CardModel } from "duel/CardModel";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCardDisplay";
 import styles from "../common-components/MainTable/MainTable.module.css";
 import OnSaleCardRow from "./OnSaleCardRow";
 import { MacroGame } from "macrogame/MacroGame";
+import { useNavigate } from "react-router-dom";
 
 export default function DeckPage() {
   const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
-  
+
   const [hoveredCard, setHoveredCard] = useState(null as CardModel | null);
 
   const [onSaleCardsArray, setOnSaleCardsArray] = useState(
-    macrogame.cardsInStore
+    macrogame?.cardsInStore
   );
+
+  // Navigate back to the landing page if the user does not have a session
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!macrogame) {
+      navigate("/");
+    }
+  }, [macrogame, navigate]);
+  if (!macrogame) {
+    return <></>;
+  }
 
   const onSaleCardsRows = onSaleCardsArray.map((onSaleCard, index) => {
     return (

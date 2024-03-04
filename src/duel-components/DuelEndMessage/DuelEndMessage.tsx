@@ -2,12 +2,15 @@ import styles from "./DuelEndMessage.module.css";
 
 import victoryIcon from "assets/victory.png";
 import defeatIcon from "assets/defeat.svg";
+import { useNavigate } from "react-router-dom";
 
 interface DuelEndProps {
   victory: boolean;
 }
 
 export default function PlayerStatus({ victory }: DuelEndProps) {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.darkBackground}>
       <div className={styles.duelEndMessage}>
@@ -20,7 +23,7 @@ export default function PlayerStatus({ victory }: DuelEndProps) {
           className={`${styles.continueButton} ${
             victory ? styles.continueButtonVictory : styles.continueButtonDefeat
           }`}
-          onClick={() => window.location.reload()}
+          onClick={() => navigate("/deck")}
         >
           Continue
         </button>

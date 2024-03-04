@@ -1,6 +1,6 @@
 import { Card } from "duel/Card";
 import { Color } from "duel/color";
-import { addCardModel, checkFullField, labelMagic } from "./cards-collection";
+import { addCardModel, labelMagic } from "./cards-collection";
 import { CardModel } from "duel/CardModel";
 
 import natureAmulet from "assets/cards/natureAmulet.jpg";

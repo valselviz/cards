@@ -16,6 +16,7 @@ export const labelMagic = "MAGIC";
 export const labelEffect = "EFFECT";
 export const labelRitualMagic = "RITUAL MAGIC";
 export const labelRitualCreature = "RITUAL CREATURE";
+
 export function checkFullField(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length === 5) {
     card.duel.alertPlayer("Field is full.");
