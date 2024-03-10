@@ -2,7 +2,11 @@ import { useContext, useState } from "react";
 import styles from "./LandingPage.module.css";
 import { MacroGame } from "macrogame/MacroGame";
 import MacroGameContext from "MacroGameContext";
-import { login, signup, update } from "api-client/api-client";
+import {
+  loginOnBackend,
+  signupOnBackend,
+  updateOnBackend,
+} from "api-client/api-client";
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
@@ -43,12 +47,12 @@ export default function LandingPage() {
             onSubmit={async (e) => {
               e.preventDefault();
               try {
-                const loginResponse = await login(username, password);
+                const loginResponse = await loginOnBackend(username, password);
                 context.username = username;
                 if (loginResponse === "") {
                   // If the table record does not have a macrogame, create a new one
                   context.macrogame = new MacroGame();
-                  await update(username, context.macrogame);
+                  await updateOnBackend(username, context.macrogame);
                 } else {
                   context.macrogame = loginResponse;
                 }
@@ -99,10 +103,10 @@ export default function LandingPage() {
                 return;
               }
               try {
-                await signup(username, password, email);
+                await signupOnBackend(username, password, email);
                 context.username = username;
                 context.macrogame = new MacroGame();
-                await update(username, context.macrogame);
+                await updateOnBackend(username, context.macrogame);
 
                 navigate("/deck");
               } catch (error) {

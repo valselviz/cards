@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext, { GameContext } from "MacroGameContext";
 import { MacroGame, OnSaleCard } from "macrogame/MacroGame";
 import { cardModels } from "duel/cards-collection/cards-collection";
-import { update } from "api-client/api-client";
+import { updateOnBackend } from "api-client/api-client";
 
 interface OnSaleCardRowProps {
   onSaleCard: OnSaleCard;
@@ -41,7 +41,7 @@ export default function OnSaleCardRow({
         setHoveredCard(null);
         macrogame.gold -= onSaleCard.price;
 
-        await update(
+        await updateOnBackend(
           context.username as string,
           context.macrogame as MacroGame
         );

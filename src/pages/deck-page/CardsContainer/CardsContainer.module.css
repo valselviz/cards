@@ -1,0 +1,7 @@
+.squareCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 580px;
+  row-gap: 10px;
+  column-gap: 10px;
+}

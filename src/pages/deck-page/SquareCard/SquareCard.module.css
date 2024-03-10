@@ -1,0 +1,38 @@
+.imgDiv {
+  height: 80px;
+  width: 80px;
+  position: relative;
+}
+
+img {
+  width: 70px;
+  position: absolute;
+  top: auto;
+  right: auto;
+}
+
+.iconhover {
+    top: 5px;
+    left: 5px;
+    background-color: #ffffff50;
+}
+
+.icon {
+    display: none;
+}
+
+.redCard {
+  border: 5px solid var(--red);
+}
+
+.yellowCard {
+  border: 5px solid var(--yellow);
+}
+
+.greenCard {
+  border: 5px solid var(--green);
+}
+
+.blueCard {
+  border: 5px solid var(--blue);
+}

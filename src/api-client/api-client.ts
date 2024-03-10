@@ -3,7 +3,7 @@ import { MacroGame } from "macrogame/MacroGame";
 const backendUrl =
   "https://nfum7buqpoyqn3visxvthctfa40zyhee.lambda-url.us-east-1.on.aws";
 
-export async function login(username: string, password: string) {
+export async function loginOnBackend(username: string, password: string) {
   const response = await fetch(backendUrl + "/login", {
     method: "POST",
     body: JSON.stringify({ username, password }),
@@ -15,7 +15,7 @@ export async function login(username: string, password: string) {
   return responseJson;
 }
 
-export async function signup(
+export async function signupOnBackend(
   username: string,
   password: string,
   email: string
@@ -29,7 +29,7 @@ export async function signup(
   }
 }
 
-export async function update(username: string, macrogame: MacroGame) {
+export async function updateOnBackend(username: string, macrogame: MacroGame) {
   const response = await fetch(backendUrl + "/player", {
     method: "PUT",
     body: JSON.stringify({ username, macrogame }),

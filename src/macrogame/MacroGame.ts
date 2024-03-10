@@ -1,6 +1,5 @@
 import { Rival } from "./Rival";
 import {
-  cardModels,
   getCardModelIdByName,
   getRandomCardModelId,
   getRandomCardModelIdByCriteria,
