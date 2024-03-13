@@ -1,12 +1,14 @@
 import { CardModel } from "duel/CardModel";
 import { Color } from "duel/color";
 import styles from "./SquareCard.module.css";
+import { Dispatch, SetStateAction } from "react";
 interface SquareCardProps {
   key: number;
   card: CardModel;
   position: number;
   removeCard: (cardPosition: number) => void;
   hoverImg: string;
+  setHoveredCard: Dispatch<SetStateAction<CardModel | null>>;
 }
 
 export default function SquareCard({
@@ -14,11 +16,16 @@ export default function SquareCard({
   position,
   removeCard,
   hoverImg,
+  setHoveredCard,
 }: SquareCardProps) {
   const colorClass = getColorClass(card.color);
 
   return (
-    <div className={styles.imgDiv} onClick={() => removeCard(position)}>
+    <div
+      className={styles.imgDiv}
+      onClick={() => removeCard(position)}
+      onMouseEnter={() => setHoveredCard(card)}
+    >
       <img src={card.image} className={colorClass} alt={card.name} />
       <img src={hoverImg} alt="" className={styles.icon} />
     </div>
