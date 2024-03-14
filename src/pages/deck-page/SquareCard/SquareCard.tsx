@@ -26,8 +26,12 @@ export default function SquareCard({
       onClick={() => removeCard(position)}
       onMouseEnter={() => setHoveredCard(card)}
     >
-      <img src={card.image} className={colorClass} alt={card.name} />
-      <img src={hoverImg} alt="" className={styles.icon} />
+      <img
+        className={`${styles.squareCardImg} ${colorClass}`}
+        src={card.image}
+        alt={card.name}
+      />
+      <img className={styles.icon} src={hoverImg} alt="" />
     </div>
   );
 }

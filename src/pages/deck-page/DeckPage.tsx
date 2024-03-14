@@ -65,7 +65,7 @@ export default function DeckPage() {
   }
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <h2>Manage Deck</h2>
       <div
         className={styles.container}
@@ -87,6 +87,6 @@ export default function DeckPage() {
           setHoveredCard={setHoveredCard}
         />
       </div>
-    </>
+    </div>
   );
 }

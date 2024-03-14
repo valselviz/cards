@@ -20,8 +20,8 @@ export default function CardsContainer({
   setHoveredCard,
 }: CardsContainerProps) {
   return (
-    <div>
-      <h4>{title}</h4>
+    <div className={styles.cardsContainer}>
+      <div>{title}</div>
       <div className={styles.squareCardsContainer}>
         {cardIds.map((id, index) => (
           <SquareCard
