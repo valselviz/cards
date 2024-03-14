@@ -1,7 +1,7 @@
 import { CardModel } from "duel/CardModel";
 import { Color } from "duel/color";
 import styles from "./SquareCard.module.css";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 interface SquareCardProps {
   key: number;
   card: CardModel;
@@ -20,18 +20,28 @@ export default function SquareCard({
 }: SquareCardProps) {
   const colorClass = getColorClass(card.color);
 
+  const [hover, sethover] = useState(false);
+
+  const iconStyles = hover ? styles.iconHover : styles.icon;
+
   return (
     <div
       className={styles.imgDiv}
       onClick={() => removeCard(position)}
-      onMouseEnter={() => setHoveredCard(card)}
+      onMouseEnter={() => {
+        setHoveredCard(card);
+        sethover(true);
+      }}
+      onMouseLeave={() => {
+        sethover(false);
+      }}
     >
+      <img className={iconStyles} src={hoverImg} alt="" />
       <img
         className={`${styles.squareCardImg} ${colorClass}`}
         src={card.image}
         alt={card.name}
       />
-      <img className={styles.icon} src={hoverImg} alt="" />
     </div>
   );
 }
