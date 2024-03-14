@@ -4,21 +4,23 @@
   position: relative;
 }
 
-img {
+.squareCardImg {
   width: 70px;
-  position: absolute;
   top: auto;
   right: auto;
 }
 
-.iconhover {
-    top: 5px;
-    left: 5px;
-    background-color: #ffffff50;
+.iconHover {
+  top: 5px;
+  left: 5px;
+  background-color: #ffffff50;
+  width: 40px;
+  padding: 15px;
+  position: absolute;
 }
 
 .icon {
-    display: none;
+  display: none;
 }
 
 .redCard {

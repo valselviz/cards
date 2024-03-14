@@ -6,9 +6,13 @@ import CardsContainer from "./CardsContainer/CardsContainer";
 import plusIcon from "../../assets/plus.png";
 import crossIcon from "../../assets/cross.png";
 import { updateOnBackend } from "api-client/api-client";
+import styles from "./DeckPage.module.css"
+import DoubleCardDisplay from "pages/common-components/DoubleCardDisplay/DoubleCardDisplay";
+import { CardModel } from "duel/CardModel";
 
 export default function DeckPage() {
   const context: GameContext = useContext(MacroGameContext);
+  const [hoveredCard, setHoveredCard] = useState(null as CardModel | null);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -61,20 +65,28 @@ export default function DeckPage() {
   }
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <h2>Manage Deck</h2>
-      <CardsContainer
-        title={"Deck"}
-        cardIds={deck}
-        removeCard={moveCardFromDeckToPool}
-        hoverImg={crossIcon}
-      />
-      <CardsContainer
-        title={"Available Cards"}
-        cardIds={cardsPool}
-        removeCard={moveCardFromPoolToDeck}
-        hoverImg={plusIcon}
-      />
-    </>
+      <div
+        className={styles.container}
+        onMouseLeave={() => setHoveredCard(null)}
+      >
+        <DoubleCardDisplay hoveredCard={hoveredCard} title={"Reward Details"} />
+        <CardsContainer
+          title={"Deck"}
+          cardIds={deck}
+          removeCard={moveCardFromDeckToPool}
+          hoverImg={crossIcon}
+          setHoveredCard={setHoveredCard}
+        />
+        <CardsContainer
+          title={"Available Cards"}
+          cardIds={cardsPool}
+          removeCard={moveCardFromPoolToDeck}
+          hoverImg={plusIcon}
+          setHoveredCard={setHoveredCard}
+        />
+      </div>
+    </div>
   );
 }

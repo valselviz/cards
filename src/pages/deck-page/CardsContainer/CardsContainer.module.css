@@ -1,7 +1,15 @@
 .squareCardsContainer {
   display: flex;
   flex-wrap: wrap;
-  max-width: 580px;
+  max-width: 530px;
   row-gap: 10px;
   column-gap: 10px;
+}
+
+.cardsContainer {
+  background-color: rgba(229, 218, 199, 0.308);
+  padding: 0 12px 12px 12px;
+  border-radius: 8px;
+  margin: 0 12px 0 12px;
+  min-width: 530px;
 }
