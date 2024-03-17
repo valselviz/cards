@@ -1,8 +1,29 @@
+.imageDiv {
+  position: relative;
+  height: 140px;
+  width: 140px;
+}
+
 .image {
-  height: 120px;
-  width: 156px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
   object-position: 0 30%;
+}
+
+.questionMark {
+  position: absolute;
+  display: flex;
+  width: 70%;
+  padding: 15%;
+  background-color: #847a6bf0;
+}
+
+.questionMarkBlocked {
+  display: none;
 }
 
 .tableRow {
@@ -10,7 +31,7 @@
 }
 
 .tableDataCell {
-  width: 156px;
+  width: 140px;
   border-spacing: 0;
 
   background: var(--Bars, rgba(54, 48, 0, 0.05));

@@ -48,11 +48,13 @@ export default function OnSaleCardRow({
       }}
     >
       <td className={styles.tableDataCell}>
-        <img
-          src={onSaleCardModel.image}
-          alt={onSaleCardModel.name}
-          className={styles.image}
-        />
+        <div className={styles.imageDiv}>
+          <img
+            src={onSaleCardModel.image}
+            alt={onSaleCardModel.name}
+            className={styles.image}
+          />
+        </div>
       </td>
       <td className={styles.tableDataCell}>
         <p>{onSaleCardModel.name}</p>

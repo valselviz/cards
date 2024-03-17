@@ -38,9 +38,36 @@ export class MacroGame {
     }
 
     this.rivals.push(new Rival(getCardModelIdByName("Tundra Skeleton"), true));
-    this.rivals.push(new Rival(getCardModelIdByName("Elf Archer"), true));
-    this.rivals.push(new Rival(getCardModelIdByName("Lizard Spearman"), true));
+    this.rivals.push(new Rival(getCardModelIdByName("Elf Archer"), false));
+    this.rivals.push(new Rival(getCardModelIdByName("Lizard Spearman"), false));
     this.rivals.push(new Rival(getCardModelIdByName("Giant Spider"), false));
     this.rivals.push(new Rival(getCardModelIdByName("Black Dragon"), false));
+  }
+
+  addOnSaleCard() {
+    this.cardsInStore.unshift({
+      model: getRandomCardModelId(),
+      price: Math.ceil(Math.random() * 10 + 10),
+    });
+  }
+
+  finishDuel(victory: boolean) {
+    if (!this.facingRival) {
+      return;
+    }
+    if (victory) {
+      this.addOnSaleCard();
+      if (this.cardsInStore.length > 5) {
+        this.cardsInStore.pop();
+      }
+      this.gold += 10;
+      this.facingRival.level += 1;
+      this.facingRival.deck.push(getRandomCardModelId());
+      const nextRival = this.rivals[this.rivals.indexOf(this.facingRival) + 1];
+      if (nextRival) {
+        nextRival.unlocked = true;
+      }
+    }
+    this.facingRival = null;
   }
 }
