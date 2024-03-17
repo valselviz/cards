@@ -9,7 +9,7 @@ export class Rival {
 
   constructor(portraitCard: number, unlocked: boolean) {
     this.portraitCard = portraitCard;
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 27; i++) {
       this.deck.push(getRandomCardModelId());
     }
     for (let i = 0; i < 3; i++) {

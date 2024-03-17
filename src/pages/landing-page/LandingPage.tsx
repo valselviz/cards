@@ -54,6 +54,7 @@ export default function LandingPage() {
                   context.macrogame = new MacroGame();
                   await updateOnBackend(username, context.macrogame);
                 } else {
+                  Object.setPrototypeOf(loginResponse, MacroGame.prototype);
                   context.macrogame = loginResponse;
                 }
                 navigate("/deck");

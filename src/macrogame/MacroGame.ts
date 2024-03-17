@@ -45,7 +45,7 @@ export class MacroGame {
   }
 
   addOnSaleCard() {
-    this.cardsInStore.push({
+    this.cardsInStore.unshift({
       model: getRandomCardModelId(),
       price: Math.ceil(Math.random() * 10 + 10),
     });
@@ -55,8 +55,6 @@ export class MacroGame {
     if (!this.facingRival) {
       return;
     }
-    console.log(this.facingRival.portraitCard);
-    console.log(victory);
     if (victory) {
       this.addOnSaleCard();
       if (this.cardsInStore.length > 5) {
@@ -65,8 +63,9 @@ export class MacroGame {
       this.gold += 10;
       this.facingRival.level += 1;
       this.facingRival.deck.push(getRandomCardModelId());
-      if (this.rivals[this.rivals.indexOf(this.facingRival) + 1]) {
-        this.rivals[this.rivals.indexOf(this.facingRival)].unlocked = true;
+      const nextRival = this.rivals[this.rivals.indexOf(this.facingRival) + 1];
+      if (nextRival) {
+        nextRival.unlocked = true;
       }
     }
     this.facingRival = null;

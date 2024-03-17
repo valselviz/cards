@@ -6,6 +6,7 @@ import MacroGameContext from "MacroGameContext";
 import { MacroGame } from "macrogame/MacroGame";
 import { cardModels } from "duel/cards-collection/cards-collection";
 import { useNavigate } from "react-router-dom";
+import questionMark from "../../assets/icons/questionMark.svg";
 
 interface RivalRowProps {
   rival: Rival;
@@ -21,6 +22,10 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
 
   const portraitCard = cardModels[rival.portraitCard];
 
+  const questionMarkStyles = rival.unlocked
+    ? styles.questionMarkBlocked
+    : styles.questionMark;
+
   return (
     <tr
       className={styles.tableRow}
@@ -32,19 +37,24 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
       }}
     >
       <td className={styles.tableData}>
-        <img
-          src={portraitCard.image}
-          alt={portraitCard.name}
-          className={styles.image}
-        />
+        <div className={styles.imageDiv}>
+          <img
+            src={portraitCard.image}
+            alt={portraitCard.name}
+            className={styles.image}
+          />
+          <img src={questionMark} alt="?" className={questionMarkStyles} />
+        </div>
       </td>
       <td className={styles.tableDataCell}>
-        <p>{rival.level}</p>
+        {rival.unlocked ? <p>{rival.level}</p> : <p>?</p>}
       </td>
       <td className={styles.tableDataCell}>
-        <p>{rival.deck.length}</p>
+        {rival.unlocked ? <p>{rival.deck.length}</p> : <p>?</p>}
       </td>
-      <td className={styles.tableDataCell}>{reward?.name}</td>
+      <td className={styles.tableDataCell}>
+        {rival.unlocked ? <p>{reward?.name}</p> : <p>?</p>}
+      </td>
     </tr>
   );
 }
