@@ -29,7 +29,13 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
   return (
     <tr
       className={styles.tableRow}
-      onMouseEnter={() => setHoveredCard(reward)}
+      onMouseEnter={() => {
+        if (rival.unlocked) {
+          setHoveredCard(reward);
+        } else {
+          setHoveredCard(null);
+        }
+      }}
       onClick={() => {
         macrogame.facingRival = rival;
         console.log(rival);
