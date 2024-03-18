@@ -18,6 +18,7 @@ import guardian from "assets/cards/guardian.jpg";
 import lizardSpearman from "assets/cards/lizardSpearman.jpg";
 import siren from "assets/cards/siren.jpg";
 import owlGuardian from "assets/cards/owlGuardian.jpg";
+import slayer from "assets/cards/slayer.jpg";
 import { Action } from "duel/Action";
 
 export function loadEffectCards() {
@@ -181,6 +182,48 @@ export function loadEffectCards() {
       simpleInvokationInfo,
       `Withdraw an opponent's card with ${maxTargetDefense} or less deffense.`,
       2,
+      [labelNoSacrifice, labelEffect]
+    )
+  );
+
+  addCardModel(
+    new CardModel(
+      282,
+      "Slayer",
+      slayer,
+      14,
+      7,
+      Color.Yellow,
+      simpleInvokation,
+      (card: Card) => {
+        const selectTargetCriteria = (opponentCard: Card) =>
+          opponentCard.model.defense < card.model.attack;
+        if (
+          card.duel.cards[1 - card.playerId][Zone.Field].length > 0 &&
+          !card.duel.cards[1 - card.playerId][Zone.Field].some(
+            selectTargetCriteria
+          )
+        ) {
+          card.duel.alertPlayer(
+            "Your opponent cards have too much defense to be attacked."
+          );
+          return;
+        }
+
+        card.duel.queueStartSelectionAction(
+          1 - card.playerId,
+          Zone.Field,
+          selectTargetCriteria
+        );
+        card.duel.queueAttackAction(
+          () => card,
+          () => card.duel.selectedTarget
+        );
+        card.duel.queueDrawAction(1 - card.playerId);
+      },
+      simpleInvokationInfo,
+      "Attack. Then draw an opponent card.",
+      1.4,
       [labelNoSacrifice, labelEffect]
     )
   );
