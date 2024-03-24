@@ -1,5 +1,6 @@
 import { Rival } from "./Rival";
 import {
+  cardModels,
   getCardModelIdByName,
   getRandomCardModelId,
   getRandomCardModelIdByCriteria,
@@ -22,10 +23,7 @@ export class MacroGame {
 
   constructor() {
     for (let i = 0; i < 5; i++) {
-      this.cardsInStore.push({
-        model: getRandomCardModelId(),
-        price: Math.ceil(Math.random() * 10 + 10),
-      });
+      this.addOnSaleCard();
     }
     for (let i = 0; i < 18; i++) {
       this.deck.push(getRandomCardModelIdByCriteria(labelNoSacrifice, 2));
@@ -45,9 +43,12 @@ export class MacroGame {
   }
 
   addOnSaleCard() {
+    const cardId = getRandomCardModelId();
+    const cardModel = cardModels[cardId];
+    const cardRarity = cardModel.rarity;
     this.cardsInStore.unshift({
-      model: getRandomCardModelId(),
-      price: Math.ceil(Math.random() * 10 + 10),
+      model: cardId,
+      price: Math.ceil((Math.random() * 10 + 10) * cardRarity ** 2),
     });
   }
 
@@ -60,7 +61,11 @@ export class MacroGame {
       if (this.cardsInStore.length > 5) {
         this.cardsInStore.pop();
       }
-      this.gold += 10;
+      if (this.facingRival.rewardCard) {
+        this.cardsPool.push(this.facingRival.rewardCard);
+      } else if (this.facingRival.rewardGold) {
+        this.gold += this.facingRival.rewardGold;
+      }
       this.facingRival.level += 1;
       this.facingRival.deck.push(getRandomCardModelId());
       const nextRival = this.rivals[this.rivals.indexOf(this.facingRival) + 1];
@@ -69,5 +74,18 @@ export class MacroGame {
       }
     }
     this.facingRival = null;
+    for (const rival of this.rivals) {
+      const randomNumber = Math.random();
+      if (randomNumber <= 0.33) {
+        rival.rewardCard = null;
+        rival.rewardGold = 10;
+      } else if (0.33 < randomNumber && randomNumber <= 0.66) {
+        rival.rewardCard = null;
+        rival.rewardGold = 20;
+      } else {
+        rival.rewardCard = getRandomCardModelId();
+        rival.rewardGold = null;
+      }
+    }
   }
 }

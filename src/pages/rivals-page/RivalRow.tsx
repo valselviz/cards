@@ -18,7 +18,9 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
 
   const navigate = useNavigate();
 
-  const reward = rival.reward ? cardModels[rival.reward] : null;
+  const rewardCard = rival.rewardCard
+    ? cardModels[rival.rewardCard]
+    : null;
 
   const portraitCard = cardModels[rival.portraitCard];
 
@@ -31,7 +33,9 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
       className={styles.tableRow}
       onMouseEnter={() => {
         if (rival.unlocked) {
-          setHoveredCard(reward);
+          if (rewardCard) {
+            setHoveredCard(rewardCard);
+          }
         } else {
           setHoveredCard(null);
         }
@@ -59,7 +63,7 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
         {rival.unlocked ? <p>{rival.deck.length}</p> : <p>?</p>}
       </td>
       <td className={styles.tableDataCell}>
-        {rival.unlocked ? <p>{reward?.name}</p> : <p>?</p>}
+        {rival.unlocked ? <p>{rewardCard ? rewardCard.name : rival.rewardGold}</p> : <p>?</p>}
       </td>
     </tr>
   );

@@ -5,7 +5,8 @@ export class Rival {
   deck: number[] = [];
   level: number = 1;
   unlocked: boolean;
-  reward: number | null;
+  rewardCard: number | null;
+  rewardGold: number | null;
 
   constructor(portraitCard: number, unlocked: boolean) {
     this.portraitCard = portraitCard;
@@ -16,6 +17,7 @@ export class Rival {
       this.deck.push(portraitCard);
     }
     this.unlocked = unlocked;
-    this.reward = getRandomCardModelId();
+    this.rewardCard = getRandomCardModelId();
+    this.rewardGold = 0;
   }
 }
