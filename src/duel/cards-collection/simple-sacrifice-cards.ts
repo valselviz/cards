@@ -25,13 +25,11 @@ export function loadSimpleSacrificeCards() {
       25,
       10,
       Color.Green,
-      oneSacrificeInvokation,
-      simpleAttack,
-      oneSacrificeInvokationInfo,
-      simpleAttackInfo,
       1.5,
       [labelOneSacrifice]
     )
+      .withHandEffect(oneSacrificeInvokation, oneSacrificeInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
@@ -42,13 +40,11 @@ export function loadSimpleSacrificeCards() {
       12,
       27,
       Color.Red,
-      oneSacrificeInvokation,
-      simpleAttack,
-      oneSacrificeInvokationInfo,
-      simpleAttackInfo,
       1.5,
       [labelOneSacrifice]
     )
+      .withHandEffect(oneSacrificeInvokation, oneSacrificeInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
@@ -59,12 +55,10 @@ export function loadSimpleSacrificeCards() {
       35,
       25,
       Color.Blue,
-      twoSacrificesInvokation,
-      simpleAttack,
-      twoSacrificesInvokationInfo,
-      simpleAttackInfo,
       2.5,
       [labelTwoSacrifice]
     )
+      .withHandEffect(twoSacrificesInvokation, twoSacrificesInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 }

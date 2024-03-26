@@ -4,6 +4,8 @@ import { Card } from "./Card";
 import { Duelist } from "./Duelist";
 import { rndInt } from "./utils";
 import { Zone } from "./zone";
+import { EventType } from "./EventType";
+import { DuelEvent } from "./DuelEvent";
 
 export class Duel {
   // This matrix contains all the cards of the duel
@@ -125,6 +127,7 @@ export class Duel {
       const position = this.cards[card.playerId][Zone.Field].indexOf(card);
       this.cards[card.playerId][Zone.Field].splice(position, 1);
       card.zone = Zone.Graveyard;
+      this.notifyEvent(EventType.Destroy, card);
     });
     this.actionsQueue.push(destroyAction);
   }
@@ -146,6 +149,7 @@ export class Duel {
           this.cards[defenderCard.playerId][Zone.Field].indexOf(defenderCard);
         this.cards[defenderCard.playerId][Zone.Field].splice(position, 1);
         defenderCard.zone = Zone.Graveyard;
+        this.notifyEvent(EventType.Destroy, defenderCard);
       }
     });
     this.actionsQueue.push(attackAction);
@@ -237,5 +241,12 @@ export class Duel {
     }
     card.model.useFromField(card);
     card.usableFromField = false;
+  }
+
+  notifyEvent(eventType: EventType, target: Card) {
+    const event = new DuelEvent(eventType, target);
+    for (const card of this.cards[this.playerTurn][Zone.Field]) {
+      card.model.passiveEffect(card, event);
+    }
   }
 }

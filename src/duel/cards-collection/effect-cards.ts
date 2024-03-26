@@ -30,30 +30,25 @@ export function loadEffectCards() {
       12,
       8,
       Color.Green,
-      (card: Card) => {
+      1.5,
+      [labelNoSacrifice, labelEffect]
+    )
+      .withHandEffect((card: Card) => {
         if (checkFullField(card)) return;
         card.duel.queueInvokeAction(() => card);
         const newAction = new Action(() => (card.usableFromField = true));
         card.duel.actionsQueue.push(newAction);
-      },
-      simpleAttack,
-      "Invoke. This card is ready to attack immediately.",
-      simpleAttackInfo,
-      1.5,
-      [labelNoSacrifice, labelEffect]
-    )
+      }, "Invoke. This card is ready to attack immediately.")
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
-    new CardModel(
-      80,
-      "Owl Guardian",
-      owlGuardian,
-      12,
-      5,
-      Color.Green,
-      simpleInvokation,
-      (card: Card) => {
+    new CardModel(80, "Owl Guardian", owlGuardian, 12, 5, Color.Green, 1.4, [
+      labelNoSacrifice,
+      labelEffect,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect((card: Card) => {
         const selectTargetCriteria = (opponentCard: Card) =>
           opponentCard.model.defense < card.model.attack;
         if (
@@ -78,12 +73,7 @@ export function loadEffectCards() {
           () => card.duel.selectedTarget
         );
         card.duel.queueDrawAction(card.playerId);
-      },
-      simpleInvokationInfo,
-      "Attack. Then draw a card.",
-      1.4,
-      [labelNoSacrifice, labelEffect]
-    )
+      }, "Attack. Then draw a card.")
   );
 
   addCardModel(
@@ -94,7 +84,10 @@ export function loadEffectCards() {
       18,
       18,
       Color.Green,
-      (card: Card) => {
+      1.4,
+      [labelNoSacrifice, labelEffect]
+    )
+      .withHandEffect((card: Card) => {
         if (checkFullField(card)) return;
         if (card.duel.cards[card.playerId][Zone.Hand].length > 1) {
           card.duel.alertPlayer(
@@ -103,24 +96,16 @@ export function loadEffectCards() {
           return;
         }
         card.duel.queueInvokeAction(() => card);
-      },
-      simpleAttack,
-      "You can invoke this card only if it is the only card in your hand.",
-      simpleAttackInfo,
-      1.4,
-      [labelNoSacrifice, labelEffect]
-    )
+      }, "You can invoke this card only if it is the only card in your hand.")
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
-    new CardModel(
-      222,
-      "Siren",
-      siren,
-      5,
-      13,
-      Color.Blue,
-      (card: Card) => {
+    new CardModel(222, "Siren", siren, 5, 13, Color.Blue, 1.4, [
+      labelNoSacrifice,
+      labelEffect,
+    ])
+      .withHandEffect((card: Card) => {
         if (checkFullField(card)) return;
         card.duel.queueInvokeAction(() => card);
         card.duel.queueStartSelectionAction(
@@ -134,26 +119,18 @@ export function loadEffectCards() {
           }
         });
         card.duel.actionsQueue.push(newAction);
-      },
-      simpleAttack,
-      "Invoke this card. Then select a not-ready card from your field and make it ready for use.",
-      simpleAttackInfo,
-      1.4,
-      [labelNoSacrifice, labelEffect]
-    )
+      }, "Invoke this card. Then select a not-ready card from your field and make it ready for use.")
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   const maxTargetDefense = 23;
   addCardModel(
-    new CardModel(
-      967,
-      "Guardian",
-      guardian,
-      0,
-      14,
-      Color.Red,
-      simpleInvokation,
-      (card: Card) => {
+    new CardModel(967, "Guardian", guardian, 0, 14, Color.Red, 2, [
+      labelNoSacrifice,
+      labelEffect,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect((card: Card) => {
         if (card.duel.cards[1 - card.playerId][Zone.Field].length === 0) {
           card.duel.alertPlayer(
             "Your opponent does not have any card on the field to withdrawn."
@@ -178,24 +155,16 @@ export function loadEffectCards() {
           selectTargetCriteria
         );
         card.duel.queueWithdrawAction(() => card.duel.selectedTarget);
-      },
-      simpleInvokationInfo,
-      `Withdraw an opponent's card with ${maxTargetDefense} or less deffense.`,
-      2,
-      [labelNoSacrifice, labelEffect]
-    )
+      }, `Withdraw an opponent's card with ${maxTargetDefense} or less deffense.`)
   );
 
   addCardModel(
-    new CardModel(
-      282,
-      "Slayer",
-      slayer,
-      14,
-      7,
-      Color.Yellow,
-      simpleInvokation,
-      (card: Card) => {
+    new CardModel(282, "Slayer", slayer, 14, 7, Color.Yellow, 1.4, [
+      labelNoSacrifice,
+      labelEffect,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect((card: Card) => {
         const selectTargetCriteria = (opponentCard: Card) =>
           opponentCard.model.defense < card.model.attack;
         if (
@@ -220,11 +189,6 @@ export function loadEffectCards() {
           () => card.duel.selectedTarget
         );
         card.duel.queueDrawAction(1 - card.playerId);
-      },
-      simpleInvokationInfo,
-      "Attack. Then draw an opponent card.",
-      1.4,
-      [labelNoSacrifice, labelEffect]
-    )
+      }, "Attack. Then draw an opponent card.")
   );
 }
