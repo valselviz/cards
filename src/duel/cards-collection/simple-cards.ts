@@ -20,20 +20,11 @@ import wizard from "assets/cards/wizard.jpg";
 
 export function loadSimpleCards() {
   addCardModel(
-    new CardModel(
-      470,
-      "Elf Archer",
-      elfArcher,
-      10,
-      12,
-      Color.Yellow,
-      simpleInvokation,
-      simpleAttack,
-      simpleInvokationInfo,
-      simpleAttackInfo,
-      0.8,
-      [labelNoSacrifice]
-    )
+    new CardModel(470, "Elf Archer", elfArcher, 10, 12, Color.Yellow, 0.8, [
+      labelNoSacrifice,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
@@ -44,98 +35,51 @@ export function loadSimpleCards() {
       12,
       13,
       Color.Blue,
-      simpleInvokation,
-      simpleAttack,
-      simpleInvokationInfo,
-      simpleAttackInfo,
       0.9,
       [labelNoSacrifice]
     )
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
-    new CardModel(
-      932,
-      "Fire Demon",
-      fireDemon,
-      9,
-      13,
-      Color.Red,
-      simpleInvokation,
-      simpleAttack,
-      simpleInvokationInfo,
-      simpleAttackInfo,
-      0.9,
-      [labelNoSacrifice]
-    )
+    new CardModel(932, "Fire Demon", fireDemon, 9, 13, Color.Red, 0.9, [
+      labelNoSacrifice,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
-    new CardModel(
-      755,
-      "Minotaur",
-      minotaur,
-      13,
-      16,
-      Color.Red,
-      simpleInvokation,
-      simpleAttack,
-      simpleInvokationInfo,
-      simpleAttackInfo,
-      1,
-      [labelNoSacrifice]
-    )
+    new CardModel(755, "Minotaur", minotaur, 13, 16, Color.Red, 1, [
+      labelNoSacrifice,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
-    new CardModel(
-      223,
-      "Hammer Dwarf",
-      hammerDwarf,
-      8,
-      16,
-      Color.Blue,
-      simpleInvokation,
-      simpleAttack,
-      simpleInvokationInfo,
-      simpleAttackInfo,
-      0.9,
-      [labelNoSacrifice]
-    )
+    new CardModel(223, "Hammer Dwarf", hammerDwarf, 8, 16, Color.Blue, 0.9, [
+      labelNoSacrifice,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
-    new CardModel(
-      264,
-      "Knight",
-      knight,
-      5,
-      17,
-      Color.Yellow,
-      simpleInvokation,
-      simpleAttack,
-      simpleInvokationInfo,
-      simpleAttackInfo,
-      0.9,
-      [labelNoSacrifice]
-    )
+    new CardModel(264, "Knight", knight, 5, 17, Color.Yellow, 0.9, [
+      labelNoSacrifice,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
-    new CardModel(
-      15,
-      "Wizard",
-      wizard,
-      14,
-      14,
-      Color.Green,
-      simpleInvokation,
-      simpleAttack,
-      simpleInvokationInfo,
-      simpleAttackInfo,
-      1,
-      [labelNoSacrifice]
-    )
+    new CardModel(15, "Wizard", wizard, 14, 14, Color.Green, 1, [
+      labelNoSacrifice,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
@@ -146,12 +90,10 @@ export function loadSimpleCards() {
       7,
       15,
       Color.Yellow,
-      simpleInvokation,
-      simpleAttack,
-      simpleInvokationInfo,
-      simpleAttackInfo,
       0.9,
       [labelNoSacrifice]
     )
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 }

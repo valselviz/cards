@@ -22,13 +22,9 @@ export function loadRitualCards() {
     38,
     32,
     Color.Red,
-    () => null,
-    simpleAttack,
-    null,
-    simpleAttackInfo,
     3,
     [labelRitualCreature]
-  );
+  ).withFieldEffect(simpleAttack, simpleAttackInfo);
   addCardModel(deathLordCardModel);
 
   addCardModel(
@@ -39,27 +35,23 @@ export function loadRitualCards() {
       0,
       0,
       Color.Red,
-      (card: Card) => {
-        const selectionCriteria = (handCard: Card) =>
-          handCard.model === deathLordCardModel;
-        if (card.duel.cards[card.playerId][Zone.Hand].some(selectionCriteria)) {
-          card.duel.alertPlayer("You need one Death Lord in your hand.");
-          return;
-        }
-        if (checkFullField(card)) return;
-        card.duel.queueStartSelectionAction(
-          card.playerId,
-          Zone.Hand,
-          selectionCriteria
-        );
-        card.duel.queueInvokeAction(() => card.duel.selectedTarget);
-        card.duel.queueDiscardAction(() => card);
-      },
-      () => null,
-      "Invoke a Death Lord from your hand.",
-      null,
       3,
       [labelRitualMagic]
-    )
+    ).withHandEffect((card: Card) => {
+      const selectionCriteria = (handCard: Card) =>
+        handCard.model === deathLordCardModel;
+      if (card.duel.cards[card.playerId][Zone.Hand].some(selectionCriteria)) {
+        card.duel.alertPlayer("You need one Death Lord in your hand.");
+        return;
+      }
+      if (checkFullField(card)) return;
+      card.duel.queueStartSelectionAction(
+        card.playerId,
+        Zone.Hand,
+        selectionCriteria
+      );
+      card.duel.queueInvokeAction(() => card.duel.selectedTarget);
+      card.duel.queueDiscardAction(() => card);
+    }, "Invoke a Death Lord from your hand.")
   );
 }

@@ -5,6 +5,7 @@ import { Zone } from "../zone";
 import { loadEffectCards } from "./effect-cards";
 import { loadEffectSacrificeCards } from "./effect-sacrifice-cards";
 import { loadMagicCards } from "./magic-cards";
+import { loadPassiveCards } from "./passive-cards";
 import { loadRitualCards } from "./ritual-cards";
 import { loadSimpleCards } from "./simple-cards";
 import { loadSimpleSacrificeCards } from "./simple-sacrifice-cards";
@@ -16,6 +17,7 @@ export const labelMagic = "MAGIC";
 export const labelEffect = "EFFECT";
 export const labelRitualMagic = "RITUAL MAGIC";
 export const labelRitualCreature = "RITUAL CREATURE";
+export const labelPassive = "PASSIVE";
 
 export function checkFullField(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length === 5) {
@@ -133,3 +135,4 @@ loadMagicCards();
 loadSimpleCards();
 loadSimpleSacrificeCards();
 loadRitualCards();
+loadPassiveCards();

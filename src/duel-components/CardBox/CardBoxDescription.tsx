@@ -28,6 +28,12 @@ export default function CardBoxDescription({
           {card.fieldInfo}
         </p>
       )}
+      {card.passiveInfo && (
+        <p className={styles.infoP}>
+          <b>Passive: </b>
+          {card.passiveInfo}
+        </p>
+      )}
     </div>
   );
 }

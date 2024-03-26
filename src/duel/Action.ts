@@ -1,6 +1,6 @@
 export class Action {
   shouldWaitForTargetSelection: () => boolean;
-
+  
   selectionInfo: string;
 
   execute: () => void;

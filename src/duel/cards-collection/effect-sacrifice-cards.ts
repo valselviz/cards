@@ -27,7 +27,10 @@ export function loadEffectSacrificeCards() {
       14,
       0,
       Color.Blue,
-      (card: Card) => {
+      2.2,
+      [labelEffect, labelOneSacrifice]
+    )
+      .withHandEffect((card: Card) => {
         if (card.duel.cards[card.playerId][Zone.Field].length === 0) {
           card.duel.alertPlayer(
             "You need one card in the field to offer as sacrifice."
@@ -39,25 +42,17 @@ export function loadEffectSacrificeCards() {
         card.duel.queueInvokeAction(() => card);
         card.duel.queueStartSelectionAction(1 - card.playerId, Zone.Field);
         card.duel.queueWithdrawAction(() => card.duel.selectedTarget);
-      },
-      simpleAttack,
-      "Invoke by sacrifying a card from your field. Then withdraw a card from your opponent field.",
-      simpleAttackInfo,
-      2.2,
-      [labelEffect, labelOneSacrifice]
-    )
+      }, "Invoke by sacrifying a card from your field. Then withdraw a card from your opponent field.")
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 
   addCardModel(
-    new CardModel(
-      548,
-      "Griffin",
-      griffin,
-      28,
-      19,
-      Color.Yellow,
-      oneSacrificeInvokation,
-      (card: Card) => {
+    new CardModel(548, "Griffin", griffin, 28, 19, Color.Yellow, 2.2, [
+      labelEffect,
+      labelOneSacrifice,
+    ])
+      .withHandEffect(oneSacrificeInvokation, oneSacrificeInvokationInfo)
+      .withFieldEffect((card: Card) => {
         const selectTargetCriteria = (opponentCard: Card) =>
           opponentCard.model.defense < card.model.attack;
         if (
@@ -81,12 +76,7 @@ export function loadEffectSacrificeCards() {
           () => card.duel.selectedTarget
         );
         card.duel.queueWithdrawAction(() => card);
-      },
-      oneSacrificeInvokationInfo,
-      "Attack. Then withdraw this card.",
-      2.2,
-      [labelEffect, labelOneSacrifice]
-    )
+      }, "Attack. Then withdraw this card.")
   );
 
   addCardModel(
@@ -97,8 +87,11 @@ export function loadEffectSacrificeCards() {
       30,
       13,
       Color.Yellow,
-      oneSacrificeInvokation,
-      (card: Card) => {
+      2.5,
+      [labelEffect, labelOneSacrifice]
+    )
+      .withHandEffect(oneSacrificeInvokation, oneSacrificeInvokationInfo)
+      .withFieldEffect((card: Card) => {
         const selectTargetCriteria = (opponentCard: Card) =>
           opponentCard.model.defense < card.model.attack;
         if (
@@ -125,23 +118,15 @@ export function loadEffectSacrificeCards() {
           () => card,
           () => card.duel.selectedTarget
         );
-      },
-      oneSacrificeInvokationInfo,
-      "Discard a card from your hand. Then attack.",
-      2.5,
-      [labelEffect, labelOneSacrifice]
-    )
+      }, "Discard a card from your hand. Then attack.")
   );
 
   addCardModel(
-    new CardModel(
-      441,
-      "Reaper",
-      reaper,
-      21,
-      11,
-      Color.Blue,
-      (card: Card) => {
+    new CardModel(441, "Reaper", reaper, 21, 11, Color.Blue, 1.8, [
+      labelEffect,
+      labelOneSacrifice,
+    ])
+      .withHandEffect((card: Card) => {
         if (card.duel.cards[card.playerId][Zone.Field].length === 0) {
           card.duel.alertPlayer(
             "You need one card in the field to offer as sacrifice."
@@ -153,12 +138,7 @@ export function loadEffectSacrificeCards() {
         card.duel.queueInvokeAction(() => card);
         const newAction = new Action(() => (card.usableFromField = true));
         card.duel.actionsQueue.push(newAction);
-      },
-      simpleAttack,
-      "Invoke by sacrifying a card from your field. This card is ready to attack immediately.",
-      simpleAttackInfo,
-      1.8,
-      [labelEffect, labelOneSacrifice]
-    )
+      }, "Invoke by sacrifying a card from your field. This card is ready to attack immediately.")
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
   );
 }
