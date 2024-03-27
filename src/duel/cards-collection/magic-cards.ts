@@ -3,6 +3,7 @@ import { Color } from "duel/color";
 import { addCardModel, labelMagic } from "./cards-collection";
 import { CardModel } from "duel/CardModel";
 
+import eruption from "assets/cards/eruption.jpg";
 import natureAmulet from "assets/cards/natureAmulet.jpg";
 import vortex from "assets/cards/vortex.jpg";
 import raid from "assets/cards/raid.jpg";
@@ -13,16 +14,9 @@ import { Zone } from "duel/zone";
 
 export function loadMagicCards() {
   addCardModel(
-    new CardModel(
-      747,
-      "Vortex",
-      vortex,
-      0,
-      0,
-      Color.Yellow,
-      1.8,
-      [labelMagic]
-    ).withHandEffect((card: Card) => {
+    new CardModel(747, "Vortex", vortex, 0, 0, Color.Yellow, 1.8, [
+      labelMagic,
+    ]).withHandEffect((card: Card) => {
       if (card.duel.cards[card.playerId][Zone.Hand].length < 2) {
         card.duel.alertPlayer(
           "You need an additional card in your hand to offer as sacrifice."
@@ -124,5 +118,34 @@ export function loadMagicCards() {
       card.duel.queueDestroyAction(() => card.duel.selectedTarget);
       card.duel.queueDiscardAction(() => card);
     }, "Usable only if your opponent has 3 or more cards on the field. Discard 3 cards from your deck, then select and destroy one card from your opponent's field.")
+  );
+
+  addCardModel(
+    new CardModel(329, "Eruption", eruption, 0, 0, Color.Red, 1.6, [
+      labelMagic,
+    ]).withHandEffect((card: Card) => {
+      if (
+        card.duel.cards[card.playerId][Zone.Field].length <=
+        card.duel.cards[1 - card.playerId][Zone.Field].length
+      ) {
+        card.duel.alertPlayer(
+          "You can use this card only if you have more cards on the field than your rival."
+        );
+        return;
+      }
+      if (card.duel.cards[1 - card.playerId][Zone.Field].length == 0) {
+        card.duel.alertPlayer(
+          "Your rival does not have any card on the field to destroy."
+        );
+        return;
+      }
+      for (const fieldCard of card.duel.cards[1 - card.playerId][Zone.Field]) {
+        card.duel.queueDestroyAction(() => fieldCard);
+      }
+      for (const fieldCard of card.duel.cards[card.playerId][Zone.Field]) {
+        card.duel.queueDestroyAction(() => fieldCard);
+      }
+      card.duel.queueDiscardAction(() => card);
+    }, "If you have more cards on the field than your rival, this card destroys every card on the field.")
   );
 }

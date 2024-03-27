@@ -1,7 +1,7 @@
 .imageDiv {
   position: relative;
-  height: 140px;
-  width: 140px;
+  height: 135px;
+  width: 135px;
 }
 
 .image {
@@ -12,6 +12,7 @@
   width: 100%;
   object-fit: cover;
   object-position: 0 30%;
+  border-radius: 6px;
 }
 
 .questionMark {
@@ -20,6 +21,7 @@
   width: 70%;
   padding: 15%;
   background-color: #847a6bf0;
+  border-radius: 6px;
 }
 
 .questionMarkBlocked {
@@ -28,12 +30,12 @@
 
 .tableRow {
   line-height: 0;
+  background-color: #e6e6e68b;
 }
 
 .tableDataCell {
-  width: 140px;
-  border-spacing: 0;
-
-  background: var(--Bars, rgba(54, 48, 0, 0.05));
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 135px;
+  min-width: 135px;
+  border-radius: 6px;
+  padding: 0;
 }

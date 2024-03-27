@@ -39,13 +39,13 @@ export default function DeckPage() {
   });
 
   return (
-    <div className={styles.mainTable}>
+    <div className={styles.mainTablePage}>
       <div className={styles.line}>
         <h2>Buy Cards</h2>
         <h2>Gold: {macrogame.gold}</h2>
       </div>
-      <div className={styles.mainTableContent}>
-        <div>
+      <div className={styles.mainTablePageContent}>
+        <div className={styles.mainTable}>
           <div className={styles.tableHeader}>
             <div>Image</div>
             <div>Name</div>

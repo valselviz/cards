@@ -18,9 +18,7 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
 
   const navigate = useNavigate();
 
-  const rewardCard = rival.rewardCard
-    ? cardModels[rival.rewardCard]
-    : null;
+  const rewardCard = rival.rewardCard ? cardModels[rival.rewardCard] : null;
 
   const portraitCard = cardModels[rival.portraitCard];
 
@@ -46,7 +44,7 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
         navigate("/duel");
       }}
     >
-      <td className={styles.tableData}>
+      <td className={styles.tableDataCell}>
         <div className={styles.imageDiv}>
           <img
             src={portraitCard.image}
@@ -63,7 +61,11 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
         {rival.unlocked ? <p>{rival.deck.length}</p> : <p>?</p>}
       </td>
       <td className={styles.tableDataCell}>
-        {rival.unlocked ? <p>{rewardCard ? rewardCard.name : rival.rewardGold}</p> : <p>?</p>}
+        {rival.unlocked ? (
+          <p>{rewardCard ? rewardCard.name : rival.rewardGold}</p>
+        ) : (
+          <p>?</p>
+        )}
       </td>
     </tr>
   );

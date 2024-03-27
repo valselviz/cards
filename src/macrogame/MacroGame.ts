@@ -25,10 +25,10 @@ export class MacroGame {
     for (let i = 0; i < 5; i++) {
       this.addOnSaleCard();
     }
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 17; i++) {
       this.deck.push(getRandomCardModelIdByCriteria(labelNoSacrifice, 2));
     }
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 7; i++) {
       this.deck.push(getRandomCardModelIdByCriteria(labelMagic, 2));
     }
     for (let i = 0; i < 6; i++) {
@@ -57,23 +57,27 @@ export class MacroGame {
       return;
     }
     if (victory) {
-      this.addOnSaleCard();
-      if (this.cardsInStore.length > 5) {
-        this.cardsInStore.pop();
-      }
+      // Give the player his reward
       if (this.facingRival.rewardCard) {
         this.cardsPool.push(this.facingRival.rewardCard);
       } else if (this.facingRival.rewardGold) {
         this.gold += this.facingRival.rewardGold;
       }
+
+      // Increase level of defeated rival
       this.facingRival.level += 1;
       this.facingRival.deck.push(getRandomCardModelId());
+
+      // Unlock new rival if needed
       const nextRival = this.rivals[this.rivals.indexOf(this.facingRival) + 1];
       if (nextRival) {
         nextRival.unlocked = true;
       }
     }
+
     this.facingRival = null;
+
+    // Refreshing rivals rewards
     for (const rival of this.rivals) {
       const randomNumber = Math.random();
       if (randomNumber <= 0.33) {
@@ -86,6 +90,12 @@ export class MacroGame {
         rival.rewardCard = getRandomCardModelId();
         rival.rewardGold = null;
       }
+    }
+
+    // Add a new card to the store
+    this.addOnSaleCard();
+    if (this.cardsInStore.length > 5) {
+      this.cardsInStore.pop();
     }
   }
 }

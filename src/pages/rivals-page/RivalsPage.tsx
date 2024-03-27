@@ -34,10 +34,10 @@ export default function RivalsPage() {
   });
 
   return (
-    <div className={styles.mainTable}>
+    <div className={styles.mainTablePage}>
       <h2>Choose Your Next Rival</h2>
-      <div className={styles.mainTableContent}>
-        <div>
+      <div className={styles.mainTablePageContent}>
+        <div className={styles.mainTable}>
           <div className={styles.tableHeader}>
             <div>Rival</div>
             <div>Level</div>

@@ -57,6 +57,7 @@ label {
   width: 100%;
   justify-content: right;
   align-items: left;
+  text-shadow: 0 0 7px #fffff6, 0 0 14px #fffff6;
 }
 
 input[type="text"],
