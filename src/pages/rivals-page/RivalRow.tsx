@@ -39,6 +39,7 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
         }
       }}
       onClick={() => {
+        if (!rival.unlocked) return;
         macrogame.facingRival = rival;
         console.log(rival);
         navigate("/duel");
