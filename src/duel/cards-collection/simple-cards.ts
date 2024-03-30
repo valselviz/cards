@@ -14,7 +14,7 @@ import minotaur from "assets/cards/minotaur.jpg";
 import fireDemon from "assets/cards/fireDemon.jpg";
 import goblinWarrior from "assets/cards/goblinWarrior.jpg";
 import hammerDwarf from "assets/cards/hammerDwarf.jpg";
-import knight from "assets/cards/knight.jpg";
+import paladin from "assets/cards/paladin.jpg";
 import tundraSkeleton from "assets/cards/tundraSkeleton.jpg";
 import wizard from "assets/cards/wizard.jpg";
 
@@ -67,7 +67,7 @@ export function loadSimpleCards() {
   );
 
   addCardModel(
-    new CardModel(264, "Knight", knight, 5, 17, Color.Yellow, 0.9, [
+    new CardModel(264, "Paladin", paladin, 5, 17, Color.Yellow, 0.9, [
       labelNoSacrifice,
     ])
       .withHandEffect(simpleInvokation, simpleInvokationInfo)
