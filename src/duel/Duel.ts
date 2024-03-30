@@ -105,6 +105,7 @@ export class Duel {
       card.zone = Zone.Field;
       card.usableFromField = false;
       this.cards[card.playerId][Zone.Field].push(card);
+      this.notifyEvent(EventType.Invoke, card);
     });
     this.actionsQueue.push(invokeAction);
   }
@@ -116,6 +117,7 @@ export class Duel {
       const position = this.cards[card.playerId][Zone.Hand].indexOf(card);
       this.cards[card.playerId][Zone.Hand].splice(position, 1);
       card.zone = Zone.Graveyard;
+      this.notifyEvent(EventType.Discard, card);
     });
     this.actionsQueue.push(discardAction);
   }
@@ -144,11 +146,13 @@ export class Duel {
         const defenderPlayer = 1 - attackCard.playerId;
         this.cards[defenderPlayer][Zone.Deck].shift();
         this.ui.notifyDamage(defenderPlayer);
+        this.notifyEvent(EventType.Attack, null);
       } else if (attackCard.model.attack > defenderCard.model.defense) {
         const position =
           this.cards[defenderCard.playerId][Zone.Field].indexOf(defenderCard);
         this.cards[defenderCard.playerId][Zone.Field].splice(position, 1);
         defenderCard.zone = Zone.Graveyard;
+        this.notifyEvent(EventType.Attack, defenderCard);
         this.notifyEvent(EventType.Destroy, defenderCard);
       }
     });
@@ -243,7 +247,7 @@ export class Duel {
     card.usableFromField = false;
   }
 
-  notifyEvent(eventType: EventType, target: Card) {
+  notifyEvent(eventType: EventType, target: Card | null) {
     const event = new DuelEvent(eventType, target);
     for (const card of this.cards[this.playerTurn][Zone.Field]) {
       card.model.passiveEffect(card, event);

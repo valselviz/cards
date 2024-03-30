@@ -3,9 +3,9 @@ import { EventType } from "./EventType";
 
 export class DuelEvent {
   eventType: EventType;
-  target: Card;
+  target: Card | null;
 
-  constructor(eventType: EventType, target: Card) {
+  constructor(eventType: EventType, target: Card | null) {
     this.eventType = eventType;
     this.target = target;
   }
