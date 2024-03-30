@@ -148,11 +148,11 @@ export class Duel {
         this.ui.notifyDamage(defenderPlayer);
         this.notifyEvent(EventType.Attack, null);
       } else if (attackCard.model.attack > defenderCard.model.defense) {
+        this.notifyEvent(EventType.Attack, defenderCard, attackCard);
         const position =
           this.cards[defenderCard.playerId][Zone.Field].indexOf(defenderCard);
         this.cards[defenderCard.playerId][Zone.Field].splice(position, 1);
         defenderCard.zone = Zone.Graveyard;
-        this.notifyEvent(EventType.Attack, defenderCard);
         this.notifyEvent(EventType.Destroy, defenderCard);
       }
     });
@@ -247,8 +247,15 @@ export class Duel {
     card.usableFromField = false;
   }
 
-  notifyEvent(eventType: EventType, target: Card | null) {
-    const event = new DuelEvent(eventType, target);
+  notifyEvent(
+    eventType: EventType,
+    target: Card | null,
+    source: Card | null = null
+  ) {
+    const event = new DuelEvent(eventType, target, source);
+    for (const card of this.cards[1 - this.playerTurn][Zone.Field]) {
+      card.model.passiveEffect(card, event);
+    }
     for (const card of this.cards[this.playerTurn][Zone.Field]) {
       card.model.passiveEffect(card, event);
     }
