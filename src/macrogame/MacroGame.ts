@@ -20,6 +20,9 @@ export class MacroGame {
   cardsInStore: OnSaleCard[] = [];
   rivals: Rival[] = [];
   facingRival: Rival | null = null;
+  manualGamesStarted: number = 0;
+  manualGamesFinished: number = 0;
+  manualGamesWon: number = 0;
 
   constructor() {
     for (let i = 0; i < 5; i++) {
@@ -53,9 +56,8 @@ export class MacroGame {
   }
 
   finishDuel(victory: boolean) {
-    if (!this.facingRival) {
-      return;
-    }
+    if (!this.facingRival) return;
+    
     if (victory) {
       // Give the player his reward
       if (this.facingRival.rewardCard) {
@@ -73,7 +75,11 @@ export class MacroGame {
       if (nextRival) {
         nextRival.unlocked = true;
       }
+
+      this.manualGamesWon ++;
     }
+
+    this.manualGamesFinished ++;
 
     this.facingRival = null;
 
