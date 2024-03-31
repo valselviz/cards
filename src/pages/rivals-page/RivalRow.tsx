@@ -2,11 +2,12 @@ import { Rival } from "macrogame/Rival";
 import styles from "../common-components/MainTable/MainTableRow.module.css";
 import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
-import MacroGameContext from "MacroGameContext";
+import MacroGameContext, { GameContext } from "MacroGameContext";
 import { MacroGame } from "macrogame/MacroGame";
 import { cardModels } from "duel/cards-collection/cards-collection";
 import { useNavigate } from "react-router-dom";
 import questionMark from "../../assets/icons/questionMark.svg";
+import { updateOnBackend } from "api-client/api-client";
 
 interface RivalRowProps {
   rival: Rival;
@@ -14,7 +15,8 @@ interface RivalRowProps {
 }
 
 export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
-  const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
+  const context: GameContext = useContext(MacroGameContext);
+  const macrogame = context.macrogame as MacroGame;
 
   const navigate = useNavigate();
 
@@ -38,10 +40,14 @@ export default function RivalRow({ rival, setHoveredCard }: RivalRowProps) {
           setHoveredCard(null);
         }
       }}
-      onClick={() => {
+      onClick={ async () => {
         if (!rival.unlocked) return;
         macrogame.facingRival = rival;
-        console.log(rival);
+        macrogame.manualGamesStarted++;
+        await updateOnBackend(
+          context.username as string,
+          context.macrogame as MacroGame
+        );
         navigate("/duel");
       }}
     >
