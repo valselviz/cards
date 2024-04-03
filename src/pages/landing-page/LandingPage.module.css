@@ -26,25 +26,12 @@ h1 {
 
   margin: 30px 0 10px 0;
 }
-form {
-  display: flex;
-  flex-direction: column;
-  width: 282px;
-}
 
-.buttonDiv {
+.topButtonsDiv {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   width: 282px;
-}
-
-.formContainerDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 10px;
-  width: 320px;
 }
 
 label {
@@ -74,20 +61,19 @@ input:focus {
   box-shadow: 0px 0px 5px #fff4db;
 }
 
+.topButton,
 input[type="submit"] {
-  width: 120px;
+  width: 100%;
   height: 40px;
   font-family: "Averia Serif Libre";
-  border-radius: 5px;
-  margin: 20px 0 35px 0;
-  align-self: flex-end;
-  margin: 20px 0 15px 0;
-  width: 100%;
   font-size: 18px;
+  border-radius: 5px;
+  align-self: flex-end;
+  margin: 20px 0 20px 0;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  border: 1px solid #00000075;
   background-color: #a14d4a;
   color: #ffd3c2;
-  border: 1px solid #00000075;
-  box-shadow: 2px 2px 2px rgba(145, 132, 132, 0.1);
 }
 
 input[type="submit"]:hover {
@@ -97,27 +83,18 @@ input[type="submit"]:hover {
   border: 1px solid black;
 }
 
-button {
+.activeTopButton {
   width: 120px;
-  height: 40px;
-  font-size: 18px;
-  font-family: "Averia Serif Libre";
-  border-radius: 5px;
-  margin: 20px 0 20px 0;
+}
+
+.inactiveTopButton {
+  width: 120px;
   border: 1px solid #00000075;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   background-color: #a14d4a;
   color: #d39b8b;
 }
 
-.activeButton {
-  border: 1px solid black;
-  transition-duration: 0.4s;
-  background-color: #a14d4a;
-  color: #ffd3c2;
-}
-
-button:hover {
+.topButton:hover {
   box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
   border: 1px solid black;
   background-color: #b55e5b;

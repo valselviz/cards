@@ -29,7 +29,7 @@ export class MacroGame {
       this.addOnSaleCard();
     }
     for (let i = 0; i < 17; i++) {
-      this.deck.push(getRandomCardModelIdByCriteria(labelNoSacrifice, 2));
+      this.deck.push(getRandomCardModelIdByCriteria(labelNoSacrifice, 1.4));
     }
     for (let i = 0; i < 7; i++) {
       this.deck.push(getRandomCardModelIdByCriteria(labelMagic, 2));
