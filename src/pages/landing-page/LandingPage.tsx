@@ -21,14 +21,18 @@ export default function LandingPage() {
 
   const context = useContext(MacroGameContext);
 
-  const loginButtonStyles = showLoginForm ? styles.activeButton : "";
-  const signupButtonStyles = !showLoginForm ? styles.activeButton : "";
+  const loginButtonStyles = `${styles.topButton} ${
+    showLoginForm ? styles.activeTopButton : styles.inactiveTopButton
+  }`;
+  const signupButtonStyles = `${styles.topButton} ${
+    showLoginForm ? styles.inactiveTopButton : styles.activeTopButton
+  }`;
 
   return (
     <div className={styles.landingPageDiv}>
       <h1>Valeria CCG</h1>
       <div className={styles.formContainerDiv}>
-        <div className={styles.buttonDiv}>
+        <div className={styles.topButtonsDiv}>
           <button
             className={loginButtonStyles}
             onClick={() => setShowLoginForm(true)}

@@ -18,7 +18,7 @@ import guardian from "assets/cards/guardian.jpg";
 import lizardSpearman from "assets/cards/lizardSpearman.jpg";
 import siren from "assets/cards/siren.jpg";
 import owlGuardian from "assets/cards/owlGuardian.jpg";
-import slayer from "assets/cards/slayer.jpg";
+import treeGuardian from "assets/cards/treeGuardian.jpg";
 import { Action } from "duel/Action";
 
 export function loadEffectCards() {
@@ -159,7 +159,7 @@ export function loadEffectCards() {
   );
 
   addCardModel(
-    new CardModel(282, "Slayer", slayer, 14, 7, Color.Yellow, 1.4, [
+    new CardModel(282, "Tree Guardian", treeGuardian, 14, 7, Color.Yellow, 1.4, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -189,6 +189,6 @@ export function loadEffectCards() {
           () => card.duel.selectedTarget
         );
         card.duel.queueDrawAction(1 - card.playerId);
-      }, "Attack. Then draw an opponent card.")
+      }, "Attack. Then your opponent draws card.")
   );
 }

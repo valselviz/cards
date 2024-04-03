@@ -7,7 +7,8 @@ import { loadEffectSacrificeCards } from "./effect-sacrifice-cards";
 import { loadMagicCards } from "./magic-cards";
 import { loadPassiveCards } from "./passive-cards";
 import { loadRitualCards } from "./ritual-cards";
-import { loadSimpleCards } from "./simple-cards";
+import { loadSimpleAggressors } from "./simple-aggressor";
+import { loadSimpleDefenders } from "./simple-defender";
 import { loadSimpleSacrificeCards } from "./simple-sacrifice-cards";
 
 export const labelNoSacrifice = "NO SACRIFICE";
@@ -132,7 +133,8 @@ export function getRandomCardModelIdByCriteria(
 loadEffectCards();
 loadEffectSacrificeCards();
 loadMagicCards();
-loadSimpleCards();
+loadSimpleDefenders();
+loadSimpleAggressors();
 loadSimpleSacrificeCards();
 loadRitualCards();
 loadPassiveCards();
