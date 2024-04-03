@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { LegacyRef, MutableRefObject, useContext, useRef, useState } from "react";
 import styles from "./LandingPage.module.css";
 import { MacroGame } from "macrogame/MacroGame";
 import MacroGameContext from "MacroGameContext";
@@ -8,6 +8,7 @@ import {
   updateOnBackend,
 } from "api-client/api-client";
 import { useNavigate } from "react-router-dom";
+import Dialog from "pages/common-components/Dialog/Dialog";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -23,6 +24,23 @@ export default function LandingPage() {
 
   const loginButtonStyles = showLoginForm ? styles.activeButton : "";
   const signupButtonStyles = !showLoginForm ? styles.activeButton : "";
+
+  const modalRef: LegacyRef<HTMLDialogElement | null> = useRef(null);
+  
+  const [dialogTittle, setDialogTittle] = useState("");
+  const [dialogMessage, setDialogMessage] = useState("");
+  const [dialogButtonMessage, setDialogButtonMessage] = useState("");
+
+  const openDialog = (
+    tittle: string,
+    message: string,
+    buttonMessage: string
+  ) => {
+    setDialogTittle(tittle);
+    setDialogMessage(message);
+    setDialogButtonMessage(buttonMessage);
+    modalRef.current?.showModal()
+  };
 
   return (
     <div className={styles.landingPageDiv}>
@@ -65,7 +83,8 @@ export default function LandingPage() {
                     return;
                   }
                   if (error.message === "401") {
-                    alert(`Wrong Password`);
+                    openDialog("Wrong password", "", "Ok")
+                    //alert(`Wrong Password`);
                     return;
                   }
                   if (error.message !== "200") {
@@ -161,6 +180,12 @@ export default function LandingPage() {
           </form>
         )}
       </div>
+      <Dialog
+        dialogTittle={dialogTittle}
+        dialogMessage={dialogMessage}
+        dialogButtonMessage={dialogButtonMessage}
+        modalRef={modalRef as LegacyRef<HTMLDialogElement>}
+      />
     </div>
   );
 }
