@@ -1,4 +1,4 @@
-import { LegacyRef, MutableRefObject, useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./LandingPage.module.css";
 import { MacroGame } from "macrogame/MacroGame";
 import MacroGameContext from "MacroGameContext";
@@ -29,21 +29,21 @@ export default function LandingPage() {
     showLoginForm ? styles.inactiveTopButton : styles.activeTopButton
   }`;
 
-  const modalRef: LegacyRef<HTMLDialogElement | null> = useRef(null);
-  
-  const [dialogTittle, setDialogTittle] = useState("");
   const [dialogMessage, setDialogMessage] = useState("");
   const [dialogButtonMessage, setDialogButtonMessage] = useState("");
+  const [error, setError] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openDialog = (
-    tittle: string,
     message: string,
-    buttonMessage: string
+    buttonMessage: string,
+    error: boolean
   ) => {
-    setDialogTittle(tittle);
     setDialogMessage(message);
     setDialogButtonMessage(buttonMessage);
-    modalRef.current?.showModal()
+    setIsModalOpen(true);
+    setError(error);
   };
 
   return (
@@ -53,13 +53,21 @@ export default function LandingPage() {
         <div className={styles.topButtonsDiv}>
           <button
             className={loginButtonStyles}
-            onClick={() => setShowLoginForm(true)}
+            onClick={() => {
+              setShowLoginForm(true);
+              setUsername("");
+              setPassword("");
+            }}
           >
             Continue
           </button>
           <button
             className={signupButtonStyles}
-            onClick={() => setShowLoginForm(false)}
+            onClick={() => {
+              setShowLoginForm(false);
+              setUsername("");
+              setPassword("");
+            }}
           >
             New Game
           </button>
@@ -68,6 +76,14 @@ export default function LandingPage() {
           <form
             onSubmit={async (e) => {
               e.preventDefault();
+              if (username === "") {
+                openDialog(`Username can not be empty`, `Ok`, true);
+                return;
+              }
+              if (password === "") {
+                openDialog(`Password can not be empty`, `Ok`, true);
+                return;
+              }
               try {
                 const loginResponse = await loginOnBackend(username, password);
                 context.username = username;
@@ -83,16 +99,15 @@ export default function LandingPage() {
               } catch (error) {
                 if (error instanceof Error) {
                   if (error.message === "404") {
-                    alert(`Player ${username} does not exist`);
+                    openDialog(`Player ${username} does not exist`, `Ok`, true);
                     return;
                   }
                   if (error.message === "401") {
-                    openDialog("Wrong password", "", "Ok")
-                    //alert(`Wrong Password`);
+                    openDialog(`Wrong password`, `Ok`, true);
                     return;
                   }
                   if (error.message !== "200") {
-                    alert(`Unexpected error`);
+                    openDialog(`Unexpected error`, `Ok`, true);
                     return;
                   }
                 }
@@ -122,8 +137,16 @@ export default function LandingPage() {
           <form
             onSubmit={async (e) => {
               e.preventDefault();
+              if (username === "") {
+                openDialog(`Username can not be empty`, `Ok`, true);
+                return;
+              }
+              if (password === "") {
+                openDialog(`Password can not be empty`, `Ok`, true);
+                return;
+              }
               if (password !== confirmPassword) {
-                alert("Password confirmation does not match");
+                openDialog(`Password confirmation does not match`, `Ok`, true);
                 return;
               }
               try {
@@ -136,11 +159,15 @@ export default function LandingPage() {
               } catch (error) {
                 if (error instanceof Error) {
                   if (error.message === "409") {
-                    alert(`Username already taken`);
+                    openDialog(`Username already taken`, `Ok`, true);
                     return;
                   }
                   if (error.message !== "200") {
-                    alert(`Unexpected error calling create player endpoint`);
+                    openDialog(
+                      `Unexpected error calling create player endpoint`,
+                      `Ok`,
+                      true
+                    );
                     return;
                   }
                 }
@@ -185,10 +212,11 @@ export default function LandingPage() {
         )}
       </div>
       <Dialog
-        dialogTittle={dialogTittle}
         dialogMessage={dialogMessage}
         dialogButtonMessage={dialogButtonMessage}
-        modalRef={modalRef as LegacyRef<HTMLDialogElement>}
+        error={error}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
       />
     </div>
   );

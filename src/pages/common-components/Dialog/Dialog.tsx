@@ -1,23 +1,47 @@
-import { LegacyRef, MutableRefObject } from "react";
+import { Dispatch, LegacyRef, SetStateAction, useEffect, useRef } from "react";
+import styles from "./Dialog.module.css";
 
 interface DialogProps {
-  dialogTittle: string;
   dialogMessage: string;
   dialogButtonMessage: string;
-  modalRef: LegacyRef<HTMLDialogElement>;
+  error: boolean;
+  isModalOpen: boolean;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function Dialog({
-  dialogTittle,
   dialogMessage,
   dialogButtonMessage,
-  modalRef,
+  error,
+  isModalOpen,
+  setIsModalOpen,
 }: DialogProps) {
+  const modalRef: LegacyRef<HTMLDialogElement> = useRef(null);
+
+  const dialogBoxStyles = error ? styles.dialogBoxError : styles.dialogBox;
+
+  useEffect(() => {
+    if (isModalOpen) {
+      modalRef.current?.showModal();
+    } else {
+      modalRef.current?.close();
+    }
+  }, [isModalOpen]);
+
   return (
     <dialog ref={modalRef}>
-      <h3>{dialogTittle}</h3>
-      <p>{dialogMessage}</p>
-      <button>{dialogButtonMessage}</button>
+      <div className={dialogBoxStyles}>
+        <p className={styles.dialogText}>{dialogMessage}</p>
+        <button
+          className={styles.dialogButton}
+          onClick={(event) => {
+            event.stopPropagation();
+            setIsModalOpen(false);
+          }}
+        >
+          {dialogButtonMessage}
+        </button>
+      </div>
     </dialog>
   );
 }

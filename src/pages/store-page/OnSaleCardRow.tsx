@@ -1,10 +1,11 @@
 import styles from "../common-components/MainTable/MainTableRow.module.css";
 import { CardModel } from "duel/CardModel";
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import MacroGameContext, { GameContext } from "MacroGameContext";
 import { MacroGame, OnSaleCard } from "macrogame/MacroGame";
 import { cardModels } from "duel/cards-collection/cards-collection";
 import { updateOnBackend } from "api-client/api-client";
+import Dialog from "pages/common-components/Dialog/Dialog";
 
 interface OnSaleCardRowProps {
   onSaleCard: OnSaleCard;
@@ -22,13 +23,30 @@ export default function OnSaleCardRow({
 
   const onSaleCardModel = cardModels[onSaleCard.model];
 
+  const [dialogMessage, setDialogMessage] = useState("");
+  const [dialogButtonMessage, setDialogButtonMessage] = useState("");
+  const [error, setError] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openDialog = (
+    message: string,
+    buttonMessage: string,
+    error: boolean
+  ) => {
+    setDialogMessage(message);
+    setDialogButtonMessage(buttonMessage);
+    setIsModalOpen(true);
+    setError(error);
+  };
+
   return (
     <tr
       className={styles.tableRow}
       onMouseEnter={() => setHoveredCard(onSaleCardModel)}
       onClick={async () => {
         if (macrogame.gold < onSaleCard.price) {
-          alert("You don't have enough gold to buy this card.");
+          openDialog(`You don't have enough gold to buy this card.`, `Ok`, true);
           return;
         }
         macrogame.cardsInStore.splice(
@@ -62,6 +80,13 @@ export default function OnSaleCardRow({
       <td className={styles.tableDataCell}>
         <p>{onSaleCard.price}</p>
       </td>
+      <Dialog
+        dialogMessage={dialogMessage}
+        dialogButtonMessage={dialogButtonMessage}
+        error={error}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </tr>
   );
 }

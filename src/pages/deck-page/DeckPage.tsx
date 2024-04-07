@@ -6,9 +6,10 @@ import CardsContainer from "./CardsContainer/CardsContainer";
 import plusIcon from "../../assets/plus.png";
 import crossIcon from "../../assets/cross.png";
 import { updateOnBackend } from "api-client/api-client";
-import styles from "./DeckPage.module.css"
+import styles from "./DeckPage.module.css";
 import DoubleCardDisplay from "pages/common-components/DoubleCardDisplay/DoubleCardDisplay";
 import { CardModel } from "duel/CardModel";
+import Dialog from "pages/common-components/Dialog/Dialog";
 
 export default function DeckPage() {
   const context: GameContext = useContext(MacroGameContext);
@@ -28,7 +29,11 @@ export default function DeckPage() {
     if (!context.macrogame) return;
     const deckMin = 30;
     if (context.macrogame.deck.length <= deckMin) {
-      alert(`Your deck can not have less than ${deckMin} cards`);
+      openDialog(
+        `Your deck can not have less than ${deckMin} cards`,
+        `Ok`,
+        true
+      );
       return;
     }
 
@@ -46,7 +51,11 @@ export default function DeckPage() {
     if (!context.macrogame) return;
     const deckMax = 40;
     if (context.macrogame.deck.length >= deckMax) {
-      alert(`Your deck can not have more than ${deckMax} cards`);
+      openDialog(
+        `Your deck can not have more than ${deckMax} cards`,
+        `Ok`,
+        true
+      );
       return;
     }
 
@@ -58,6 +67,23 @@ export default function DeckPage() {
       context.username as string,
       context.macrogame as MacroGame
     );
+  };
+
+  const [dialogMessage, setDialogMessage] = useState("");
+  const [dialogButtonMessage, setDialogButtonMessage] = useState("");
+  const [error, setError] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openDialog = (
+    message: string,
+    buttonMessage: string,
+    error: boolean
+  ) => {
+    setDialogMessage(message);
+    setDialogButtonMessage(buttonMessage);
+    setIsModalOpen(true);
+    setError(error);
   };
 
   if (!context.macrogame || !deck || !cardsPool) {
@@ -87,6 +113,13 @@ export default function DeckPage() {
           setHoveredCard={setHoveredCard}
         />
       </div>
+      <Dialog
+        dialogMessage={dialogMessage}
+        dialogButtonMessage={dialogButtonMessage}
+        error={error}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </div>
   );
 }
