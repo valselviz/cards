@@ -6,6 +6,8 @@ import styles from "../common-components/MainTable/MainTable.module.css";
 import OnSaleCardRow from "./OnSaleCardRow";
 import { MacroGame } from "macrogame/MacroGame";
 import { useNavigate } from "react-router-dom";
+import { useDialog } from "pages/common-components/Dialog/useDialog";
+import Dialog from "pages/common-components/Dialog/Dialog";
 
 export default function DeckPage() {
   const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
@@ -23,6 +25,22 @@ export default function DeckPage() {
       navigate("/");
     }
   }, [macrogame, navigate]);
+
+  const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
+    useDialog();
+
+  useEffect(() => {
+    if (!localStorage.getItem("storePageInfoDisplayed")) {
+      openDialog(
+        false,
+        `This is the Store section.`,
+        `You can buy new cards here.`,
+        `After buying a new card, make sure you add it to your deck in the “MY DECK” section.`
+      );
+      localStorage.setItem("storePageInfoDisplayed", "true");
+    }
+  }, []);
+
   if (!macrogame) {
     return <></>;
   }
@@ -66,6 +84,12 @@ export default function DeckPage() {
           <DoubleCardDisplay hoveredCard={hoveredCard} title={"Card Details"} />
         </div>
       </div>
+      <Dialog
+        dialogMessage={dialogMessage}
+        isError={isError}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </div>
   );
 }

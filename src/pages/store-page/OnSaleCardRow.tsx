@@ -6,6 +6,7 @@ import { MacroGame, OnSaleCard } from "macrogame/MacroGame";
 import { cardModels } from "duel/cards-collection/cards-collection";
 import { updateOnBackend } from "api-client/api-client";
 import Dialog from "pages/common-components/Dialog/Dialog";
+import { useDialog } from "pages/common-components/Dialog/useDialog";
 
 interface OnSaleCardRowProps {
   onSaleCard: OnSaleCard;
@@ -23,22 +24,8 @@ export default function OnSaleCardRow({
 
   const onSaleCardModel = cardModels[onSaleCard.model];
 
-  const [dialogMessage, setDialogMessage] = useState("");
-  const [dialogButtonMessage, setDialogButtonMessage] = useState("");
-  const [error, setError] = useState(false);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openDialog = (
-    message: string,
-    buttonMessage: string,
-    error: boolean
-  ) => {
-    setDialogMessage(message);
-    setDialogButtonMessage(buttonMessage);
-    setIsModalOpen(true);
-    setError(error);
-  };
+  const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
+    useDialog();
 
   return (
     <tr
@@ -46,7 +33,10 @@ export default function OnSaleCardRow({
       onMouseEnter={() => setHoveredCard(onSaleCardModel)}
       onClick={async () => {
         if (macrogame.gold < onSaleCard.price) {
-          openDialog(`You don't have enough gold to buy this card.`, `Ok`, true);
+          openDialog(
+            true,
+            `You don't have enough gold to buy this card.`
+          );
           return;
         }
         macrogame.cardsInStore.splice(
@@ -82,8 +72,7 @@ export default function OnSaleCardRow({
       </td>
       <Dialog
         dialogMessage={dialogMessage}
-        dialogButtonMessage={dialogButtonMessage}
-        error={error}
+        isError={isError}
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
       />

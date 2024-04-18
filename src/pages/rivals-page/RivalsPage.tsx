@@ -6,6 +6,8 @@ import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCard
 import { CardModel } from "duel/CardModel";
 import { MacroGame } from "macrogame/MacroGame";
 import { useNavigate } from "react-router-dom";
+import Dialog from "pages/common-components/Dialog/Dialog";
+import { useDialog } from "pages/common-components/Dialog/useDialog";
 
 export default function RivalsPage() {
   const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
@@ -19,6 +21,23 @@ export default function RivalsPage() {
       navigate("/");
     }
   }, [macrogame, navigate]);
+
+  const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
+    useDialog();
+
+  useEffect(() => {
+    if (!localStorage.getItem("rivalsPageInfoDisplayed")) {
+      openDialog(
+        false,
+        `This is the Rivals section.`,
+        `Click on a rival to duel against him.`,
+        `As you defeat rivals, new ones will be unlocked.`,
+        `Can you defeat them all?`
+      );
+      localStorage.setItem("rivalsPageInfoDisplayed", "true");
+    }
+  }, []);
+
   if (!macrogame) {
     return <></>;
   }
@@ -62,6 +81,12 @@ export default function RivalsPage() {
           />
         </div>
       </div>
+      <Dialog
+        dialogMessage={dialogMessage}
+        isError={isError}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </div>
   );
 }
