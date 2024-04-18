@@ -24,7 +24,6 @@ export default function Dialog({
     if (isModalOpen) {
       modalRef.current?.showModal();
     } else {
-      console.log(isModalOpen);
       modalRef.current?.close();
     }
   }, [isModalOpen]);

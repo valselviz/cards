@@ -12,7 +12,6 @@ export function useDialog(): [
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openDialog = (error: boolean, ...message: string[]) => {
-    console.log("abrir dialog");
     setDialogMessage(message);
     setIsModalOpen(true);
     setIsError(error);
