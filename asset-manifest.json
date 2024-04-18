@@ -1,11 +1,12 @@
 {
   "files": {
-    "main.css": "/cards/static/css/main.6cfc7fb8.css",
-    "main.js": "/cards/static/js/main.2c439de5.js",
+    "main.css": "/cards/static/css/main.1a5c1c72.css",
+    "main.js": "/cards/static/js/main.c1480eb6.js",
     "static/media/background.jpg": "/cards/static/media/background.af467ed16ec7b3bdbb34.jpg",
     "static/media/darkRitual.jpg": "/cards/static/media/darkRitual.47a55497fbca38df9f38.jpg",
     "static/media/cardBack.jpg": "/cards/static/media/cardBack.a74b4d4355663af9d55f.jpg",
     "static/media/bookBackground2.jpg": "/cards/static/media/bookBackground2.371e65b75b45f876b465.jpg",
+    "static/media/treeGuardian.jpg": "/cards/static/media/treeGuardian.f8e0a0cffec255f3ef62.jpg",
     "static/media/fiend.jpg": "/cards/static/media/fiend.625f3460fec6291d665d.jpg",
     "static/media/owlGuardian.jpg": "/cards/static/media/owlGuardian.b569dd038afa13d90680.jpg",
     "static/media/whiteKnight.jpg": "/cards/static/media/whiteKnight.ad7f7728f612da171038.jpg",
@@ -15,9 +16,11 @@
     "static/media/slayer.jpg": "/cards/static/media/slayer.51714c48dd64430acf32.jpg",
     "static/media/dragonMistress.jpg": "/cards/static/media/dragonMistress.4d14a69e503b327b6310.jpg",
     "static/media/magicCup.jpg": "/cards/static/media/magicCup.21c0c50b2bda32a99e84.jpg",
+    "static/media/imp.jpg": "/cards/static/media/imp.6d99b83ada1349594edc.jpg",
     "static/media/reaper.jpg": "/cards/static/media/reaper.513062dd38e11c287940.jpg",
     "static/media/centaurSorcerer.jpg": "/cards/static/media/centaurSorcerer.36eadf2b4a7be28ed050.jpg",
     "static/media/eruption.jpg": "/cards/static/media/eruption.dcefc24cde1da6fe3648.jpg",
+    "static/media/wolfBarbarian.jpg": "/cards/static/media/wolfBarbarian.37d359366ba71fc197ca.jpg",
     "static/media/goblinWarrior.jpg": "/cards/static/media/goblinWarrior.854dd8b2f7ceff61f80d.jpg",
     "static/media/tigerWarrior.jpg": "/cards/static/media/tigerWarrior.d1d872bbf679b185b473.jpg",
     "static/media/victory.png": "/cards/static/media/victory.659f0d9c525c6a955a14.png",
@@ -43,11 +46,11 @@
     "static/media/shield.svg": "/cards/static/media/shield.0973822d078a4e746fe5de6ff3720221.svg",
     "static/media/questionMark.svg": "/cards/static/media/questionMark.fcc53f27f6bc4ff0f691ee81a343ee8b.svg",
     "index.html": "/cards/index.html",
-    "main.6cfc7fb8.css.map": "/cards/static/css/main.6cfc7fb8.css.map",
-    "main.2c439de5.js.map": "/cards/static/js/main.2c439de5.js.map"
+    "main.1a5c1c72.css.map": "/cards/static/css/main.1a5c1c72.css.map",
+    "main.c1480eb6.js.map": "/cards/static/js/main.c1480eb6.js.map"
   },
   "entrypoints": [
-    "static/css/main.6cfc7fb8.css",
-    "static/js/main.2c439de5.js"
+    "static/css/main.1a5c1c72.css",
+    "static/js/main.c1480eb6.js"
   ]
 }
