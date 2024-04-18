@@ -138,5 +138,3 @@ loadSimpleAggressors();
 loadSimpleSacrificeCards();
 loadRitualCards();
 loadPassiveCards();
-
-console.log("Card models: " + cardModelsList.length);

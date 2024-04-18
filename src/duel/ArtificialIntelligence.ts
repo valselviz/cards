@@ -21,7 +21,6 @@ export class ArtificialIntelligence {
     for (const card of duel.cards[duel.playerTurn][Zone.Hand]) {
       card.model.useFromHand(card);
       if (duel.actionsQueue.length > 0) {
-        console.log(card.id);
         duel.ui.notifyCardUsage(
           card.playerId,
           card.zone,

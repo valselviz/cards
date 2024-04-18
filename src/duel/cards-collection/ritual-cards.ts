@@ -24,23 +24,21 @@ export function loadRitualCards() {
     Color.Red,
     3,
     [labelRitualCreature]
-  ).withFieldEffect(simpleAttack, simpleAttackInfo);
+  )
+    .withFieldEffect(simpleAttack, simpleAttackInfo)
+    .withHandEffect(
+      () => null,
+      "None. This card can only be invoked by using a Dark Ritual card."
+    );
   addCardModel(deathLordCardModel);
 
   addCardModel(
-    new CardModel(
-      491,
-      "Dark Ritual",
-      darkRitual,
-      0,
-      0,
-      Color.Red,
-      3,
-      [labelRitualMagic]
-    ).withHandEffect((card: Card) => {
+    new CardModel(491, "Dark Ritual", darkRitual, 0, 0, Color.Red, 3, [
+      labelRitualMagic,
+    ]).withHandEffect((card: Card) => {
       const selectionCriteria = (handCard: Card) =>
         handCard.model === deathLordCardModel;
-      if (card.duel.cards[card.playerId][Zone.Hand].some(selectionCriteria)) {
+      if (!card.duel.cards[card.playerId][Zone.Hand].some(selectionCriteria)) {
         card.duel.alertPlayer("You need one Death Lord in your hand.");
         return;
       }

@@ -10,6 +10,7 @@ import styles from "./DeckPage.module.css";
 import DoubleCardDisplay from "pages/common-components/DoubleCardDisplay/DoubleCardDisplay";
 import { CardModel } from "duel/CardModel";
 import Dialog from "pages/common-components/Dialog/Dialog";
+import { useDialog } from "pages/common-components/Dialog/useDialog";
 
 export default function DeckPage() {
   const context: GameContext = useContext(MacroGameContext);
@@ -22,6 +23,22 @@ export default function DeckPage() {
     }
   }, [context.macrogame, navigate]);
 
+  const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
+    useDialog();
+
+  useEffect(() => {
+    if (!localStorage.getItem("deckPageInfoDisplayed")) {
+      openDialog(
+        false,
+        `Welcome to Valeria CCG!`,
+        `This is the Deck Management section.`,
+        `On the left you have the deck of cards you use during duels.`,
+        `On the right you have the rest of the cards you earned. It’s empty for now, but you will earn new cards soon.`
+      );
+      localStorage.setItem("deckPageInfoDisplayed", "true");
+    }
+  }, []);
+
   const [deck, setDeck] = useState(context.macrogame?.deck);
   const [cardsPool, setCardsPool] = useState(context.macrogame?.cardsPool);
 
@@ -29,11 +46,7 @@ export default function DeckPage() {
     if (!context.macrogame) return;
     const deckMin = 30;
     if (context.macrogame.deck.length <= deckMin) {
-      openDialog(
-        `Your deck can not have less than ${deckMin} cards`,
-        `Ok`,
-        true
-      );
+      openDialog(true,`Your deck can not have less than ${deckMin} cards`);
       return;
     }
 
@@ -52,9 +65,8 @@ export default function DeckPage() {
     const deckMax = 40;
     if (context.macrogame.deck.length >= deckMax) {
       openDialog(
-        `Your deck can not have more than ${deckMax} cards`,
-        `Ok`,
-        true
+        true,
+        `Your deck can not have more than ${deckMax} cards`
       );
       return;
     }
@@ -67,23 +79,6 @@ export default function DeckPage() {
       context.username as string,
       context.macrogame as MacroGame
     );
-  };
-
-  const [dialogMessage, setDialogMessage] = useState("");
-  const [dialogButtonMessage, setDialogButtonMessage] = useState("");
-  const [error, setError] = useState(false);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openDialog = (
-    message: string,
-    buttonMessage: string,
-    error: boolean
-  ) => {
-    setDialogMessage(message);
-    setDialogButtonMessage(buttonMessage);
-    setIsModalOpen(true);
-    setError(error);
   };
 
   if (!context.macrogame || !deck || !cardsPool) {
@@ -115,8 +110,7 @@ export default function DeckPage() {
       </div>
       <Dialog
         dialogMessage={dialogMessage}
-        dialogButtonMessage={dialogButtonMessage}
-        error={error}
+        isError={isError}
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
       />

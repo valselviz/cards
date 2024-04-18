@@ -9,6 +9,7 @@ import {
 } from "api-client/api-client";
 import { useNavigate } from "react-router-dom";
 import Dialog from "pages/common-components/Dialog/Dialog";
+import { useDialog } from "pages/common-components/Dialog/useDialog";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -29,22 +30,8 @@ export default function LandingPage() {
     showLoginForm ? styles.inactiveTopButton : styles.activeTopButton
   }`;
 
-  const [dialogMessage, setDialogMessage] = useState("");
-  const [dialogButtonMessage, setDialogButtonMessage] = useState("");
-  const [error, setError] = useState(false);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openDialog = (
-    message: string,
-    buttonMessage: string,
-    error: boolean
-  ) => {
-    setDialogMessage(message);
-    setDialogButtonMessage(buttonMessage);
-    setIsModalOpen(true);
-    setError(error);
-  };
+  const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
+    useDialog();
 
   return (
     <div className={styles.landingPageDiv}>
@@ -77,11 +64,11 @@ export default function LandingPage() {
             onSubmit={async (e) => {
               e.preventDefault();
               if (username === "") {
-                openDialog(`Username can not be empty`, `Ok`, true);
+                openDialog(true, `Username can not be empty`);
                 return;
               }
               if (password === "") {
-                openDialog(`Password can not be empty`, `Ok`, true);
+                openDialog(true, `Password can not be empty`);
                 return;
               }
               try {
@@ -99,15 +86,15 @@ export default function LandingPage() {
               } catch (error) {
                 if (error instanceof Error) {
                   if (error.message === "404") {
-                    openDialog(`Player ${username} does not exist`, `Ok`, true);
+                    openDialog(true, `Player ${username} does not exist`);
                     return;
                   }
                   if (error.message === "401") {
-                    openDialog(`Wrong password`, `Ok`, true);
+                    openDialog(true, `Wrong password`);
                     return;
                   }
                   if (error.message !== "200") {
-                    openDialog(`Unexpected error`, `Ok`, true);
+                    openDialog(true, `Unexpected error`);
                     return;
                   }
                 }
@@ -138,15 +125,15 @@ export default function LandingPage() {
             onSubmit={async (e) => {
               e.preventDefault();
               if (username === "") {
-                openDialog(`Username can not be empty`, `Ok`, true);
+                openDialog(true, `Username can not be empty`);
                 return;
               }
               if (password === "") {
-                openDialog(`Password can not be empty`, `Ok`, true);
+                openDialog(true, `Password can not be empty`);
                 return;
               }
               if (password !== confirmPassword) {
-                openDialog(`Password confirmation does not match`, `Ok`, true);
+                openDialog(true, `Password confirmation does not match`);
                 return;
               }
               try {
@@ -159,14 +146,13 @@ export default function LandingPage() {
               } catch (error) {
                 if (error instanceof Error) {
                   if (error.message === "409") {
-                    openDialog(`Username already taken`, `Ok`, true);
+                    openDialog(true, `Username already taken`);
                     return;
                   }
                   if (error.message !== "200") {
                     openDialog(
-                      `Unexpected error calling create player endpoint`,
-                      `Ok`,
-                      true
+                      true,
+                      `Unexpected error calling create player endpoint`
                     );
                     return;
                   }
@@ -213,8 +199,7 @@ export default function LandingPage() {
       </div>
       <Dialog
         dialogMessage={dialogMessage}
-        dialogButtonMessage={dialogButtonMessage}
-        error={error}
+        isError={isError}
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
       />
