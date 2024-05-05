@@ -1,26 +1,16 @@
-import MacroGameContext from "MacroGameContext";
 import RivalRow from "./RivalRow";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../common-components/MainTable/MainTable.module.css";
 import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCardDisplay";
 import { CardModel } from "duel/CardModel";
-import { MacroGame } from "macrogame/MacroGame";
-import { useNavigate } from "react-router-dom";
 import Dialog from "pages/common-components/Dialog/Dialog";
 import { useDialog } from "pages/common-components/Dialog/useDialog";
+import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
 
 export default function RivalsPage() {
-  const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
+  const [macrogame] = useMacrogame();
 
   const [hoveredCard, setHoveredCard] = useState(null as CardModel | null);
-
-  // Navigate back to the landing page if the user does not have a session
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!macrogame) {
-      navigate("/");
-    }
-  }, [macrogame, navigate]);
 
   const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
     useDialog();

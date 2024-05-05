@@ -16,7 +16,7 @@ export const handler = async (event) => {
   const path = event.requestContext.http.path;
   const method = event.requestContext.http.method;
   const body = event.body ? JSON.parse(event.body) : {};
-  const sessionToken = event?.headers?.sessiontoken;// Note that lambda converts the headers names to lowercases
+  const sessionToken = event?.headers?.sessiontoken; // Note that lambda converts the headers names to lowercases
 
   try {
     if (path === "/login" && method === "POST") {
@@ -37,11 +37,11 @@ export const handler = async (event) => {
 
   return {
     statusCode: 404,
-    body: JSON.stringify("Endpoint not found")
+    body: JSON.stringify("Endpoint not found"),
   };
 };
 
-// If the request contains a user password, it checks if the 
+// If the request contains a user password, it checks if the
 // password is correct and generates a new session token
 // Otherwise, it just checks the token validity
 // If everything is ok this endpoint returns the user data
@@ -87,8 +87,6 @@ async function loginPlayer({ username, password }, sessionToken) {
       };
     }
   }
-
-  
 
   // Store into DynamoDB the login Date.
   item.lastLoginDate = JSON.stringify(new Date());
@@ -167,9 +165,6 @@ async function updatePlayer({ username, macrogame }, sessionToken) {
   return {
     statusCode: 200,
     body: JSON.stringify("Player updated successfully"),
-    headers: {
-      sessionToken: sessionToken,
-    },
   };
 }
 
