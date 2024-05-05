@@ -16,16 +16,17 @@ export const handler = async (event) => {
   const path = event.requestContext.http.path;
   const method = event.requestContext.http.method;
   const body = event.body ? JSON.parse(event.body) : {};
+  const sessionToken = event?.headers?.sessiontoken; // Note that lambda converts the headers names to lowercases
 
   try {
     if (path === "/login" && method === "POST") {
-      return await loginPlayer(body);
+      return await loginPlayer(body, sessionToken);
     }
     if (path === "/player" && method === "POST") {
       return await createPlayer(body);
     }
     if (path === "/player" && method === "PUT") {
-      return await updatePlayer(body);
+      return await updatePlayer(body, sessionToken);
     }
   } catch (error) {
     return {
@@ -40,8 +41,11 @@ export const handler = async (event) => {
   };
 };
 
-// Checks if the password is correct and returns the user data
-async function loginPlayer({ username, password }) {
+// If the request contains a user password, it checks if the
+// password is correct and generates a new session token
+// Otherwise, it just checks the token validity
+// If everything is ok this endpoint returns the user data
+async function loginPlayer({ username, password }, sessionToken) {
   const getResponse = await dynamo.send(
     new GetCommand({
       TableName: playerTableName,
@@ -63,17 +67,31 @@ async function loginPlayer({ username, password }) {
       body: JSON.stringify("Player not found"),
     };
   }
-  if (getResponse.Item.hashedPassword !== simpleHash(password)) {
-    return {
-      statusCode: 401,
-      body: JSON.stringify("Wrong password"),
-    };
+
+  const item = getResponse.Item;
+
+  if (password) {
+    if (getResponse.Item.hashedPassword === simpleHash(password)) {
+      sessionToken = (Math.random() * 0xffffffffffffffff).toString(16);
+    } else {
+      return {
+        statusCode: 401,
+        body: JSON.stringify("Wrong password"),
+      };
+    }
+  } else {
+    if (!sessionToken || sessionToken !== item.sessionToken) {
+      return {
+        statusCode: 401,
+        body: JSON.stringify("Invalid session token "),
+      };
+    }
   }
 
   // Store into DynamoDB the login Date.
-  const item = getResponse.Item;
   item.lastLoginDate = JSON.stringify(new Date());
-  item.loginTimes ++;
+  item.loginTimes++;
+  item.sessionToken = sessionToken;
   const putResponse = await dynamo.send(
     new PutCommand({
       TableName: playerTableName,
@@ -89,11 +107,14 @@ async function loginPlayer({ username, password }) {
   return {
     statusCode: 200,
     body: JSON.stringify(getResponse.Item.macrogame),
+    headers: {
+      sessionToken: sessionToken,
+    },
   };
 }
 
 // Updates the macrogame data of a player
-async function updatePlayer({ username, macrogame }) {
+async function updatePlayer({ username, macrogame }, sessionToken) {
   const getResponse = await dynamo.send(
     new GetCommand({
       TableName: playerTableName,
@@ -116,6 +137,14 @@ async function updatePlayer({ username, macrogame }) {
   }
 
   const item = getResponse.Item;
+
+  if (!sessionToken || sessionToken !== item.sessionToken) {
+    return {
+      statusCode: 401,
+      body: JSON.stringify("Invalid session token"),
+    };
+  }
+
   item.macrogame = macrogame;
   // These attributes will also be saved as independent columns to make searches easier
   item.manualGamesStarted = macrogame.manualGamesStarted;
@@ -139,7 +168,7 @@ async function updatePlayer({ username, macrogame }) {
   };
 }
 
-// Creates a new player in the database
+// Creates a new player in the database, and generates a new session token
 async function createPlayer({ username, password, email }) {
   // Check if the username is already taken
   const getResponse = await dynamo.send(
@@ -164,6 +193,7 @@ async function createPlayer({ username, password, email }) {
   }
 
   // Creting username into the data base
+  const sessionToken = (Math.random() * 0xffffffffffffffff).toString(16);
   const response = await dynamo.send(
     new PutCommand({
       TableName: playerTableName,
@@ -178,6 +208,7 @@ async function createPlayer({ username, password, email }) {
         manualGamesStarted: 0,
         manualGamesFinished: 0,
         manualGamesWon: 0,
+        sessionToken: sessionToken,
       },
     })
   );
@@ -190,6 +221,9 @@ async function createPlayer({ username, password, email }) {
   return {
     statusCode: 200,
     body: JSON.stringify("Player created successfully"),
+    headers: {
+      sessionToken: sessionToken,
+    },
   };
 }
 

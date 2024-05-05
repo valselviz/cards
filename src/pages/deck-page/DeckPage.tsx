@@ -1,7 +1,5 @@
-import MacroGameContext, { GameContext } from "MacroGameContext";
 import { MacroGame } from "macrogame/MacroGame";
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import CardsContainer from "./CardsContainer/CardsContainer";
 import plusIcon from "../../assets/plus.png";
 import crossIcon from "../../assets/cross.png";
@@ -11,17 +9,13 @@ import DoubleCardDisplay from "pages/common-components/DoubleCardDisplay/DoubleC
 import { CardModel } from "duel/CardModel";
 import Dialog from "pages/common-components/Dialog/Dialog";
 import { useDialog } from "pages/common-components/Dialog/useDialog";
+import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
 
 export default function DeckPage() {
-  const context: GameContext = useContext(MacroGameContext);
+  const [macrogame, context] = useMacrogame();
   const [hoveredCard, setHoveredCard] = useState(null as CardModel | null);
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!context.macrogame) {
-      navigate("/");
-    }
-  }, [context.macrogame, navigate]);
+  const [deck, setDeck] = useState(undefined as number[] | undefined);
+  const [cardsPool, setCardsPool] = useState(undefined as number[] | undefined);
 
   const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
     useDialog();
@@ -39,42 +33,38 @@ export default function DeckPage() {
     }
   }, []);
 
-  const [deck, setDeck] = useState(context.macrogame?.deck);
-  const [cardsPool, setCardsPool] = useState(context.macrogame?.cardsPool);
+  useEffect(() => {
+    setDeck(macrogame?.deck);
+    setCardsPool(macrogame?.cardsPool);
+  }, [macrogame]);
 
   const moveCardFromDeckToPool = async (cardPosition: number) => {
-    if (!context.macrogame) return;
+    if (!macrogame) return;
     const deckMin = 30;
-    if (context.macrogame.deck.length <= deckMin) {
-      openDialog(true,`Your deck can not have less than ${deckMin} cards`);
+    if (macrogame.deck.length <= deckMin) {
+      openDialog(true, `Your deck can not have less than ${deckMin} cards`);
       return;
     }
 
-    const cardId = context.macrogame.deck.splice(cardPosition, 1)[0];
-    setDeck([...context.macrogame.deck]);
-    context.macrogame.cardsPool.push(cardId);
-    setCardsPool([...context.macrogame.cardsPool]);
-    await updateOnBackend(
-      context.username as string,
-      context.macrogame as MacroGame
-    );
+    const cardId = macrogame.deck.splice(cardPosition, 1)[0];
+    setDeck([...macrogame.deck]);
+    macrogame.cardsPool.push(cardId);
+    setCardsPool([...macrogame.cardsPool]);
+    await updateOnBackend(context?.username as string, macrogame as MacroGame);
   };
 
   const moveCardFromPoolToDeck = async (cardPosition: number) => {
-    if (!context.macrogame) return;
+    if (!macrogame) return;
     const deckMax = 40;
-    if (context.macrogame.deck.length >= deckMax) {
-      openDialog(
-        true,
-        `Your deck can not have more than ${deckMax} cards`
-      );
+    if (macrogame.deck.length >= deckMax) {
+      openDialog(true, `Your deck can not have more than ${deckMax} cards`);
       return;
     }
 
-    const cardId = context.macrogame.cardsPool.splice(cardPosition, 1)[0];
-    setCardsPool([...context.macrogame.cardsPool]);
-    context.macrogame.deck.push(cardId);
-    setDeck([...context.macrogame.deck]);
+    const cardId = macrogame.cardsPool.splice(cardPosition, 1)[0];
+    setCardsPool([...macrogame.cardsPool]);
+    macrogame.deck.push(cardId);
+    setDeck([...macrogame.deck]);
     await updateOnBackend(
       context.username as string,
       context.macrogame as MacroGame
