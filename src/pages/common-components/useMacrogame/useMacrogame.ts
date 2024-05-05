@@ -4,6 +4,9 @@ import { MacroGame } from "macrogame/MacroGame";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
+// This hook returns a state with the macrogame
+// If possible it retrieves it from the context
+// Otherwise it fetches the macrogame by calling the login endpoint
 export function useMacrogame(): [MacroGame | null, GameContext] {
   const context: GameContext = useContext(MacroGameContext);
   const [macrogame, setMacrogame] = useState(context.macrogame);
