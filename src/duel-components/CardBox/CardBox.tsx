@@ -8,6 +8,7 @@ import { Color } from "../../duel/color";
 import { ReactDuelUI } from "ReactDuelUI/ReactDuelUI";
 import CardBoxMainContent from "./CardBoxMainContent";
 import CardBoxDescription from "./CardBoxDescription";
+import { UsedOrTargetedCard } from "duel/DuelRecord";
 
 interface CardBoxProps {
   card: Card;
@@ -32,36 +33,15 @@ export default function CardBox({
   }, [card, position]);
 
   function clickCard() {
-    const duel = card.duel;
-    // Card Selection
-    if (duel.waitingForCardSelection) {
-      if (
-        card.playerId === duel.selectedCardOwner &&
-        card.zone === duel.selectingFromZone &&
-        duel.selectionCriteria(card)
-      ) {
-        duel.selectedTarget = card;
-        duel.waitingForCardSelection = false;
-        setTargeted(true);
-        executeOneActionWithDelay();
-      }
-    } else if (!duel.hasNextAction()) {
-      // Manually triggered actions
-      if (card.playerId !== duel.playerTurn) return;
-      if (card.zone === Zone.Hand) {
-        card.model.useFromHand(card);
-        if (duel.actionsQueue.length > 0) {
-          setActivated(true);
-          executeOneActionWithDelay();
-        }
-      } else if (card.zone === Zone.Field) {
-        duel.useFromField(card);
-        if (duel.actionsQueue.length > 0) {
-          setActivated(true);
-          executeOneActionWithDelay();
-        }
-      }
-    }
+    //const duel = card.duel;
+    const usedOrTargeted: UsedOrTargetedCard = {
+      player: card.playerId,
+      zone: card.zone,
+      position: position,
+      passTurn: false,
+    };
+    card.duel.executeDuelistMove(usedOrTargeted);
+    executeOneActionWithDelay();
   }
 
   const shakeAnimation = targeted ? styles.shake : "";
@@ -115,7 +95,7 @@ export default function CardBox({
           <div className={usableStyles}></div>
           <div className={`${styles.cardBox} ${colorClass}`}>
             <CardBoxMainContent card={card.model} />
-            <CardBoxDescription card={card.model} displayOnlyOnHover={true}/>
+            <CardBoxDescription card={card.model} displayOnlyOnHover={true} />
           </div>
         </div>
         <div
