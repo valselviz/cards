@@ -6,6 +6,8 @@ import { rndInt } from "./utils";
 import { Zone } from "./zone";
 import { EventType } from "./EventType";
 import { DuelEvent } from "./DuelEvent";
+import { CardModel } from "./CardModel";
+import { DuelRecord, UsedOrTargetedCard } from "./DuelRecord";
 
 export class Duel {
   // This matrix contains all the cards of the duel
@@ -32,8 +34,23 @@ export class Duel {
 
   selectionCriteria: (card: Card) => boolean = () => false;
 
+  reproducingDuel: boolean;
+
+  // If reproducingDuel is false
+  // This object accumulates the different player moves (for both human and AI)
+  // If reproducingDuel is true
+  // This object starts with all the player moves, and they are extracted turn by turn to repdoduce the game
+  duelRecord: DuelRecord;
+
   constructor(players: Duelist[], ui: DuelUI) {
-    this.players = players;
+    const duelReproduction = localStorage.getItem("duelReproduction");
+    let duelRecord = null;
+    if (duelReproduction) {
+      duelRecord = JSON.parse(duelReproduction);
+      this.reproducingDuel = true;
+    } else {
+      this.reproducingDuel = false;
+    }
     this.ui = ui;
     this.cards = [
       [
@@ -49,14 +66,42 @@ export class Duel {
         [], // Field
       ],
     ];
-
-    this.cards[0][Zone.Deck] = players[0].deck.map(
-      (cardModel) => new Card(cardModel, this, 0)
-    );
-    this.cards[1][Zone.Deck] = players[1].deck.map(
-      (cardModel) => new Card(cardModel, this, 1)
-    );
-
+    if (!duelRecord) {
+      this.reproducingDuel = false;
+      this.players = players;
+      this.cards[0][Zone.Deck] = this.createShuffledCards(0);
+      this.cards[1][Zone.Deck] = this.createShuffledCards(1);
+      this.duelRecord = {
+        player0: this.players[0].name,
+        player1: this.players[1].name,
+        deck0: this.cards[0][Zone.Deck].map((card) => card.model.id),
+        deck1: this.cards[1][Zone.Deck].map((card) => card.model.id),
+        playerMoves: [],
+        date: JSON.stringify(new Date()),
+      };
+    } else {
+      this.reproducingDuel = true;
+      this.duelRecord = duelRecord;
+      const player0 = new Duelist(
+        duelRecord.player0,
+        true,
+        duelRecord.deck0,
+        null
+      );
+      const player1 = new Duelist(
+        duelRecord.player1,
+        true,
+        duelRecord.deck1,
+        null
+      );
+      this.players = [player0, player1];
+      this.cards[0][Zone.Deck] = player0.deck.map(
+        (card) => new Card(card, this, 0)
+      );
+      this.cards[1][Zone.Deck] = player1.deck.map(
+        (card) => new Card(card, this, 1)
+      );
+    }
     for (let i = 0; i < 5; i++) {
       this.queueDrawAction(0);
       this.queueDrawAction(1);
@@ -181,20 +226,17 @@ export class Duel {
     const startSelectionAction = new Action(
       () => {
         if (this.cards[selectedCardOwner][zone].some(selectionCriteria)) {
-          if (this.players[this.playerTurn].human) {
-            this.waitingForCardSelection = true;
-            this.selectingFromZone = zone;
-            this.selectedCardOwner = selectedCardOwner;
-            this.selectionCriteria = selectionCriteria;
+          this.waitingForCardSelection = true;
+          this.selectingFromZone = zone;
+          this.selectedCardOwner = selectedCardOwner;
+          this.selectionCriteria = selectionCriteria;
+          if (this.reproducingDuel) {
+            const playerMove = this.duelRecord.playerMoves.shift();
+            this.executeDuelistMove(playerMove as UsedOrTargetedCard);
           } else {
             const ai = this.players[this.playerTurn].ai;
             if (ai) {
-              this.selectedTarget = ai.selectTarget(
-                this,
-                selectedCardOwner,
-                zone,
-                selectionCriteria
-              );
+              ai.selectTarget(this, selectedCardOwner, zone, selectionCriteria);
             }
           }
         } else {
@@ -203,17 +245,30 @@ export class Duel {
       },
       () =>
         this.cards[selectedCardOwner][zone].some(selectionCriteria) &&
-        this.players[this.playerTurn].human,
+        this.players[this.playerTurn].human &&
+        !this.reproducingDuel,
       ""
     );
     this.actionsQueue.push(startSelectionAction);
   }
 
+  createShuffledCards(playerId: number): Card[] {
+    const clonedDeck = this.players[playerId].deck.map(
+      (cardModel) => new Card(cardModel, this, playerId)
+    );
+    const shuffledDeck = [];
+    while (clonedDeck.length > 0) {
+      const deckPosition = rndInt(clonedDeck.length);
+      const card = clonedDeck.splice(deckPosition, 1)[0];
+      shuffledDeck.push(card);
+    }
+    return shuffledDeck;
+  }
+
   queueDrawAction(playerId: number) {
     const drawAction = new Action(() => {
       if (this.cards[playerId][Zone.Deck].length === 0) return;
-      const deckPosition = rndInt(this.cards[playerId][Zone.Deck].length);
-      const card = this.cards[playerId][Zone.Deck].splice(deckPosition, 1)[0];
+      const card = this.cards[playerId][Zone.Deck].shift() as Card;
       card.zone = Zone.Hand;
       this.cards[playerId][Zone.Hand].push(card);
     });
@@ -233,7 +288,7 @@ export class Duel {
   }
 
   alertPlayer(message: string) {
-    if (this.players[this.playerTurn].human) {
+    if (this.players[this.playerTurn].human && !this.reproducingDuel) {
       alert(message);
     }
   }
@@ -258,6 +313,59 @@ export class Duel {
     }
     for (const card of this.cards[this.playerTurn][Zone.Field]) {
       card.model.passiveEffect(card, event);
+    }
+  }
+
+  executeDuelistMove(usedOrTargeted: UsedOrTargetedCard) {
+    if (usedOrTargeted.passTurn) {
+      this.passTurn();
+    } else {
+      const card: Card =
+        this.cards[usedOrTargeted.player as number][
+          usedOrTargeted.zone as number
+        ][usedOrTargeted.position as number];
+
+      if (this.waitingForCardSelection) {
+        if (
+          card.playerId === this.selectedCardOwner &&
+          card.zone === this.selectingFromZone &&
+          this.selectionCriteria(card)
+        ) {
+          this.selectedTarget = card;
+          this.waitingForCardSelection = false;
+          this.ui.notifyCardTargeted(
+            card.playerId,
+            card.zone,
+            this.cards[card.playerId][card.zone].indexOf(card)
+          );
+        }
+      } else if (!this.hasNextAction()) {
+        // Manually triggered actions
+        if (card.playerId !== this.playerTurn) return;
+        if (card.zone === Zone.Hand) {
+          card.model.useFromHand(card);
+          if (this.actionsQueue.length > 0) {
+            this.ui.notifyCardUsage(
+              card.playerId,
+              card.zone,
+              this.cards[card.playerId][card.zone].indexOf(card)
+            );
+          }
+        } else if (card.zone === Zone.Field) {
+          this.useFromField(card);
+          if (this.actionsQueue.length > 0) {
+            this.ui.notifyCardUsage(
+              card.playerId,
+              card.zone,
+              this.cards[card.playerId][card.zone].indexOf(card)
+            );
+          }
+        }
+      }
+    }
+    if (!this.reproducingDuel) {
+      this.duelRecord.playerMoves.push(usedOrTargeted);
+      localStorage.setItem("duelRecord", JSON.stringify(this.duelRecord));
     }
   }
 }

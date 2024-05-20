@@ -1,38 +1,36 @@
 import { Card } from "./Card";
 import { Duel } from "./Duel";
+import { UsedOrTargetedCard } from "./DuelRecord";
 import { Zone } from "./zone";
 
 export class ArtificialIntelligence {
   play(duel: Duel) {
     for (const card of duel.cards[duel.playerTurn][Zone.Field]) {
-      duel.useFromField(card);
-      if (duel.actionsQueue.length > 0) {
-        duel.ui.notifyCardUsage(
-          card.playerId,
-          card.zone,
-          duel.cards[card.playerId][card.zone].indexOf(card)
-        );
-        // if the card added actions successfully
-        // then we don't need to keep on playing more cards
-        // (not until the UI dispaches the current actions)
-        return;
-      }
+      const usedOrTargeted: UsedOrTargetedCard = {
+        player: duel.playerTurn,
+        zone: card.zone,
+        position: duel.cards[duel.playerTurn][Zone.Field].indexOf(card),
+        passTurn: false,
+      };
+      duel.executeDuelistMove(usedOrTargeted);
+      if (duel.actionsQueue.length > 0) return;
     }
     for (const card of duel.cards[duel.playerTurn][Zone.Hand]) {
-      card.model.useFromHand(card);
-      if (duel.actionsQueue.length > 0) {
-        duel.ui.notifyCardUsage(
-          card.playerId,
-          card.zone,
-          duel.cards[card.playerId][card.zone].indexOf(card)
-        );
-        // if the card added actions successfully
-        // then we don't need to keep on playing more cards
-        // (not until the UI dispaches the current actions)
-        return;
-      }
+      const usedOrTargeted: UsedOrTargetedCard = {
+        player: duel.playerTurn,
+        zone: card.zone,
+        position: duel.cards[duel.playerTurn][Zone.Hand].indexOf(card),
+        passTurn: false,
+      };
+      duel.executeDuelistMove(usedOrTargeted);
+      if (duel.actionsQueue.length > 0) return;
     }
-    duel.passTurn();
+    duel.executeDuelistMove({
+      player: null,
+      zone: null,
+      position: null,
+      passTurn: true,
+    });
   }
 
   selectTarget(
@@ -40,16 +38,16 @@ export class ArtificialIntelligence {
     selectedCardOwner: number,
     zone: Zone,
     selectionCriteria: (card: Card) => boolean = () => true
-  ): Card | null {
+  ) {
     const target = duel.cards[selectedCardOwner][zone].find(selectionCriteria);
     if (target) {
-      duel.ui.notifyCardTargeted(
-        selectedCardOwner,
-        zone,
-        duel.cards[selectedCardOwner][zone].indexOf(target)
-      );
-      return target;
+      const usedOrTargeted: UsedOrTargetedCard = {
+        player: selectedCardOwner,
+        zone: zone,
+        position: duel.cards[selectedCardOwner][zone].indexOf(target),
+        passTurn: false,
+      };
+      duel.executeDuelistMove(usedOrTargeted);
     }
-    return null;
   }
 }
