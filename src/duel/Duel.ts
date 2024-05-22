@@ -1,13 +1,14 @@
 import { DuelUI } from "./DuelUI";
 import { Action } from "./Action";
 import { Card } from "./Card";
-import { Duelist } from "./Duelist";
+import { Duelist } from "./duelist/Duelist";
 import { rndInt } from "./utils";
 import { Zone } from "./zone";
 import { EventType } from "./EventType";
 import { DuelEvent } from "./DuelEvent";
 import { CardModel } from "./CardModel";
 import { DuelRecord, UsedOrTargetedCard } from "./DuelRecord";
+import { ReproductionDuelist } from "./duelist/ReproductionDuelist";
 
 export class Duel {
   // This matrix contains all the cards of the duel
@@ -82,17 +83,13 @@ export class Duel {
     } else {
       this.reproducingDuel = true;
       this.duelRecord = duelRecord;
-      const player0 = new Duelist(
+      const player0 = new ReproductionDuelist(
         duelRecord.player0,
-        true,
         duelRecord.deck0,
-        null
       );
-      const player1 = new Duelist(
+      const player1 = new ReproductionDuelist(
         duelRecord.player1,
-        true,
-        duelRecord.deck1,
-        null
+        duelRecord.deck1
       );
       this.players = [player0, player1];
       this.cards[0][Zone.Deck] = player0.deck.map(
@@ -230,15 +227,7 @@ export class Duel {
           this.selectingFromZone = zone;
           this.selectedCardOwner = selectedCardOwner;
           this.selectionCriteria = selectionCriteria;
-          if (this.reproducingDuel) {
-            const playerMove = this.duelRecord.playerMoves.shift();
-            this.executeDuelistMove(playerMove as UsedOrTargetedCard);
-          } else {
-            const ai = this.players[this.playerTurn].ai;
-            if (ai) {
-              ai.selectTarget(this, selectedCardOwner, zone, selectionCriteria);
-            }
-          }
+          this.players[this.playerTurn].executeDuelistCardSelection(this)
         } else {
           this.selectedTarget = null;
         }

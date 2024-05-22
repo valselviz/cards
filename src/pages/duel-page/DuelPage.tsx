@@ -1,10 +1,11 @@
 import DuelBoard from "../../duel-components/DuelBoard/DuelBoard";
-import { Duelist } from "../../duel/Duelist";
+import { Duelist } from "../../duel/duelist/Duelist";
 import { ArtificialIntelligence } from "duel/ArtificialIntelligence";
 import { useContext, useEffect } from "react";
 import MacroGameContext from "MacroGameContext";
 import { MacroGame } from "macrogame/MacroGame";
 import { useNavigate } from "react-router-dom";
+import { AIDuelist } from "duel/duelist/AIDuelist";
 
 function DuelPage() {
   const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
@@ -21,10 +22,9 @@ function DuelPage() {
   }
 
   const players = [
-    new Duelist("Player", true, macrogame.deck, null),
-    new Duelist(
+    new Duelist("Player", true, macrogame.deck),
+    new AIDuelist(
       "Opponent",
-      false,
       macrogame.facingRival.deck,
       new ArtificialIntelligence()
     ),

@@ -8,7 +8,7 @@ import PlayerStatus from "../PlayerStatus/PlayerStatus";
 import sandClockImage from "assets/clock.png";
 
 import styles from "./DuelBoard.module.css";
-import { Duelist } from "../../duel/Duelist";
+import { Duelist } from "../../duel/duelist/Duelist";
 import DuelEndMessage from "duel-components/DuelEndMessage/DuelEndMessage";
 import { Duel } from "duel/Duel";
 import { UsedOrTargetedCard } from "duel/DuelRecord";
@@ -32,7 +32,7 @@ export default function DuelBoard({ players }: DuelBoardProps) {
 
   function executeOneActionWithDelay() {
     if (duel.isDuelOver()) return;
-    const actionDelay = 100; //400;
+    const actionDelay = 400;
     if (duel.hasNextAction()) {
       setTimeout(() => {
         const action = duel.executeOneAction();
@@ -40,19 +40,14 @@ export default function DuelBoard({ players }: DuelBoardProps) {
           executeOneActionWithDelay();
         }
       }, actionDelay);
-    } else if (duel.reproducingDuel) {
-      if (duel.duelRecord.playerMoves.length > 0) {
-        setTimeout(() => {
-          const playerMove = duel.duelRecord.playerMoves.shift();
-          duel.executeDuelistMove(playerMove as UsedOrTargetedCard);
-          executeOneActionWithDelay();
-        }, actionDelay);
-      }
     } else {
-      const ai = duel.players[duel.playerTurn].ai;
-      if (ai) {
+      if (
+        duel.players[duel.playerTurn].shouldExecuteDuelistNextMoveAutomatically(
+          duel
+        )
+      ) {
         setTimeout(() => {
-          ai.play(duel);
+          duel.players[duel.playerTurn].executeDuelistNextMove(duel);
           executeOneActionWithDelay();
         }, actionDelay);
       }

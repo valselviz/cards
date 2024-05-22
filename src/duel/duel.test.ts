@@ -1,6 +1,6 @@
 import { Action } from "./Action";
 import { Duel } from "./Duel";
-import { Duelist } from "./Duelist";
+import { Duelist } from "./duelist/Duelist";
 import { Card } from "./Card";
 import {
   cardModels,
@@ -13,8 +13,8 @@ const elfArcherCardModel = cardModels[elfArcherId];
 
 function createDuel() {
   const players = [
-    new Duelist("Player", true, [], null),
-    new Duelist("Opponent", true, [], null),
+    new Duelist("Player", true, []),
+    new Duelist("Opponent", true, []),
   ];
   const dummyInterface = {
     refreshUI: () => {},
