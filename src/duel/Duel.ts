@@ -85,7 +85,7 @@ export class Duel {
       this.duelRecord = duelRecord;
       const player0 = new ReproductionDuelist(
         duelRecord.player0,
-        duelRecord.deck0,
+        duelRecord.deck0
       );
       const player1 = new ReproductionDuelist(
         duelRecord.player1,
@@ -227,7 +227,7 @@ export class Duel {
           this.selectingFromZone = zone;
           this.selectedCardOwner = selectedCardOwner;
           this.selectionCriteria = selectionCriteria;
-          this.players[this.playerTurn].executeDuelistCardSelection(this)
+          this.players[this.playerTurn].executeDuelistCardSelection(this);
         } else {
           this.selectedTarget = null;
         }
@@ -305,9 +305,16 @@ export class Duel {
     }
   }
 
+  // If the player move is valid, then executes it and returns true
+  // If the move is not valid, then it just returns false
   executeDuelistMove(usedOrTargeted: UsedOrTargetedCard) {
     if (usedOrTargeted.passTurn) {
-      this.passTurn();
+      if (!this.waitingForCardSelection) {
+        this.passTurn();
+      } else {
+        this.alertPlayer("Can not pass turn during a card selection");
+        return;
+      }
     } else {
       const card: Card =
         this.cards[usedOrTargeted.player as number][

@@ -1,6 +1,6 @@
 import { Duelist } from "./Duelist";
-import { ArtificialIntelligence } from "../ArtificialIntelligence";
 import { Duel } from "duel/Duel";
+import { ArtificialIntelligence } from "duel/artificial-intelligence/ArtificialIntelligence";
 import { Zone } from "duel/zone";
 
 export class AIDuelist extends Duelist {

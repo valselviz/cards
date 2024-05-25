@@ -1,6 +1,6 @@
 import DuelBoard from "../../duel-components/DuelBoard/DuelBoard";
 import { Duelist } from "../../duel/duelist/Duelist";
-import { ArtificialIntelligence } from "duel/ArtificialIntelligence";
+import { BruteAI } from "duel/artificial-intelligence/BruteAI";
 import { useContext, useEffect } from "react";
 import MacroGameContext from "MacroGameContext";
 import { MacroGame } from "macrogame/MacroGame";
@@ -23,11 +23,7 @@ function DuelPage() {
 
   const players = [
     new Duelist("Player", true, macrogame.deck),
-    new AIDuelist(
-      "Opponent",
-      macrogame.facingRival.deck,
-      new ArtificialIntelligence()
-    ),
+    new AIDuelist("Opponent", macrogame.facingRival.deck, new BruteAI()),
   ];
   return <DuelBoard players={players} />;
 }
