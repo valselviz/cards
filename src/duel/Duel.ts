@@ -307,13 +307,13 @@ export class Duel {
 
   // If the player move is valid, then executes it and returns true
   // If the move is not valid, then it just returns false
-  executeDuelistMove(usedOrTargeted: UsedOrTargetedCard) {
+  executeDuelistMove(usedOrTargeted: UsedOrTargetedCard): boolean {
     if (usedOrTargeted.passTurn) {
       if (!this.waitingForCardSelection) {
         this.passTurn();
       } else {
         this.alertPlayer("Can not pass turn during a card selection");
-        return;
+        return false;
       }
     } else {
       const card: Card =
@@ -334,34 +334,34 @@ export class Duel {
             card.zone,
             this.cards[card.playerId][card.zone].indexOf(card)
           );
+        } else {
+          return false;
         }
       } else if (!this.hasNextAction()) {
         // Manually triggered actions
-        if (card.playerId !== this.playerTurn) return;
+        if (card.playerId !== this.playerTurn) return false;
         if (card.zone === Zone.Hand) {
           card.model.useFromHand(card);
-          if (this.actionsQueue.length > 0) {
-            this.ui.notifyCardUsage(
-              card.playerId,
-              card.zone,
-              this.cards[card.playerId][card.zone].indexOf(card)
-            );
-          }
         } else if (card.zone === Zone.Field) {
           this.useFromField(card);
-          if (this.actionsQueue.length > 0) {
-            this.ui.notifyCardUsage(
-              card.playerId,
-              card.zone,
-              this.cards[card.playerId][card.zone].indexOf(card)
-            );
-          }
         }
+        if (this.actionsQueue.length > 0) {
+          this.ui.notifyCardUsage(
+            card.playerId,
+            card.zone,
+            this.cards[card.playerId][card.zone].indexOf(card)
+          );
+        } else {
+          return false;
+        }
+      } else {
+        return false;
       }
     }
     if (!this.reproducingDuel) {
       this.duelRecord.playerMoves.push(usedOrTargeted);
       localStorage.setItem("duelRecord", JSON.stringify(this.duelRecord));
     }
+    return true;
   }
 }

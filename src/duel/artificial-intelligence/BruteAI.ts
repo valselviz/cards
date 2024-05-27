@@ -12,8 +12,7 @@ export class BruteAI {
         position: duel.cards[duel.playerTurn][Zone.Field].indexOf(card),
         passTurn: false,
       };
-      duel.executeDuelistMove(usedOrTargeted);
-      if (duel.actionsQueue.length > 0) return;
+      if (duel.executeDuelistMove(usedOrTargeted)) return;
     }
     for (const card of duel.cards[duel.playerTurn][Zone.Hand]) {
       const usedOrTargeted: UsedOrTargetedCard = {
@@ -22,8 +21,7 @@ export class BruteAI {
         position: duel.cards[duel.playerTurn][Zone.Hand].indexOf(card),
         passTurn: false,
       };
-      duel.executeDuelistMove(usedOrTargeted);
-      if (duel.actionsQueue.length > 0) return;
+      if (duel.executeDuelistMove(usedOrTargeted)) return;
     }
     duel.executeDuelistMove({
       player: null,

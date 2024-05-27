@@ -40,8 +40,9 @@ export default function CardBox({
       position: position,
       passTurn: false,
     };
-    card.duel.executeDuelistMove(usedOrTargeted);
-    executeOneActionWithDelay();
+    if (card.duel.executeDuelistMove(usedOrTargeted)) {
+      executeOneActionWithDelay();
+    }
   }
 
   const shakeAnimation = targeted ? styles.shake : "";

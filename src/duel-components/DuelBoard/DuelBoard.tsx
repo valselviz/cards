@@ -58,13 +58,16 @@ export default function DuelBoard({ players }: DuelBoardProps) {
 
   function passPlayerTurn() {
     if (duel.players[duel.playerTurn].human) {
-      duel.executeDuelistMove({
-        player: null,
-        zone: null,
-        position: null,
-        passTurn: true,
-      });
-      executeOneActionWithDelay();
+      if (
+        duel.executeDuelistMove({
+          player: null,
+          zone: null,
+          position: null,
+          passTurn: true,
+        })
+      ) {
+        executeOneActionWithDelay();
+      }
     }
   }
 
