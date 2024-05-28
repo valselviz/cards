@@ -6,6 +6,7 @@ import MacroGameContext from "MacroGameContext";
 import { MacroGame } from "macrogame/MacroGame";
 import { useNavigate } from "react-router-dom";
 import { AIDuelist } from "duel/duelist/AIDuelist";
+import { SmartAI } from "duel/artificial-intelligence/SmartAI";
 
 function DuelPage() {
   const macrogame = useContext(MacroGameContext).macrogame as MacroGame;
@@ -23,7 +24,7 @@ function DuelPage() {
 
   const players = [
     new Duelist("Player", true, macrogame.deck),
-    new AIDuelist("Opponent", macrogame.facingRival.deck, new BruteAI()),
+    new AIDuelist("Opponent", macrogame.facingRival.deck, new SmartAI()),
   ];
   return <DuelBoard players={players} />;
 }

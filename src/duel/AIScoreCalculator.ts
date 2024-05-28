@@ -9,7 +9,7 @@ export class AIScoreCalculator {
   fieldCardExtraScore: number = -2.3;
   fielCardMinScore: number = 1.1;
 
-  calculatePlayerPoints(duel: Duel, playerId: number) {
+  calculatePlayerPoints(duel: Duel, playerId: number): number {
     if (duel.cards[playerId][Zone.Deck].length === 0) return -1000;
     const handScore =
       duel.cards[playerId][Zone.Hand].length * this.handCardScore;
@@ -26,7 +26,7 @@ export class AIScoreCalculator {
     return handScore + deckScore + fieldScore;
   }
 
-  calculeScore(duel: Duel, playerId: number) {
+  calculeScore(duel: Duel, playerId: number): number {
     const playerPoints = this.calculatePlayerPoints(duel, playerId);
     const opponentPoints = this.calculatePlayerPoints(duel, 1 - playerId);
     return playerPoints - opponentPoints;

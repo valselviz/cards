@@ -2,8 +2,9 @@ import { Card } from "../Card";
 import { Duel } from "../Duel";
 import { UsedOrTargetedCard } from "../DuelRecord";
 import { Zone } from "../zone";
+import { ArtificialIntelligence } from "./ArtificialIntelligence";
 
-export class BruteAI {
+export class BruteAI implements ArtificialIntelligence {
   play(duel: Duel) {
     for (const card of duel.cards[duel.playerTurn][Zone.Field]) {
       const usedOrTargeted: UsedOrTargetedCard = {
