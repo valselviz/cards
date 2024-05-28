@@ -1,6 +1,6 @@
 import { Duel } from "duel/Duel";
 import { Duelist } from "./Duelist";
-import { UsedOrTargetedCard } from "duel/DuelRecord";
+import { DuelRecord, UsedOrTargetedCard } from "duel/DuelRecord";
 
 export class ReproductionDuelist extends Duelist {
   constructor(name: string, deck: number[]) {
@@ -8,16 +8,19 @@ export class ReproductionDuelist extends Duelist {
   }
 
   executeDuelistCardSelection(duel: Duel) {
-    const playerMove = duel.duelRecord.playerMoves.shift();
+    const duelRecord = duel.duelRecord as DuelRecord;
+    const playerMove = duelRecord.playerMoves.shift();
     duel.executeDuelistMove(playerMove as UsedOrTargetedCard);
   }
 
   shouldExecuteDuelistNextMoveAutomatically(duel: Duel) {
-    return duel.duelRecord.playerMoves.length > 0;
+    const duelRecord = duel.duelRecord as DuelRecord;
+    return duelRecord.playerMoves.length > 0;
   }
 
   executeDuelistNextMove(duel: Duel) {
-    const playerMove = duel.duelRecord.playerMoves.shift();
+    const duelRecord = duel.duelRecord as DuelRecord;
+    const playerMove = duelRecord.playerMoves.shift();
     duel.executeDuelistMove(playerMove as UsedOrTargetedCard);
   }
 }

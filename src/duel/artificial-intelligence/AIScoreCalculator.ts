@@ -1,6 +1,6 @@
 import Hand from "duel-components/Hand/Hand";
-import { Duel } from "./Duel";
-import { Zone } from "./zone";
+import { Duel } from "../Duel";
+import { Zone } from "../zone";
 
 export class AIScoreCalculator {
   handCardScore: number = 1;
@@ -13,8 +13,13 @@ export class AIScoreCalculator {
     if (duel.cards[playerId][Zone.Deck].length === 0) return -1000;
     const handScore =
       duel.cards[playerId][Zone.Hand].length * this.handCardScore;
+
+    // This coefficient decresses the more cards the player has in the hand
+    const handCoefficient = 5 / (duel.cards[playerId][Zone.Hand].length + 5);
+
     const deckScore =
       duel.cards[playerId][Zone.Deck].length * this.deckCardScore;
+
     let fieldScore = 0;
     for (const card of duel.cards[playerId][Zone.Field]) {
       let fieldCardScore =
@@ -23,7 +28,13 @@ export class AIScoreCalculator {
       if (fieldCardScore < 1.1) fieldCardScore = 1.1;
       fieldScore += fieldCardScore;
     }
-    return handScore + deckScore + fieldScore;
+
+    // This coefficient decresses the more cards the player has in the field
+    const fieldCoefficient = 5 / (duel.cards[playerId][Zone.Field].length + 5);
+
+    return (
+      handScore * handCoefficient + fieldScore + fieldCoefficient + deckScore
+    );
   }
 
   calculeScore(duel: Duel, playerId: number): number {

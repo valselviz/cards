@@ -6,7 +6,6 @@ import { rndInt } from "./utils";
 import { Zone } from "./zone";
 import { EventType } from "./EventType";
 import { DuelEvent } from "./DuelEvent";
-import { CardModel } from "./CardModel";
 import { DuelRecord, UsedOrTargetedCard } from "./DuelRecord";
 import { ReproductionDuelist } from "./duelist/ReproductionDuelist";
 
@@ -31,9 +30,9 @@ export class Duel {
 
   selectingFromZone: Zone | null = null;
 
-  ui: DuelUI;
-
   selectionCriteria: (card: Card) => boolean = () => false;
+
+  ui: DuelUI | null;
 
   reproducingDuel: boolean;
 
@@ -41,9 +40,9 @@ export class Duel {
   // This object accumulates the different player moves (for both human and AI)
   // If reproducingDuel is true
   // This object starts with all the player moves, and they are extracted turn by turn to repdoduce the game
-  duelRecord: DuelRecord;
+  duelRecord: DuelRecord | null;
 
-  constructor(players: Duelist[], ui: DuelUI) {
+  constructor(players: Duelist[], ui: DuelUI | null) {
     const duelReproduction = localStorage.getItem("duelReproduction");
     let duelRecord = null;
     if (duelReproduction) {
@@ -125,7 +124,7 @@ export class Duel {
     const action = this.actionsQueue.shift();
     if (!action) return null;
     action.execute();
-    this.ui.refreshUI(this.cards);
+    if (this.ui) this.ui.refreshUI(this.cards);
     return action;
   }
 
@@ -187,7 +186,7 @@ export class Duel {
       if (!defenderCard) {
         const defenderPlayer = 1 - attackCard.playerId;
         this.cards[defenderPlayer][Zone.Deck].shift();
-        this.ui.notifyDamage(defenderPlayer);
+        if (this.ui) this.ui.notifyDamage(defenderPlayer);
         this.notifyEvent(EventType.Attack, null);
       } else if (attackCard.model.attack > defenderCard.model.defense) {
         this.notifyEvent(EventType.Attack, defenderCard, attackCard);
@@ -209,7 +208,7 @@ export class Duel {
             this.cards[playerId][Zone.Deck].shift();
           }
         }
-        this.ui.notifyDamage(playerId);
+        if (this.ui) this.ui.notifyDamage(playerId);
       }
     });
     this.actionsQueue.push(damagePlayerAction);
@@ -329,11 +328,13 @@ export class Duel {
         ) {
           this.selectedTarget = card;
           this.waitingForCardSelection = false;
-          this.ui.notifyCardTargeted(
-            card.playerId,
-            card.zone,
-            this.cards[card.playerId][card.zone].indexOf(card)
-          );
+          if (this.ui) {
+            this.ui.notifyCardTargeted(
+              card.playerId,
+              card.zone,
+              this.cards[card.playerId][card.zone].indexOf(card)
+            );
+          }
         } else {
           return false;
         }
@@ -346,11 +347,13 @@ export class Duel {
           this.useFromField(card);
         }
         if (this.actionsQueue.length > 0) {
-          this.ui.notifyCardUsage(
-            card.playerId,
-            card.zone,
-            this.cards[card.playerId][card.zone].indexOf(card)
-          );
+          if (this.ui) {
+            this.ui.notifyCardUsage(
+              card.playerId,
+              card.zone,
+              this.cards[card.playerId][card.zone].indexOf(card)
+            );
+          }
         } else {
           return false;
         }
@@ -358,7 +361,7 @@ export class Duel {
         return false;
       }
     }
-    if (!this.reproducingDuel) {
+    if (!this.reproducingDuel && this.duelRecord) {
       this.duelRecord.playerMoves.push(usedOrTargeted);
       localStorage.setItem("duelRecord", JSON.stringify(this.duelRecord));
     }

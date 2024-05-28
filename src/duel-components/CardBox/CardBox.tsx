@@ -10,6 +10,8 @@ import CardBoxMainContent from "./CardBoxMainContent";
 import CardBoxDescription from "./CardBoxDescription";
 import { UsedOrTargetedCard } from "duel/DuelRecord";
 
+const SHOW_ALL_CARDS = false;
+
 interface CardBoxProps {
   card: Card;
   executeOneActionWithDelay: () => void;
@@ -53,13 +55,13 @@ export default function CardBox({
   let flipAnimation = "";
   if (card.zone === Zone.Hand) {
     if (activated) {
-      if (card.duel.players[card.playerId].human) {
+      if (card.duel.players[card.playerId].human || SHOW_ALL_CARDS) {
         flipAnimation = styles.doubleFlipFaceUp;
       } else {
         flipAnimation = styles.faceUp;
       }
     } else {
-      if (card.duel.players[card.playerId].human) {
+      if (card.duel.players[card.playerId].human || SHOW_ALL_CARDS) {
         flipAnimation = styles.faceUp;
       } else {
         flipAnimation = styles.faceDown;

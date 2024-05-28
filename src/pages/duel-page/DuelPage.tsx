@@ -1,6 +1,5 @@
 import DuelBoard from "../../duel-components/DuelBoard/DuelBoard";
 import { Duelist } from "../../duel/duelist/Duelist";
-import { BruteAI } from "duel/artificial-intelligence/BruteAI";
 import { useContext, useEffect } from "react";
 import MacroGameContext from "MacroGameContext";
 import { MacroGame } from "macrogame/MacroGame";
