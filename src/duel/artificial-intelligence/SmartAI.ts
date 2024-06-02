@@ -8,11 +8,14 @@ import { DuelSnapshot } from "./DuelSnapshot";
 
 const LOG_AI = true;
 
+let indentation = "";
+
 export class SmartAI implements ArtificialIntelligence {
   scoreCalculator: AIScoreCalculator = new AIScoreCalculator();
 
   play(duel: Duel) {
-    log("", "PLAYING");
+    indentation = "";
+    log("PLAYING");
     const possibleMoves: UsedOrTargetedCard[] = [];
     for (const card of duel.cards[duel.playerTurn][Zone.Field]) {
       possibleMoves.push({
@@ -41,7 +44,7 @@ export class SmartAI implements ArtificialIntelligence {
     selectionCriteria: (card: Card) => boolean = () => true,
     indentation: string = ""
   ) {
-    log(indentation, "SELECTING");
+    log("SELECTING");
     const possibleCards =
       duel.cards[selectedCardOwner][zone].filter(selectionCriteria);
     const possibleMoves = possibleCards.map((card) => ({
@@ -65,7 +68,8 @@ export class SmartAI implements ArtificialIntelligence {
     passTurnAllowed: boolean,
     indentation: string = ""
   ): UsedOrTargetedCard {
-    log(indentation, "possible moves: " + possibleMoves.length);
+    indentation += "  ";
+    log("possible moves: " + possibleMoves.length);
     let bestMove: UsedOrTargetedCard | null = null;
     let bestScore: number = 0;
     if (passTurnAllowed) {
@@ -76,6 +80,7 @@ export class SmartAI implements ArtificialIntelligence {
         passTurn: true,
       };
       bestScore = this.scoreCalculator.calculeScore(duel, duel.playerTurn);
+      log("pass turn score: " + bestScore);
     } else {
       bestScore = -1000000;
     }
@@ -87,7 +92,7 @@ export class SmartAI implements ArtificialIntelligence {
       if (duel.executeDuelistMove(move)) {
         while (duel.hasNextAction()) {
           const action = duel.executeOneAction();
-          if (action && action.shouldWaitForTargetSelection()) {
+          /*if (duel.waitingForCardSelection) {
             this.selectTarget(
               duel,
               duel.selectedCardOwner,
@@ -95,13 +100,13 @@ export class SmartAI implements ArtificialIntelligence {
               duel.selectionCriteria,
               indentation + "  "
             );
-          }
+          }*/
         }
         const newScore = this.scoreCalculator.calculeScore(
           duel,
           duel.playerTurn
         );
-        log(indentation, "Move score: " + newScore);
+        logResult(indentation, duel, newScore);
         if (newScore > bestScore) {
           bestScore = newScore;
           bestMove = move;
@@ -109,32 +114,35 @@ export class SmartAI implements ArtificialIntelligence {
       }
       snapshot.restoreDuel(duel);
     }
+    indentation = indentation.substring(2);
     return bestMove as UsedOrTargetedCard;
   }
 }
 
-function log(indentation: string, msg: string) {
+function log(msg: string) {
   if (LOG_AI) console.log(indentation + msg);
 }
 
-function logMove(indentation: string, duel: Duel, move: UsedOrTargetedCard) {
+function logResult(indentation: string, duel: Duel, score: number) {
   log(
-    indentation,
     "D0:" +
       duel.cards[0][0].length +
       " H0:" +
       duel.cards[0][1].length +
       " F0:" +
-      duel.cards[0][1].length +
+      duel.cards[0][2].length +
       " D1:" +
       duel.cards[1][0].length +
       " H1:" +
       duel.cards[1][1].length +
       " F1:" +
-      duel.cards[1][1].length
+      duel.cards[1][2].length
   );
+  log("Move score: " + score);
+}
+
+function logMove(indentation: string, duel: Duel, move: UsedOrTargetedCard) {
   log(
-    indentation,
     "move: " +
       duel.cards[move.player as number][move.zone as number][
         move.position as number

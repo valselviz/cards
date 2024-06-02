@@ -61,6 +61,8 @@ export class DuelSnapshot {
     }
   }
 
+  // Note that the same snapshot can be restored multiple times (one foreach considered move)
+  // Make sure that the restoration creates copies of the modifiable arrays
   restoreDuel(duel: Duel) {
     duel.cards = [
       [
@@ -75,7 +77,7 @@ export class DuelSnapshot {
       ],
     ];
     duel.playerTurn = this.playerTurn;
-    duel.actionsQueue = this.actionsQueue;
+    duel.actionsQueue = [...this.actionsQueue];
     duel.players = this.players;
     duel.waitingForCardSelection = this.waitingForCardSelection;
     duel.selectedCardOwner = this.selectedCardOwner;

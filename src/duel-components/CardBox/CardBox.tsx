@@ -98,7 +98,10 @@ export default function CardBox({
           <div className={usableStyles}></div>
           <div className={`${styles.cardBox} ${colorClass}`}>
             <CardBoxMainContent cardModel={card.model} card={card} />
-            <CardBoxDescription cardModel={card.model} displayOnlyOnHover={true} />
+            <CardBoxDescription
+              cardModel={card.model}
+              displayOnlyOnHover={true}
+            />
           </div>
         </div>
         <div
