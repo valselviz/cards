@@ -18,4 +18,30 @@ export class Card {
     this.zone = Zone.Deck;
     this.usableFromField = false;
   }
+
+  getAttack() {
+    let bonusAttack = 0;
+    if (this.zone === Zone.Field) {
+      for (const card of this.duel.cards[this.playerId][Zone.Field]) {
+        bonusAttack += card.model.attackBonus(card, this);
+      }
+      for (const card of this.duel.cards[1 - this.playerId][Zone.Field]) {
+        bonusAttack += card.model.attackBonus(card, this);
+      }
+    }
+    return this.model.attack + bonusAttack;
+  }
+
+  getDefense() {
+    let bonusDefense = 0;
+    if (this.zone === Zone.Field) {
+      for (const card of this.duel.cards[this.playerId][Zone.Field]) {
+        bonusDefense += card.model.defenseBonus(card, this);
+      }
+      for (const card of this.duel.cards[1 - this.playerId][Zone.Field]) {
+        bonusDefense += card.model.defenseBonus(card, this);
+      }
+    }
+    return this.model.defense + bonusDefense;
+  }
 }

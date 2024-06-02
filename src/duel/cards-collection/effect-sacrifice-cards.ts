@@ -54,7 +54,7 @@ export function loadEffectSacrificeCards() {
       .withHandEffect(oneSacrificeInvokation, oneSacrificeInvokationInfo)
       .withFieldEffect((card: Card) => {
         const selectTargetCriteria = (opponentCard: Card) =>
-          opponentCard.model.defense < card.model.attack;
+          opponentCard.getDefense() < card.getAttack();
         if (
           card.duel.cards[1 - card.playerId][Zone.Field].length > 0 &&
           !card.duel.cards[1 - card.playerId][Zone.Field].some(
@@ -93,7 +93,7 @@ export function loadEffectSacrificeCards() {
       .withHandEffect(oneSacrificeInvokation, oneSacrificeInvokationInfo)
       .withFieldEffect((card: Card) => {
         const selectTargetCriteria = (opponentCard: Card) =>
-          opponentCard.model.defense < card.model.attack;
+          opponentCard.getDefense() < card.getAttack();
         if (
           card.duel.cards[1 - card.playerId][Zone.Field].length > 0 &&
           !card.duel.cards[1 - card.playerId][Zone.Field].some(

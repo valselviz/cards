@@ -2,12 +2,12 @@ import { CardModel } from "duel/CardModel";
 import styles from "./CardBox.module.css";
 
 interface CardBoxDescriptionProps {
-  card: CardModel;
+  cardModel: CardModel;
   displayOnlyOnHover: boolean;
 }
 
 export default function CardBoxDescription({
-  card,
+  cardModel,
   displayOnlyOnHover,
 }: CardBoxDescriptionProps) {
   return (
@@ -16,22 +16,22 @@ export default function CardBoxDescription({
         displayOnlyOnHover ? "" : styles.alwaysShow
       }`}
     >
-      {card.handInfo && (
+      {cardModel.handInfo && (
         <p className={styles.infoP}>
           <b>Hand effect: </b>
-          {card.handInfo}
+          {cardModel.handInfo}
         </p>
       )}
-      {card.fieldInfo && (
+      {cardModel.fieldInfo && (
         <p className={styles.infoP}>
           <b>Field effect: </b>
-          {card.fieldInfo}
+          {cardModel.fieldInfo}
         </p>
       )}
-      {card.passiveInfo && (
+      {cardModel.passiveInfo && (
         <p className={styles.infoP}>
           <b>Passive: </b>
-          {card.passiveInfo}
+          {cardModel.passiveInfo}
         </p>
       )}
     </div>

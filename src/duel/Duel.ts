@@ -188,7 +188,7 @@ export class Duel {
         this.cards[defenderPlayer][Zone.Deck].shift();
         if (this.ui) this.ui.notifyDamage(defenderPlayer);
         this.notifyEvent(EventType.Attack, null);
-      } else if (attackCard.model.attack > defenderCard.model.defense) {
+      } else if (attackCard.getAttack() > defenderCard.getDefense()) {
         this.notifyEvent(EventType.Attack, defenderCard, attackCard);
         const position =
           this.cards[defenderCard.playerId][Zone.Field].indexOf(defenderCard);

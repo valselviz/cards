@@ -97,8 +97,8 @@ export default function CardBox({
         <div className={`${styles.flippableFace} ${styles.cardBackground}`}>
           <div className={usableStyles}></div>
           <div className={`${styles.cardBox} ${colorClass}`}>
-            <CardBoxMainContent card={card.model} />
-            <CardBoxDescription card={card.model} displayOnlyOnHover={true} />
+            <CardBoxMainContent cardModel={card.model} card={card} />
+            <CardBoxDescription cardModel={card.model} displayOnlyOnHover={true} />
           </div>
         </div>
         <div

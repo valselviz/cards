@@ -2,6 +2,7 @@ import { Card } from "../Card";
 import { CardModel } from "../CardModel";
 import { rndInt } from "../utils";
 import { Zone } from "../zone";
+import { loadBonusCards } from "./bonus-cards";
 import { loadEffectCards } from "./effect-cards";
 import { loadEffectSacrificeCards } from "./effect-sacrifice-cards";
 import { loadMagicCards } from "./magic-cards";
@@ -67,7 +68,7 @@ export function twoSacrificesInvokation(card: Card) {
 export const simpleAttackInfo = "Attack.";
 export function simpleAttack(card: Card) {
   const selectTargetCriteria = (opponentCard: Card) =>
-    opponentCard.model.defense < card.model.attack;
+    opponentCard.getDefense() < card.getAttack();
   if (
     card.duel.cards[1 - card.playerId][Zone.Field].length > 0 &&
     !card.duel.cards[1 - card.playerId][Zone.Field].some(selectTargetCriteria)
@@ -114,6 +115,7 @@ export function getCardModelIdByName(name: string) {
       return card.id;
     }
   }
+  console.error("No card with name: " + name);
   throw new Error("No card with name: " + name);
 }
 
@@ -138,3 +140,4 @@ loadSimpleAggressors();
 loadSimpleSacrificeCards();
 loadRitualCards();
 loadPassiveCards();
+loadBonusCards();

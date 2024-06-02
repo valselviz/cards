@@ -14,6 +14,14 @@ export class CardModel {
   useFromHand: (card: Card) => void;
   useFromField: (card: Card) => void;
   passiveEffect: (card: Card, event: DuelEvent) => void;
+  attackBonus: (buffGiver: Card, buffedCard: Card) => number = (
+    buffGiver: Card,
+    buffedCard: Card
+  ) => 0;
+  defenseBonus: (buffGiver: Card, buffedCard: Card) => number = (
+    buffGiver: Card,
+    buffedCard: Card
+  ) => 0;
   handInfo: string | null;
   fieldInfo: string | null;
   passiveInfo: string | null;
@@ -63,11 +71,25 @@ export class CardModel {
   }
 
   withPassiveEffect(
-    passiveEffect: (card: Card, event: DuelEvent) => void,
+    passiveEffect: (card: Card, event: DuelEvent) => void | null,
     passiveInfo: string | null
   ): CardModel {
     this.passiveEffect = passiveEffect;
     this.passiveInfo = passiveInfo;
+    return this;
+  }
+
+  withAttackBonus(
+    attackBonus: (bufferGiver: Card, buffedCard: Card) => number
+  ): CardModel {
+    this.attackBonus = attackBonus;
+    return this;
+  }
+
+  withDefenseBonus(
+    defenseBonus: (bufferGiver: Card, buffedCard: Card) => number
+  ): CardModel {
+    this.defenseBonus = defenseBonus;
     return this;
   }
 }

@@ -26,7 +26,7 @@ export default function DoubleCardDisplay({
               className={`${cardBoxStyles.flippableFace} ${cardBoxStyles.cardBackground}`}
             >
               <div className={`${cardBoxStyles.cardBox} ${colorClass}`}>
-                <CardBoxMainContent card={hoveredCard} />
+                <CardBoxMainContent cardModel={hoveredCard} card={null} />
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@ export default function DoubleCardDisplay({
             >
               <div className={`${cardBoxStyles.cardBox} ${colorClass}`}>
                 <CardBoxDescription
-                  card={hoveredCard}
+                  cardModel={hoveredCard}
                   displayOnlyOnHover={false}
                 />
               </div>

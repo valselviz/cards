@@ -57,7 +57,7 @@ export class MacroGame {
 
   finishDuel(victory: boolean) {
     if (!this.facingRival) return;
-    
+
     if (victory) {
       // Give the player his reward
       if (this.facingRival.rewardCard) {
@@ -76,10 +76,10 @@ export class MacroGame {
         nextRival.unlocked = true;
       }
 
-      this.manualGamesWon ++;
+      this.manualGamesWon++;
     }
 
-    this.manualGamesFinished ++;
+    this.manualGamesFinished++;
 
     this.facingRival = null;
 

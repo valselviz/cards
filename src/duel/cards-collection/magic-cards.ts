@@ -25,7 +25,7 @@ export function loadMagicCards() {
       }
       const destroyCriteriaDefense = 20;
       const destroyCriteria = (availableCard: Card) =>
-        availableCard.model.defense <= destroyCriteriaDefense;
+        availableCard.getDefense() <= destroyCriteriaDefense;
       if (
         !card.duel.cards[1 - card.playerId][Zone.Field].some(destroyCriteria)
       ) {
@@ -101,9 +101,9 @@ export function loadMagicCards() {
     new CardModel(567, "Raid", raid, 0, 0, Color.Red, 1.7, [
       labelMagic,
     ]).withHandEffect((card: Card) => {
-      if (card.duel.cards[card.playerId][Zone.Deck].length < 3) {
+      if (card.duel.cards[card.playerId][Zone.Deck].length < 2) {
         card.duel.alertPlayer(
-          "You need at least 3 cards in your deck to offer as sacrifice."
+          "You need at least 2 cards in your deck to offer as sacrifice."
         );
         return;
       }
@@ -113,11 +113,11 @@ export function loadMagicCards() {
         );
         return;
       }
-      card.duel.queueDamagePlayerAction(card.playerId, 3);
+      card.duel.queueDamagePlayerAction(card.playerId, 2);
       card.duel.queueStartSelectionAction(1 - card.playerId, Zone.Field);
       card.duel.queueDestroyAction(() => card.duel.selectedTarget);
       card.duel.queueDiscardAction(() => card);
-    }, "Usable only if your opponent has 3 or more cards on the field. Discard 3 cards from your deck, then select and destroy one card from your opponent's field.")
+    }, "Usable only if your opponent has 3 or more cards on the field. Discard 2 cards from your deck, then select and destroy one card from your opponent's field.")
   );
 
   addCardModel(

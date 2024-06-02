@@ -23,7 +23,7 @@ export class AIScoreCalculator {
     let fieldScore = 0;
     for (const card of duel.cards[playerId][Zone.Field]) {
       let fieldCardScore =
-        (card.model.attack + card.model.defense) * this.fieldCardStatFactor +
+        (card.getAttack() + card.getDefense()) * this.fieldCardStatFactor +
         this.fieldCardExtraScore;
       if (fieldCardScore < 1.1) fieldCardScore = 1.1;
       fieldScore += fieldCardScore;
