@@ -11,14 +11,11 @@ import { Color } from "duel/color";
 import { Card } from "duel/Card";
 import { Zone } from "duel/zone";
 
-import darkRitual from "assets/cards/darkRitual.jpg";
-import deathLord from "assets/cards/deathLord.jpg";
-
 export function loadRitualCards() {
   const deathLordCardModel = new CardModel(
     663,
     "Death Lord",
-    deathLord,
+    null,
     38,
     32,
     Color.Red,
@@ -33,7 +30,7 @@ export function loadRitualCards() {
   addCardModel(deathLordCardModel);
 
   addCardModel(
-    new CardModel(491, "Dark Ritual", darkRitual, 0, 0, Color.Red, 3, [
+    new CardModel(491, "Dark Ritual", null, 0, 0, Color.Red, 3, [
       labelRitualMagic,
     ]).withHandEffect((card: Card) => {
       const selectionCriteria = (handCard: Card) =>

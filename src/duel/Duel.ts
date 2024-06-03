@@ -43,7 +43,11 @@ export class Duel {
   duelRecord: DuelRecord | null;
 
   constructor(players: Duelist[], ui: DuelUI | null) {
-    const duelReproduction = localStorage.getItem("duelReproduction");
+    let duelReproduction = null;
+    if (typeof localStorage !== "undefined") {
+      // This checks prevents AWS lambda from failing
+      duelReproduction = localStorage.getItem("duelReproduction");
+    }
     let duelRecord = null;
     if (duelReproduction) {
       duelRecord = JSON.parse(duelReproduction);
@@ -363,7 +367,10 @@ export class Duel {
     }
     if (!this.reproducingDuel && this.duelRecord) {
       this.duelRecord.playerMoves.push(usedOrTargeted);
-      localStorage.setItem("duelRecord", JSON.stringify(this.duelRecord));
+      if (typeof localStorage !== "undefined") {
+        // This checks prevents AWS lambda from failing
+        localStorage.setItem("duelRecord", JSON.stringify(this.duelRecord));
+      }
     }
     return true;
   }

@@ -2,19 +2,12 @@ import { Card } from "duel/Card";
 import { Color } from "duel/color";
 import { addCardModel, labelMagic } from "./cards-collection";
 import { CardModel } from "duel/CardModel";
-
-import eruption from "assets/cards/eruption.jpg";
-import natureAmulet from "assets/cards/natureAmulet.jpg";
-import vortex from "assets/cards/vortex.jpg";
-import raid from "assets/cards/raid.jpg";
-import magicCup from "assets/cards/magicCup.jpg";
-
 import { Action } from "duel/Action";
 import { Zone } from "duel/zone";
 
 export function loadMagicCards() {
   addCardModel(
-    new CardModel(747, "Vortex", vortex, 0, 0, Color.Yellow, 1.8, [
+    new CardModel(747, "Vortex", null, 0, 0, Color.Yellow, 1.8, [
       labelMagic,
     ]).withHandEffect((card: Card) => {
       if (card.duel.cards[card.playerId][Zone.Hand].length < 2) {
@@ -51,7 +44,7 @@ export function loadMagicCards() {
   );
 
   addCardModel(
-    new CardModel(113, "Nature Amulet", natureAmulet, 0, 0, Color.Green, 2.8, [
+    new CardModel(113, "Nature Amulet", null, 0, 0, Color.Green, 2.8, [
       labelMagic,
     ]).withHandEffect((card: Card) => {
       const sacrificeCriteria = (sacrificedCard: Card) =>
@@ -74,7 +67,7 @@ export function loadMagicCards() {
   );
 
   addCardModel(
-    new CardModel(565, "Magic Cup", magicCup, 0, 0, Color.Red, 1.8, [
+    new CardModel(565, "Magic Cup", null, 0, 0, Color.Red, 1.8, [
       labelMagic,
     ]).withHandEffect((card: Card) => {
       card.duel.queueDiscardAction(() => card);
@@ -98,7 +91,7 @@ export function loadMagicCards() {
   );
 
   addCardModel(
-    new CardModel(567, "Raid", raid, 0, 0, Color.Red, 1.7, [
+    new CardModel(567, "Raid", null, 0, 0, Color.Red, 1.7, [
       labelMagic,
     ]).withHandEffect((card: Card) => {
       if (card.duel.cards[card.playerId][Zone.Deck].length < 2) {
@@ -121,7 +114,7 @@ export function loadMagicCards() {
   );
 
   addCardModel(
-    new CardModel(329, "Eruption", eruption, 0, 0, Color.Red, 1.6, [
+    new CardModel(329, "Eruption", null, 0, 0, Color.Red, 1.6, [
       labelMagic,
     ]).withHandEffect((card: Card) => {
       if (

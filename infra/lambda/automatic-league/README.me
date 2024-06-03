@@ -1,6 +1,19 @@
+This is the code that gets uploaded into the AWS Lambda that runs the automatic league.
+
 Since this code is made of multiple files, it must be uploaded as a zip file.
 
-To updade the code you have to:
-- run the extract_duel_logic script
-- zip the deployable folder
-- upload that zip file to the "ccg-automatic-league" AWS lambda 
+Also, note that we should include the duel logic, and we need it in JS format (not TS).
+
+To compile the duel ts files, and bringing them over, execute this:
+
+cd src/duel 
+tsc
+
+If you don't have tsc avaialbe as a terminal command, run this:
+npm install -g typescript 
+
+The "tsc" command may throw some errors. But if the duel folder has been generated
+inside the deployable/node_modules folder, then we are good.
+
+The last step is to zip the deployable folder content (not the folder)
+And upload that zip file to the "ccg-automatic-league" AWS lambda 

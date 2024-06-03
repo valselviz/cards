@@ -13,26 +13,14 @@ import { Card } from "duel/Card";
 import { CardModel } from "duel/CardModel";
 import { Zone } from "duel/zone";
 
-import centaurSocerer from "assets/cards/centaurSorcerer.jpg";
-import guardian from "assets/cards/guardian.jpg";
-import lizardSpearman from "assets/cards/lizardSpearman.jpg";
-import siren from "assets/cards/siren.jpg";
-import owlGuardian from "assets/cards/owlGuardian.jpg";
-import treeGuardian from "assets/cards/treeGuardian.jpg";
 import { Action } from "duel/Action";
 
 export function loadEffectCards() {
   addCardModel(
-    new CardModel(
-      412,
-      "Lizard Spearman",
-      lizardSpearman,
-      12,
-      8,
-      Color.Green,
-      1.5,
-      [labelNoSacrifice, labelEffect]
-    )
+    new CardModel(412, "Lizard Spearman", null, 12, 8, Color.Green, 1.5, [
+      labelNoSacrifice,
+      labelEffect,
+    ])
       .withHandEffect((card: Card) => {
         if (checkFullField(card)) return;
         card.duel.queueInvokeAction(() => card);
@@ -43,7 +31,7 @@ export function loadEffectCards() {
   );
 
   addCardModel(
-    new CardModel(80, "Owl Guardian", owlGuardian, 12, 5, Color.Green, 1.4, [
+    new CardModel(80, "Owl Guardian", null, 12, 5, Color.Green, 1.4, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -77,16 +65,10 @@ export function loadEffectCards() {
   );
 
   addCardModel(
-    new CardModel(
-      43,
-      "Centaur Socerer",
-      centaurSocerer,
-      18,
-      18,
-      Color.Green,
-      1.4,
-      [labelNoSacrifice, labelEffect]
-    )
+    new CardModel(43, "Centaur Socerer", null, 18, 18, Color.Green, 1.4, [
+      labelNoSacrifice,
+      labelEffect,
+    ])
       .withHandEffect((card: Card) => {
         if (checkFullField(card)) return;
         if (card.duel.cards[card.playerId][Zone.Hand].length > 1) {
@@ -101,7 +83,7 @@ export function loadEffectCards() {
   );
 
   addCardModel(
-    new CardModel(222, "Siren", siren, 5, 13, Color.Blue, 1.4, [
+    new CardModel(222, "Siren", null, 5, 13, Color.Blue, 1.4, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -125,7 +107,7 @@ export function loadEffectCards() {
 
   const maxTargetDefense = 23;
   addCardModel(
-    new CardModel(967, "Guardian", guardian, 0, 14, Color.Red, 2, [
+    new CardModel(967, "Guardian", null, 0, 14, Color.Red, 2, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -159,7 +141,7 @@ export function loadEffectCards() {
   );
 
   addCardModel(
-    new CardModel(282, "Tree Guardian", treeGuardian, 14, 7, Color.Yellow, 1.4, [
+    new CardModel(282, "Tree Guardian", null, 14, 7, Color.Yellow, 1.4, [
       labelNoSacrifice,
       labelEffect,
     ])
