@@ -2,15 +2,6 @@ import { Card } from "../Card";
 import { CardModel } from "../CardModel";
 import { rndInt } from "../utils";
 import { Zone } from "../zone";
-import { loadBonusCards } from "./bonus-cards";
-import { loadEffectCards } from "./effect-cards";
-import { loadEffectSacrificeCards } from "./effect-sacrifice-cards";
-import { loadMagicCards } from "./magic-cards";
-import { loadPassiveCards } from "./passive-cards";
-import { loadRitualCards } from "./ritual-cards";
-import { loadSimpleAggressors } from "./simple-aggressor";
-import { loadSimpleDefenders } from "./simple-defender";
-import { loadSimpleSacrificeCards } from "./simple-sacrifice-cards";
 
 export const labelNoSacrifice = "NO SACRIFICE";
 export const labelOneSacrifice = "ONE SACRIFICE";
@@ -91,7 +82,7 @@ export function simpleAttack(card: Card) {
 
 // This is a list where the cards are ordered arbitrarely (by insertion order).
 // This can be used to iterate over the CardModels.
-const cardModelsList: CardModel[] = [];
+export const cardModelsList: CardModel[] = [];
 
 // This is an array of 1000 positions, where the CardModels are scatter across the array .
 // This is used for fast access by id
@@ -131,13 +122,3 @@ export function getRandomCardModelIdByCriteria(
   }
   return suitable[rndInt(suitable.length)].id;
 }
-
-loadEffectCards();
-loadEffectSacrificeCards();
-loadMagicCards();
-loadSimpleDefenders();
-loadSimpleAggressors();
-loadSimpleSacrificeCards();
-loadRitualCards();
-loadPassiveCards();
-loadBonusCards();

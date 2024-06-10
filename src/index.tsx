@@ -9,6 +9,11 @@ import StorePage from "./pages/store-page/StorePage";
 import RivalsPage from "../src/pages/rivals-page/RivalsPage";
 import DuelPage from "./pages/duel-page/DuelPage";
 import { MacroGameContextProvider } from "MacroGameContext";
+import { loadAllCardModels } from "duel/cards-collection/load-all-card-models";
+import { loadAllCardModelsImages } from "assets/cards/card-images";
+
+loadAllCardModels();
+loadAllCardModelsImages();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

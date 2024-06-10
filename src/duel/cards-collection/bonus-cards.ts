@@ -15,17 +15,11 @@ import { Color } from "duel/color";
 import { Card } from "duel/Card";
 import { DuelEvent } from "duel/DuelEvent";
 
-import blacksmith from "../../assets/cards/blacksmith.jpg";
-import corruptedMage from "../../assets/cards/corruptedMage.jpg";
-import harpy from "../../assets/cards/harpy.jpg";
-import nightmareBeast from "../../assets/cards/nightmareBeast.jpg";
-import sandTitan from "../../assets/cards/sandTitan.jpg";
-import skyGoddess from "../../assets/cards/skyGoddess.jpg";
 import { Zone } from "duel/zone";
 
 export function loadBonusCards() {
   addCardModel(
-    new CardModel(690, "Blacksmith", blacksmith, 0, 15, Color.Red, 2.5, [
+    new CardModel(690, "Blacksmith", null, 0, 15, Color.Red, 2.5, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -38,7 +32,7 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(440, "Harpy", harpy, 4, 9, Color.Red, 2.5, [
+    new CardModel(440, "Harpy", null, 4, 9, Color.Red, 2.5, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -52,7 +46,7 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(481, "Sky Goddess", skyGoddess, 12, 5, Color.Yellow, 2.5, [
+    new CardModel(481, "Sky Goddess", null, 12, 5, Color.Yellow, 2.5, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -66,16 +60,10 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(
-      413,
-      "Corrupted Mage",
-      corruptedMage,
-      6,
-      12,
-      Color.Green,
-      2.5,
-      [labelNoSacrifice, labelEffect]
-    )
+    new CardModel(413, "Corrupted Mage", null, 6, 12, Color.Green, 2.5, [
+      labelNoSacrifice,
+      labelEffect,
+    ])
       .withHandEffect(simpleInvokation, simpleInvokationInfo)
       .withFieldEffect(simpleAttack, simpleAttackInfo)
       .withPassiveEffect((card: Card, event: DuelEvent) => {},
@@ -86,7 +74,7 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(916, "Sand Titan", sandTitan, 11, 0, Color.Yellow, 2.5, [
+    new CardModel(916, "Sand Titan", null, 11, 0, Color.Yellow, 2.5, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -102,16 +90,10 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(
-      662,
-      "Nightmare Beast",
-      nightmareBeast,
-      12,
-      19,
-      Color.Blue,
-      2.8,
-      [labelOneSacrifice, labelEffect]
-    )
+    new CardModel(662, "Nightmare Beast", null, 12, 19, Color.Blue, 2.8, [
+      labelOneSacrifice,
+      labelEffect,
+    ])
       .withHandEffect(oneSacrificeInvokation, oneSacrificeInvokationInfo)
       .withFieldEffect(simpleAttack, simpleAttackInfo)
       .withPassiveEffect((card: Card, event: DuelEvent) => {},

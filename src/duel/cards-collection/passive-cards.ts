@@ -8,9 +8,6 @@ import {
   simpleInvokation,
   simpleInvokationInfo,
 } from "./cards-collection";
-import ballista from "../../assets/cards/ballista.jpg";
-import whiteKnight from "../../assets/cards/whiteKnight.jpg";
-import fiend from "../../assets/cards/fiend.jpg";
 import { Color } from "duel/color";
 import { Card } from "duel/Card";
 import { DuelEvent } from "duel/DuelEvent";
@@ -18,7 +15,7 @@ import { EventType } from "duel/EventType";
 
 export function loadPassiveCards() {
   addCardModel(
-    new CardModel(77, "Ballista", ballista, 7, 10, Color.Blue, 1.5, [
+    new CardModel(77, "Ballista", null, 7, 10, Color.Blue, 1.5, [
       labelNoSacrifice,
       labelPassive,
     ])
@@ -33,7 +30,7 @@ export function loadPassiveCards() {
   );
 
   addCardModel(
-    new CardModel(74, "White Knight", whiteKnight, 8, 11, Color.Yellow, 1.6, [
+    new CardModel(74, "White Knight", null, 8, 11, Color.Yellow, 1.6, [
       labelNoSacrifice,
       labelPassive,
     ])
@@ -47,7 +44,7 @@ export function loadPassiveCards() {
   );
 
   addCardModel(
-    new CardModel(66, "Fiend", fiend, 5, 0, Color.Red, 1.7, [
+    new CardModel(66, "Fiend", null, 5, 0, Color.Red, 1.7, [
       labelNoSacrifice,
       labelPassive,
     ])

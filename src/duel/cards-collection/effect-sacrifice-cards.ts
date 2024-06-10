@@ -11,25 +11,14 @@ import {
 import { Color } from "duel/color";
 import { Card } from "duel/Card";
 import { Zone } from "duel/zone";
-
-import dragonMistress from "assets/cards/dragonMistress.jpg";
-import griffin from "assets/cards/griffin.jpg";
-import reaper from "assets/cards/reaper.jpg";
-import tigerWarrior from "assets/cards/tigerWarrior.jpg";
 import { Action } from "duel/Action";
 
 export function loadEffectSacrificeCards() {
   addCardModel(
-    new CardModel(
-      76,
-      "Dragon Mistress",
-      dragonMistress,
-      14,
-      0,
-      Color.Blue,
-      2.2,
-      [labelEffect, labelOneSacrifice]
-    )
+    new CardModel(76, "Dragon Mistress", null, 14, 0, Color.Blue, 2.2, [
+      labelEffect,
+      labelOneSacrifice,
+    ])
       .withHandEffect((card: Card) => {
         if (card.duel.cards[card.playerId][Zone.Field].length === 0) {
           card.duel.alertPlayer(
@@ -47,7 +36,7 @@ export function loadEffectSacrificeCards() {
   );
 
   addCardModel(
-    new CardModel(548, "Griffin", griffin, 28, 19, Color.Yellow, 2.2, [
+    new CardModel(548, "Griffin", null, 28, 19, Color.Yellow, 2.2, [
       labelEffect,
       labelOneSacrifice,
     ])
@@ -80,16 +69,10 @@ export function loadEffectSacrificeCards() {
   );
 
   addCardModel(
-    new CardModel(
-      984,
-      "Tiger Warrior",
-      tigerWarrior,
-      30,
-      13,
-      Color.Yellow,
-      2.5,
-      [labelEffect, labelOneSacrifice]
-    )
+    new CardModel(984, "Tiger Warrior", null, 30, 13, Color.Yellow, 2.5, [
+      labelEffect,
+      labelOneSacrifice,
+    ])
       .withHandEffect(oneSacrificeInvokation, oneSacrificeInvokationInfo)
       .withFieldEffect((card: Card) => {
         const selectTargetCriteria = (opponentCard: Card) =>
@@ -122,7 +105,7 @@ export function loadEffectSacrificeCards() {
   );
 
   addCardModel(
-    new CardModel(441, "Reaper", reaper, 21, 11, Color.Blue, 1.8, [
+    new CardModel(441, "Reaper", null, 21, 11, Color.Blue, 1.8, [
       labelEffect,
       labelOneSacrifice,
     ])
