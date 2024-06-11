@@ -2,7 +2,7 @@ import { DuelUI } from "./DuelUI";
 import { Action } from "./Action";
 import { Card } from "./Card";
 import { Duelist } from "./duelist/Duelist";
-import { rndInt } from "./utils";
+import { RND } from "./Rnd";
 import { Zone } from "./zone";
 import { EventType } from "./EventType";
 import { DuelEvent } from "./DuelEvent";
@@ -250,7 +250,7 @@ export class Duel {
     );
     const shuffledDeck = [];
     while (clonedDeck.length > 0) {
-      const deckPosition = rndInt(clonedDeck.length);
+      const deckPosition = RND.nextInt(clonedDeck.length);
       const card = clonedDeck.splice(deckPosition, 1)[0];
       shuffledDeck.push(card);
     }

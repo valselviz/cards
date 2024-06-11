@@ -1,6 +1,6 @@
 import { Card } from "../Card";
 import { CardModel } from "../CardModel";
-import { rndInt } from "../utils";
+import { RND } from "../Rnd";
 import { Zone } from "../zone";
 
 export const labelNoSacrifice = "NO SACRIFICE";
@@ -97,7 +97,7 @@ export function addCardModel(cardModel: CardModel) {
 }
 
 export function getRandomCardModelId(): number {
-  return cardModelsList[rndInt(cardModelsList.length)].id;
+  return cardModelsList[RND.nextInt(cardModelsList.length)].id;
 }
 
 export function getCardModelIdByName(name: string) {
@@ -120,5 +120,5 @@ export function getRandomCardModelIdByCriteria(
       suitable.push(card);
     }
   }
-  return suitable[rndInt(suitable.length)].id;
+  return suitable[RND.nextInt(suitable.length)].id;
 }
