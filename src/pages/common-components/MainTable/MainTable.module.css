@@ -11,10 +11,12 @@
 }
 
 .mainTable {
-  background-color: rgba(229, 218, 199, 0.308);
+  background-color: var(--lightShade);
   padding: 0 12px 12px 12px;
   border-radius: 10px;
   margin: 0 12px 0 12px;
+  border-color: #ffffff28;
+  border-style: solid;
 }
 
 .tableHeader {
@@ -28,8 +30,6 @@
 }
 
 .tableData {
-  overflow-y: scroll;
-  height: 460px;
   text-align: center;
 }
 

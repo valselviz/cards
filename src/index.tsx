@@ -10,7 +10,7 @@ import RivalsPage from "../src/pages/rivals-page/RivalsPage";
 import DuelPage from "./pages/duel-page/DuelPage";
 import { MacroGameContextProvider } from "MacroGameContext";
 import { loadAllCardModels } from "duel/cards-collection/load-all-card-models";
-import { loadAllCardModelsImages } from "assets/cards/card-images";
+import { loadAllCardModelsImages } from "card-images";
 
 loadAllCardModels();
 loadAllCardModelsImages();
