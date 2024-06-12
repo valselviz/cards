@@ -23,7 +23,7 @@ export const handler = async (event) => {
 };
 
 async function getPlayersFromDynamoDB() {
-  const players = [];
+  let players = [];
   const params = {
     TableName: playerTableName,
   };
@@ -33,18 +33,30 @@ async function getPlayersFromDynamoDB() {
     if (typeof response.LastEvaluatedKey !== "undefined") {
       params.ExclusiveStartKey = response.LastEvaluatedKey;
     } else {
-      return players;
+      break;
     }
   }
+  players = players.filter((player) => player.username[0] !== "_");
+  for (const player of players) {
+    if (!player.leagueScore) {
+      player.leagueScore = 0;
+    }
+  }
+  players.sort((playerA, playerB) => playerA.leagueScore - playerB.leagueScore);
+  return players;
 }
 
 function executeAllDuels(players) {
-  // TODO this function should face every player with
-  // the 3 players on top of him
-  const deck0 = players[0].macrogame.deck;
-  const deck1 = players[1].macrogame.deck;
-  const duelWinner = executeDuel(deck0, deck1);
-  return duelWinner;
+  for (let i = 0; i < players.length - 3; i++) {
+    executeSingleDuel(players[i], players[i + 1]);
+    executeSingleDuel(players[i], players[i + 2]);
+    executeSingleDuel(players[i], players[i + 3]);
+  }
+}
+
+function executeSingleDuel(playerA, playerB) {
+  console.log(`Executing ${playerA.username} vs ${playerB.username}`);
+  executeDuel(playerA.macrogame.deck, playerB.macrogame.deck);
 }
 
 /*async function updatePlayerScoresOnDynamo(players) {
