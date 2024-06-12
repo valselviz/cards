@@ -7,7 +7,7 @@
   --lightGreen: #9be99bf0;
   --blue: #3f5cebf0;
   --lightBlue: #6c98faf0;
-  --lightShade: #ffe7c240;
+  --lightShade: rgba(229, 218, 199, 0.308);
   --darkShade: #4c2e0040;
 }
 
@@ -22,7 +22,7 @@ body {
   font-family: "Inknut Antiqua";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("/src/assets/background.jpg");
+  background-image: url("/src/assets/background.png");
   background-size: cover;
   background-color: #888072;
 }
@@ -33,7 +33,6 @@ p {
 }
 
 #root {
-  background-color: rgba(254, 226, 186, 0.527);
   display: flex;
   background-repeat: repeat;
   width: fit-content;

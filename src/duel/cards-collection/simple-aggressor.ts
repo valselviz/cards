@@ -31,7 +31,7 @@ export function loadSimpleAggressors() {
   );
 
   addCardModel(
-    new CardModel(596, "Wold Barbarian", null, 12, 10, Color.Green, 0.9, [
+    new CardModel(596, "Wolf Barbarian", null, 12, 10, Color.Green, 0.9, [
       labelNoSacrifice,
     ])
       .withHandEffect(simpleInvokation, simpleInvokationInfo)
