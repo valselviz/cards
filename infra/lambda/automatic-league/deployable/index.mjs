@@ -7,6 +7,7 @@ import {
 
 import { loadAllCardModels } from "duel/cards-collection/load-all-card-models.js";
 import { executeDuel } from "duel/executeDuel.js";
+import { RND } from "duel/Rnd.js";
 
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);
@@ -56,6 +57,9 @@ function executeAllDuels(players) {
 
 function executeSingleDuel(playerA, playerB) {
   console.log(`Executing ${playerA.username} vs ${playerB.username}`);
+  console.log(`Random seed: ${RND.seed}`);
+  console.log(playerA.macrogame.deck);
+  console.log(playerB.macrogame.deck);
   executeDuel(playerA.macrogame.deck, playerB.macrogame.deck);
 }
 

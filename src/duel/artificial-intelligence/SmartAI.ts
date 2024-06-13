@@ -90,17 +90,8 @@ export class SmartAI implements ArtificialIntelligence {
       duel.duelRecord = null;
       logMove(indentation, duel, move);
       if (duel.executeDuelistMove(move)) {
-        while (duel.hasNextAction()) {
-          const action = duel.executeOneAction();
-          /*if (duel.waitingForCardSelection) {
-            this.selectTarget(
-              duel,
-              duel.selectedCardOwner,
-              duel.selectingFromZone as Zone,
-              duel.selectionCriteria,
-              indentation + "  "
-            );
-          }*/
+        while (duel.hasNextAction() && !duel.isDuelOver()) {
+          duel.executeOneAction();
         }
         const newScore = this.scoreCalculator.calculeScore(
           duel,
