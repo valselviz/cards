@@ -9,11 +9,11 @@ You can play it [HERE](https://valselviz.github.io/cards/#/duel)
 Features:
 
 - backend on AWS Lambda + DynamoDB, that allows to persist the players games.
-- a vast pool of cards where each card has its own unique stats and special effects
-- an opponent AI that allows a single player experience
-- deck management page, where the player can add/remove cards to/from his deck
-- card store page, where the player can buy cards
-- a rival page, where you can select the rival you are facing
+- a vast pool of cards where each card has its own unique stats and special effects.
+- an opponent AI that allows a single player experience.
+- a deck management page, where the player can add/remove cards to/from his deck.
+- a card store page, where the player can buy cards.
+- a rivals page, where the player can select the rival he wants to face.
 
 Comming soon:
 
