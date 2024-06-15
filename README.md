@@ -8,14 +8,21 @@ You can play it [HERE](https://valselviz.github.io/cards/#/duel)
 
 Features:
 
-- a vast pool of cards where each card has its own unique stats and special effects
-- a basic opponent AI that allows a single player experience
+- backend on AWS Lambda + DynamoDB, that allows to persist the players games.
+- a vast pool of cards where each card has its own unique stats and special effects.
+- an opponent AI that allows a single player experience.
+- a deck management page, where the player can add/remove cards to/from his deck.
+- a card store page, where the player can buy cards.
+- a rivals page, where the player can select the rival he wants to face.
 
 Comming soon:
 
-- deck management, where the player can add/remove cards to/from his deck
-- card store, where the player can buy cards
-- the game uses local-storage to allow players to keep their progress
+- Automatic League:
+Playing CCG duels can be fun, but selecting the appropriate cards to build a strong deck is even funnier.
+If you want to know how good your deck is, you can check your score in the Automatic League.
+Every day a script is executed that makes players decks duel against each other.
+These duels are held by AIs in behalf of the players.
+The smartest players that built strong decks full of complementary cards will climb up o the top of the scoreboard.
 
 ## Available Scripts
 
