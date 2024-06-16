@@ -6,7 +6,7 @@ import { Zone } from "../zone";
 import { ArtificialIntelligence } from "./ArtificialIntelligence";
 import { DuelSnapshot } from "./DuelSnapshot";
 
-const LOG_AI = true;
+const LOG_AI = false;
 
 let indentation = "";
 
@@ -90,17 +90,8 @@ export class SmartAI implements ArtificialIntelligence {
       duel.duelRecord = null;
       logMove(indentation, duel, move);
       if (duel.executeDuelistMove(move)) {
-        while (duel.hasNextAction()) {
-          const action = duel.executeOneAction();
-          /*if (duel.waitingForCardSelection) {
-            this.selectTarget(
-              duel,
-              duel.selectedCardOwner,
-              duel.selectingFromZone as Zone,
-              duel.selectionCriteria,
-              indentation + "  "
-            );
-          }*/
+        while (duel.hasNextAction() && !duel.isDuelOver()) {
+          duel.executeOneAction();
         }
         const newScore = this.scoreCalculator.calculeScore(
           duel,

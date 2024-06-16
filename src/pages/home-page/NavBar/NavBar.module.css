@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   justify-content: center;
   box-shadow: 0px 0px 5px black;
-  background-color: #b57f5b80;
+  background-color: #40372dc5;
 }
 
 .navLink {
@@ -18,7 +18,7 @@
   font-weight: 300;
   justify-content: center;
   text-decoration-line: none;
-  color: black;
+  color: rgb(193, 179, 166);
   font-size: 14px;
   line-height: 48px;
 }
@@ -29,5 +29,5 @@
 
 .navLinkActive {
   text-decoration-line: underline;
-  background-color: #ffffff25;
+  background-color: #40372d80;
 }

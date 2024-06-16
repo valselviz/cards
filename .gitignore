@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /infra/lambda/automatic-league/deployable/node_modules/duel
+/infra/lambda/automatic-league/deployable/Archive.zip
 
 # testing
 /coverage
