@@ -19,8 +19,8 @@ const playerTableName = "ccg-player";
 export const handler = async (event) => {
   loadAllCardModels();
   const players = await getPlayersFromDynamoDB();
-  return executeAllDuels(players);
-  //await updatePlayerScoresOnDynamo(players);
+  executeAllDuels(players);
+  await updatePlayerScoresOnDynamo(players);
 };
 
 async function getPlayersFromDynamoDB() {
@@ -55,22 +55,30 @@ function executeAllDuels(players) {
   }
 }
 
+// This method expects that player B is on top of playe A in the score board
+// (even if they have the same score)
 function executeSingleDuel(playerA, playerB) {
   console.log(`Executing ${playerA.username} vs ${playerB.username}`);
-  console.log(`Random seed: ${RND.seed}`);
-  console.log(playerA.macrogame.deck);
-  console.log(playerB.macrogame.deck);
-  executeDuel(playerA.macrogame.deck, playerB.macrogame.deck);
+  //console.log(`Random seed: ${RND.seed}`);
+  //console.log(playerA.macrogame.deck);
+  //console.log(playerB.macrogame.deck);
+  const winner = executeDuel(playerA.macrogame.deck, playerB.macrogame.deck);
+  if (winner === 0) {
+    if (playerA.leagueScore < playerB.leagueScore) {
+      playerB.leagueScore--;
+    }
+    playerA.leagueScore++;
+  }
 }
 
-/*async function updatePlayerScoresOnDynamo(players) {
+async function updatePlayerScoresOnDynamo(players) {
+  console.log("Storing results in DynamoDB");
   for (const player of players) {
-    player.leagueScore = 123;setiar un score correcto
-    const putResponse = await dynamo.send(
+    await dynamo.send(
       new PutCommand({
         TableName: playerTableName,
         Item: player,
       })
     );
   }
-}*/
+}
