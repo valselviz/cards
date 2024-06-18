@@ -82,7 +82,7 @@ export default function DeckPage() {
         className={styles.container}
         onMouseLeave={() => setHoveredCard(null)}
       >
-        <DoubleCardDisplay hoveredCard={hoveredCard} title={"Reward Details"} />
+        <DoubleCardDisplay hoveredCard={hoveredCard} title={"Card Details"} />
         <CardsContainer
           title={"Deck"}
           cardIds={deck}

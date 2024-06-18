@@ -1,3 +1,4 @@
+import BlackDragon from "assets/cards/blackDragon.jpg";
 import Blacksmith from "./assets/cards/blacksmith.jpg";
 import CorruptedMage from "./assets/cards/corruptedMage.jpg";
 import Harpy from "./assets/cards/harpy.jpg";
@@ -32,16 +33,19 @@ import Minotaur from "assets/cards/minotaur.jpg";
 import FireDemon from "assets/cards/fireDemon.jpg";
 import GoblinWarrior from "assets/cards/goblinWarrior.jpg";
 import HammerDwarf from "assets/cards/hammerDwarf.jpg";
+import OceanTraitor from "assets/cards/oceanTraitor.jpg";
+import ThunderTraitor from "assets/cards/thunderTraitor.jpg";
 import Paladin from "assets/cards/paladin.jpg";
 import TundraSkeleton from "assets/cards/tundraSkeleton.jpg";
 import Wizard from "assets/cards/wizard.jpg";
 import GiantSpider from "assets/cards/giantSpider.jpg";
 import Golem from "assets/cards/golem.jpg";
-import BlackDragon from "assets/cards/blackDragon.jpg";
+import TundraRider from "assets/cards/tundraRider.jpg";
 
 import { cardModelsList } from "./duel/cards-collection/cards-collection";
 
 const cardModelImages: any = {
+  BlackDragon: BlackDragon,
   Blacksmith: Blacksmith,
   CorruptedMage: CorruptedMage,
   Harpy: Harpy,
@@ -51,17 +55,12 @@ const cardModelImages: any = {
   CentaurSocerer: CentaurSocerer,
   Guardian: Guardian,
   LizardSpearman: LizardSpearman,
-  Siren: Siren,
-  OwlGuardian: OwlGuardian,
-  TreeGuardian: TreeGuardian,
   DragonMistress: DragonMistress,
   Griffin: Griffin,
   Reaper: Reaper,
   TigerWarrior: TigerWarrior,
   Eruption: Eruption,
   NatureAmulet: NatureAmulet,
-  Vortex: Vortex,
-  Raid: Raid,
   MagicCup: MagicCup,
   Ballista: Ballista,
   WhiteKnight: WhiteKnight,
@@ -76,16 +75,23 @@ const cardModelImages: any = {
   FireDemon: FireDemon,
   GoblinWarrior: GoblinWarrior,
   HammerDwarf: HammerDwarf,
+  OceanTraitor: OceanTraitor,
+  ThunderTraitor: ThunderTraitor,
   Paladin: Paladin,
   TundraSkeleton: TundraSkeleton,
   Wizard: Wizard,
   GiantSpider: GiantSpider,
   Golem: Golem,
-  BlackDragon: BlackDragon,
+  Siren: Siren,
+  OwlGuardian: OwlGuardian,
+  TreeGuardian: TreeGuardian,
+  Vortex: Vortex,
+  Raid: Raid,
+  TundraRider: TundraRider,
 };
 
 export function loadAllCardModelsImages() {
   for (const cardModel of cardModelsList) {
-    cardModel.image = cardModelImages[cardModel.name.replaceAll(" ", "")]
+    cardModel.image = cardModelImages[cardModel.name.replaceAll(" ", "")];
   }
 }

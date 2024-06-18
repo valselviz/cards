@@ -19,7 +19,7 @@ import { Zone } from "duel/zone";
 
 export function loadBonusCards() {
   addCardModel(
-    new CardModel(690, "Blacksmith", null, 0, 15, Color.Red, 2.5, [
+    new CardModel(690, "Thunder Traitor", null, 0, 15, Color.Red, 2.5, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -46,7 +46,7 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(481, "Sky Goddess", null, 12, 5, Color.Yellow, 2.5, [
+    new CardModel(481, "Ocean Traitor", null, 12, 5, Color.Yellow, 2.5, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -111,5 +111,17 @@ export function loadBonusCards() {
         }
         return 0;
       })
+  );
+
+  addCardModel(
+    new CardModel(212, "Tundra Rider", null, 5, 5, Color.Blue, 2.9, [
+      labelOneSacrifice,
+      labelEffect,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
+      .withPassiveEffect((card: Card, event: DuelEvent) => {},
+      "Every card on the field gains 4 attack.")
+      .withAttackBonus((buffGiver: Card, buffedCard: Card) => 4)
   );
 }

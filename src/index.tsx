@@ -15,6 +15,19 @@ import { loadAllCardModelsImages } from "card-images";
 loadAllCardModels();
 loadAllCardModelsImages();
 
+function changeZoom() {
+  setTimeout(() => {
+    const windowWidth = window.innerWidth;
+    const rootDiv: any = document.getElementById("root")?.firstChild;
+    const pageWidth = rootDiv ? rootDiv.scrollWidth : windowWidth;
+    const docStyle: any = document.body.style;
+    const newZoom = (100 * windowWidth) / pageWidth;
+    docStyle.zoom = newZoom + "%";
+    changeZoom();
+  }, 500);
+}
+changeZoom();
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

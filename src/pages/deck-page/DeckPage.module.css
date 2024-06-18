@@ -1,5 +1,7 @@
 .container {
   display: flex;
+  justify-content: center;
+  width: 1140px;
 }
 
 .mainContainer {
