@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Valeria CCG",
+  "name": "Valeria CCG",
   "icons": [
     {
       "src": "favicon.ico",
@@ -9,7 +9,8 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
+  "display": "fullscreen",
+  "orientation": "landscape",
   "theme_color": "#000000",
-  "background_color": "#888072"
+  "background_color": "#ffffff"
 }

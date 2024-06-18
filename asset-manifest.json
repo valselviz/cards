@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/cards/static/css/main.a8384b85.css",
-    "main.js": "/cards/static/js/main.1b6b1d24.js",
+    "main.css": "/cards/static/css/main.9e5af8ef.css",
+    "main.js": "/cards/static/js/main.2581e1a8.js",
     "static/media/background.png": "/cards/static/media/background.446f9a6fd7358d301b64.png",
+    "static/media/bookBackground.jpg": "/cards/static/media/bookBackground.4df14e3ac23a8dd53d27.jpg",
     "static/media/darkRitual.jpg": "/cards/static/media/darkRitual.47a55497fbca38df9f38.jpg",
     "static/media/cardBack.jpg": "/cards/static/media/cardBack.a74b4d4355663af9d55f.jpg",
-    "static/media/bookBackground2.jpg": "/cards/static/media/bookBackground2.371e65b75b45f876b465.jpg",
     "static/media/skyGoddess.jpg": "/cards/static/media/skyGoddess.6864f3aa2ed243c0ff12.jpg",
     "static/media/treeGuardian.jpg": "/cards/static/media/treeGuardian.f8e0a0cffec255f3ef62.jpg",
     "static/media/harpy.jpg": "/cards/static/media/harpy.9b415998d2cec4bea4c3.jpg",
@@ -52,11 +52,11 @@
     "static/media/shield.svg": "/cards/static/media/shield.0973822d078a4e746fe5de6ff3720221.svg",
     "static/media/questionMark.svg": "/cards/static/media/questionMark.fcc53f27f6bc4ff0f691ee81a343ee8b.svg",
     "index.html": "/cards/index.html",
-    "main.a8384b85.css.map": "/cards/static/css/main.a8384b85.css.map",
-    "main.1b6b1d24.js.map": "/cards/static/js/main.1b6b1d24.js.map"
+    "main.9e5af8ef.css.map": "/cards/static/css/main.9e5af8ef.css.map",
+    "main.2581e1a8.js.map": "/cards/static/js/main.2581e1a8.js.map"
   },
   "entrypoints": [
-    "static/css/main.a8384b85.css",
-    "static/js/main.1b6b1d24.js"
+    "static/css/main.9e5af8ef.css",
+    "static/js/main.2581e1a8.js"
   ]
 }
