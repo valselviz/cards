@@ -41,6 +41,7 @@ import Wizard from "assets/cards/wizard.jpg";
 import GiantSpider from "assets/cards/giantSpider.jpg";
 import Golem from "assets/cards/golem.jpg";
 import TundraRider from "assets/cards/tundraRider.jpg";
+import DragonTreasure from "assets/cards/dragonTreasure.jpg";
 
 import { cardModelsList } from "./duel/cards-collection/cards-collection";
 
@@ -88,6 +89,7 @@ const cardModelImages: any = {
   Vortex: Vortex,
   Raid: Raid,
   TundraRider: TundraRider,
+  DragonTreasure: DragonTreasure,
 };
 
 export function loadAllCardModelsImages() {
