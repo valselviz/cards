@@ -3,4 +3,5 @@ export enum EventType {
   Invoke,
   Discard,
   Attack,
+  PassTurn,
 }
