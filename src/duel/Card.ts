@@ -20,6 +20,7 @@ export class Card {
   }
 
   getAttack() {
+    if (this.model.attack === 0) return 0;
     let bonusAttack = 0;
     if (this.zone === Zone.Field) {
       for (const card of this.duel.cards[this.playerId][Zone.Field]) {

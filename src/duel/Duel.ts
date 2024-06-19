@@ -134,6 +134,7 @@ export class Duel {
 
   passTurn() {
     this.playerTurn = 1 - this.playerTurn;
+    this.notifyEvent(EventType.PassTurn, null);
     this.cards[this.playerTurn][Zone.Field].forEach(
       (card) => (card.usableFromField = true)
     );

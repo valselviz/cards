@@ -11,11 +11,12 @@ import {
   simpleInvokation,
   simpleInvokationInfo,
 } from "./cards-collection";
-import { Color } from "duel/color";
-import { Card } from "duel/Card";
-import { DuelEvent } from "duel/DuelEvent";
+import { Color } from "../color";
+import { Card } from "../Card";
+import { DuelEvent } from "../DuelEvent";
 
-import { Zone } from "duel/zone";
+import { Zone } from "../zone";
+import { EventType } from "../EventType";
 
 export function loadBonusCards() {
   addCardModel(
@@ -91,7 +92,7 @@ export function loadBonusCards() {
 
   addCardModel(
     new CardModel(662, "Nightmare Beast", null, 12, 19, Color.Blue, 2.8, [
-      labelOneSacrifice,
+      labelNoSacrifice,
       labelEffect,
     ])
       .withHandEffect(oneSacrificeInvokation, oneSacrificeInvokationInfo)
@@ -123,5 +124,21 @@ export function loadBonusCards() {
       .withPassiveEffect((card: Card, event: DuelEvent) => {},
       "Every card on the field gains 4 attack.")
       .withAttackBonus((buffGiver: Card, buffedCard: Card) => 4)
+  );
+
+  addCardModel(
+    new CardModel(901, "Dragon Treasure", null, 0, 0, Color.Red, 2.3, [
+      labelNoSacrifice,
+      labelEffect,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withPassiveEffect((card: Card, event: DuelEvent) => {
+        if (event.eventType === EventType.PassTurn) {
+          card.duel.queueDestroyAction(() => card);
+        }
+      }, "Every card on your field gains 7 attack. This card is destroyed at the end of the turn.")
+      .withAttackBonus((buffGiver: Card, buffedCard: Card) =>
+        buffedCard.playerId === buffGiver.playerId ? 7 : 0
+      )
   );
 }
