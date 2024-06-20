@@ -17,6 +17,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Amarante&family=Metamorphous&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Metamorphous&display=swap");
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: "Inknut Antiqua";

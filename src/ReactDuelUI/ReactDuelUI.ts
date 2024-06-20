@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { Zone } from "../duel/zone";
 import { Card } from "../duel/Card";
 import { DuelUI } from "duel/DuelUI";
+import { Duel } from "duel/Duel";
 
 interface CardBoxStateSetters {
   setActivated: Dispatch<SetStateAction<boolean>>;
@@ -43,5 +44,9 @@ export class ReactDuelUI implements DuelUI {
 
   notifyDamage(playerId: number) {
     this.setDamaged[playerId](true);
+  }
+
+  notifyTurnPassed(duel: Duel) {
+    window.scrollTo(0, duel.playerTurn === 0 ? document.body.scrollHeight : 0);
   }
 }

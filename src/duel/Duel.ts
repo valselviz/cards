@@ -108,6 +108,7 @@ export class Duel {
     }
 
     this.playerTurn = 0;
+    this.ui?.notifyTurnPassed(this);
   }
 
   // Returns true if there are more actions ready to be executed automatically
@@ -139,6 +140,7 @@ export class Duel {
       (card) => (card.usableFromField = true)
     );
     this.queueDrawAction(this.playerTurn);
+    this.ui?.notifyTurnPassed(this);
   }
 
   queueInvokeAction(cardProvider: () => Card | null) {
