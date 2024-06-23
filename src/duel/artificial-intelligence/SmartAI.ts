@@ -1,4 +1,4 @@
-import { AIScoreCalculator } from "duel/artificial-intelligence/AIScoreCalculator";
+import { AIScoreCalculator } from "../../duel/artificial-intelligence/AIScoreCalculator";
 import { Card } from "../Card";
 import { Duel } from "../Duel";
 import { UsedOrTargetedCard } from "../DuelRecord";

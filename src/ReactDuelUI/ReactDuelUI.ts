@@ -16,13 +16,19 @@ export class ReactDuelUI implements DuelUI {
 
   setDamaged: Dispatch<SetStateAction<boolean>>[];
 
-  constructor(setCardsState: Dispatch<SetStateAction<Card[][][]>>) {
+  openDialog: (error: boolean, ...message: string[]) => void;
+
+  constructor(
+    setCardsState: Dispatch<SetStateAction<Card[][][]>>,
+    openDialog: (error: boolean, ...message: string[]) => void
+  ) {
     this.setCardsState = setCardsState;
     this.boardStateSetters = [
       [[], [], []],
       [[], [], []],
     ];
     this.setDamaged = [];
+    this.openDialog = openDialog;
   }
 
   refreshUI(cards: Card[][][]) {
@@ -48,5 +54,9 @@ export class ReactDuelUI implements DuelUI {
 
   notifyTurnPassed(duel: Duel) {
     window.scrollTo(0, duel.playerTurn === 0 ? document.body.scrollHeight : 0);
+  }
+
+  showAlert(message: string): void {
+    this.openDialog(true, message);
   }
 }

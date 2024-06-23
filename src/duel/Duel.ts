@@ -284,7 +284,7 @@ export class Duel {
 
   alertPlayer(message: string) {
     if (this.players[this.playerTurn].human && !this.reproducingDuel) {
-      alert(message);
+      this.ui?.showAlert(message);
     }
   }
 

@@ -13,4 +13,6 @@ export interface DuelUI {
   notifyDamage(playerId: number): void;
 
   notifyTurnPassed(duel: Duel): void;
+
+  showAlert(message: string): void;
 }

@@ -12,6 +12,8 @@ import { Duelist } from "../../duel/duelist/Duelist";
 import DuelEndMessage from "duel-components/DuelEndMessage/DuelEndMessage";
 import { Duel } from "duel/Duel";
 import { UsedOrTargetedCard } from "duel/DuelRecord";
+import { useDialog } from "pages/common-components/Dialog/useDialog";
+import Dialog from "pages/common-components/Dialog/Dialog";
 
 interface DuelBoardProps {
   players: Duelist[];
@@ -24,10 +26,13 @@ export default function DuelBoard({ players }: DuelBoardProps) {
   ];
   const [cardsState, setCardsState] = useState<Card[][][]>(emptyBoard);
 
+  const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
+    useDialog();
+
   // The duel and duelUI objects should be created only once.
   // It shouldn't be created on each rerender.
   // This is achived with useMemo
-  const duelUI = useMemo(() => new ReactDuelUI(setCardsState), []);
+  const duelUI = useMemo(() => new ReactDuelUI(setCardsState, openDialog), []);
   const duel = useMemo(() => new Duel(players, duelUI), [players, duelUI]);
 
   function executeOneActionWithDelay() {
@@ -119,6 +124,12 @@ export default function DuelBoard({ players }: DuelBoardProps) {
       {duel.isDuelOver() && (
         <DuelEndMessage victory={duel.cards[0][Zone.Deck].length > 0} />
       )}
+      <Dialog
+        dialogMessage={dialogMessage}
+        isError={isError}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </div>
   );
 }

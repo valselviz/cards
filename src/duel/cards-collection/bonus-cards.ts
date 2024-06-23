@@ -1,4 +1,4 @@
-import { CardModel } from "duel/CardModel";
+import { CardModel } from "../../duel/CardModel";
 import {
   addCardModel,
   labelEffect,
