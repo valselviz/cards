@@ -6,7 +6,7 @@ import { Zone } from "../zone";
 import { ArtificialIntelligence } from "./ArtificialIntelligence";
 import { DuelSnapshot } from "./DuelSnapshot";
 
-const LOG_AI = false;
+const LOG_AI = true;
 
 let indentation = "";
 
