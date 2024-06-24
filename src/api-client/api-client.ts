@@ -59,6 +59,8 @@ export async function updateOnBackend(username: string, macrogame: MacroGame) {
     sessionToken = "";
   }
 
+  macrogame.updatePlayerPortrait();
+
   const response = await fetch(backendUrl + "/player", {
     method: "PUT",
     body: JSON.stringify({ username, macrogame }),

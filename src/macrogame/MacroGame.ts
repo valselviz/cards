@@ -8,6 +8,7 @@ import {
   labelNoSacrifice,
   labelOneSacrifice,
 } from "../duel/cards-collection/cards-collection";
+import { randomBytes } from "crypto";
 
 export interface OnSaleCard {
   model: number;
@@ -23,6 +24,7 @@ export class MacroGame {
   manualGamesStarted: number = 0;
   manualGamesFinished: number = 0;
   manualGamesWon: number = 0;
+  portraitCard: number | null = null;
 
   constructor() {
     for (let i = 0; i < 5; i++) {
@@ -103,5 +105,14 @@ export class MacroGame {
     if (this.cardsInStore.length > 5) {
       this.cardsInStore.pop();
     }
+  }
+
+  updatePlayerPortrait() {
+    const deckCardModels = this.deck.map((id) => cardModels[id]);
+    this.portraitCard = deckCardModels.reduce(
+      (rearest, current) =>
+        rearest.rarity > current.rarity ? rearest : current,
+      deckCardModels[0]
+    ).id;
   }
 }
