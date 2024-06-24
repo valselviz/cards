@@ -33,7 +33,34 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(440, "Harpy", null, 4, 9, Color.Red, 2.5, [
+    new CardModel(481, "Ocean Traitor", null, 12, 5, Color.Yellow, 2.5, [
+      labelNoSacrifice,
+      labelEffect,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
+      .withPassiveEffect((card: Card, event: DuelEvent) => {},
+      "Add 6 defense to every blue card on the field.")
+      .withDefenseBonus((buffGiver: Card, buffedCard: Card) =>
+        buffedCard.model.color === Color.Blue ? 6 : 0
+      )
+  );
+
+  addCardModel(
+    new CardModel(881, "Druid Traitor", null, 0, 14, Color.Blue, 2.5, [
+      labelNoSacrifice,
+      labelEffect,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withPassiveEffect((card: Card, event: DuelEvent) => {},
+      "Add 5 defense to every green card on the field.")
+      .withDefenseBonus((buffGiver: Card, buffedCard: Card) =>
+        buffedCard.model.color === Color.Green ? 6 : 0
+      )
+  );
+
+  addCardModel(
+    new CardModel(880, "Bomber Traitor", null, 4, 10, Color.Green, 2.5, [
       labelNoSacrifice,
       labelEffect,
     ])
@@ -47,16 +74,16 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(481, "Ocean Traitor", null, 12, 5, Color.Yellow, 2.5, [
+    new CardModel(440, "Harpy", null, 4, 9, Color.Red, 2.5, [
       labelNoSacrifice,
       labelEffect,
     ])
       .withHandEffect(simpleInvokation, simpleInvokationInfo)
       .withFieldEffect(simpleAttack, simpleAttackInfo)
       .withPassiveEffect((card: Card, event: DuelEvent) => {},
-      "Add 6 defense to every blue card on the field.")
-      .withDefenseBonus((buffGiver: Card, buffedCard: Card) =>
-        buffedCard.model.color === Color.Blue ? 6 : 0
+      "Add 6 attack to every red card on the field.")
+      .withAttackBonus((buffGiver: Card, buffedCard: Card) =>
+        buffedCard.model.color === Color.Red ? 6 : 0
       )
   );
 

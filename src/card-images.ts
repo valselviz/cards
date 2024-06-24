@@ -1,6 +1,8 @@
 import BlackDragon from "assets/cards/blackDragon.jpg";
 import Blacksmith from "./assets/cards/blacksmith.jpg";
+import BomberTraitor from "./assets/cards/bomberTraitor.jpg";
 import CorruptedMage from "./assets/cards/corruptedMage.jpg";
+import DruidTraitor from "./assets/cards/druidTraitor.jpg";
 import Harpy from "./assets/cards/harpy.jpg";
 import NightmareBeast from "./assets/cards/nightmareBeast.jpg";
 import SandTitan from "./assets/cards/sandTitan.jpg";
@@ -48,7 +50,9 @@ import { cardModelsList } from "./duel/cards-collection/cards-collection";
 const cardModelImages: any = {
   BlackDragon: BlackDragon,
   Blacksmith: Blacksmith,
+  BomberTraitor: BomberTraitor,
   CorruptedMage: CorruptedMage,
+  DruidTraitor: DruidTraitor,
   Harpy: Harpy,
   NightmareBeast: NightmareBeast,
   SandTitan: SandTitan,
