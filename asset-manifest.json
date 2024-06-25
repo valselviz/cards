@@ -1,13 +1,14 @@
 {
   "files": {
     "main.css": "/cards/static/css/main.4d906735.css",
-    "main.js": "/cards/static/js/main.b5562548.js",
+    "main.js": "/cards/static/js/main.e28dec61.js",
     "static/media/background.png": "/cards/static/media/background.446f9a6fd7358d301b64.png",
     "static/media/bookBackground.jpg": "/cards/static/media/bookBackground.4df14e3ac23a8dd53d27.jpg",
     "static/media/darkRitual.jpg": "/cards/static/media/darkRitual.47a55497fbca38df9f38.jpg",
     "static/media/cardBack.jpg": "/cards/static/media/cardBack.a74b4d4355663af9d55f.jpg",
     "static/media/oceanTraitor.jpg": "/cards/static/media/oceanTraitor.ce140be9ee1fcbadc927.jpg",
     "static/media/thunderTraitor.jpg": "/cards/static/media/thunderTraitor.0f1b2e57cd4d1a8491fb.jpg",
+    "static/media/druidTraitor.jpg": "/cards/static/media/druidTraitor.4bdc42c3e6a73b5549e5.jpg",
     "static/media/skyGoddess.jpg": "/cards/static/media/skyGoddess.6864f3aa2ed243c0ff12.jpg",
     "static/media/treeGuardian.jpg": "/cards/static/media/treeGuardian.f8e0a0cffec255f3ef62.jpg",
     "static/media/harpy.jpg": "/cards/static/media/harpy.9b415998d2cec4bea4c3.jpg",
@@ -16,6 +17,8 @@
     "static/media/whiteKnight.jpg": "/cards/static/media/whiteKnight.ad7f7728f612da171038.jpg",
     "static/media/elfArcher.jpg": "/cards/static/media/elfArcher.46934703e7746676e84a.jpg",
     "static/media/nightmareBeast.jpg": "/cards/static/media/nightmareBeast.965fc2c76bc5f3b866b1.jpg",
+    "static/media/lightningBreath.jpg": "/cards/static/media/lightningBreath.50d62f7cd5678d05db0b.jpg",
+    "static/media/bomberTraitor.jpg": "/cards/static/media/bomberTraitor.9ba7cced3ec87bcdf6a6.jpg",
     "static/media/paladin.jpg": "/cards/static/media/paladin.d7b1a7fb893c93976356.jpg",
     "static/media/guardian.jpg": "/cards/static/media/guardian.1f8f6dca8ac05201bc57.jpg",
     "static/media/blacksmith.jpg": "/cards/static/media/blacksmith.ab33ceddd5bec022fa88.jpg",
@@ -40,6 +43,7 @@
     "static/media/natureAmulet.jpg": "/cards/static/media/natureAmulet.71778212eecf0c863c98.jpg",
     "static/media/ballista.jpg": "/cards/static/media/ballista.dafc0c83757379791006.jpg",
     "static/media/siren.jpg": "/cards/static/media/siren.4e7d3b03ef730037f26b.jpg",
+    "static/media/fateRune.jpg": "/cards/static/media/fateRune.b87ccd9e130aeb9f4cd1.jpg",
     "static/media/tundraSkeleton.jpg": "/cards/static/media/tundraSkeleton.e0fd900d7cc6f5c99d03.jpg",
     "static/media/raid.jpg": "/cards/static/media/raid.42caf3327f7908b2e59d.jpg",
     "static/media/lizardSpearman.jpg": "/cards/static/media/lizardSpearman.a7df8bdc3fd5fe2784b8.jpg",
@@ -57,10 +61,10 @@
     "static/media/questionMark.svg": "/cards/static/media/questionMark.fcc53f27f6bc4ff0f691ee81a343ee8b.svg",
     "index.html": "/cards/index.html",
     "main.4d906735.css.map": "/cards/static/css/main.4d906735.css.map",
-    "main.b5562548.js.map": "/cards/static/js/main.b5562548.js.map"
+    "main.e28dec61.js.map": "/cards/static/js/main.e28dec61.js.map"
   },
   "entrypoints": [
     "static/css/main.4d906735.css",
-    "static/js/main.b5562548.js"
+    "static/js/main.e28dec61.js"
   ]
 }
