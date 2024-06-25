@@ -1,4 +1,4 @@
-import { CardModel } from "duel/CardModel";
+import { CardModel } from "../CardModel";
 import {
   addCardModel,
   labelNoSacrifice,
@@ -7,7 +7,7 @@ import {
   simpleInvokation,
   simpleInvokationInfo,
 } from "./cards-collection";
-import { Color } from "duel/color";
+import { Color } from "../color";
 
 // "Simple-Aggressors" are cards that:
 // - don't need any sacrifice or condition to be invoked.

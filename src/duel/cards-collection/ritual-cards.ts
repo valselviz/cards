@@ -1,4 +1,4 @@
-import { CardModel } from "duel/CardModel";
+import { CardModel } from "../CardModel";
 import {
   addCardModel,
   checkFullField,
@@ -7,9 +7,9 @@ import {
   simpleAttack,
   simpleAttackInfo,
 } from "./cards-collection";
-import { Color } from "duel/color";
-import { Card } from "duel/Card";
-import { Zone } from "duel/zone";
+import { Color } from "../color";
+import { Card } from "../Card";
+import { Zone } from "../zone";
 
 export function loadRitualCards() {
   const deathLordCardModel = new CardModel(

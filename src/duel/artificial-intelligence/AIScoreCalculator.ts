@@ -21,19 +21,10 @@ export class AIScoreCalculator {
     // The AI does not considere useful to have more than 5 cards in the hand.
     // This is an incentive to make the AI play its cards and not accumulate them.
     const handCards = duel.cards[playerId][Zone.Hand].length;
-    let handScore = handCards < 5 ? (handCards * 5) / handCards + 5 : 2.5;
+    let handScore = handCards < 5 ? (handCards * 5) / (handCards + 5) : 2.5;
 
     const deckScore =
       duel.cards[playerId][Zone.Deck].length * this.deckCardScore;
-
-    /*
-    // The more atk/def the player cards have, the higher his score will be.
-    // But if the atk/def of a card is too big compared to the opponents cards, it stops being relevant.
-    // That is why the considered atk/def values are capped at maximum amount.
-    const maxRelevantAttack =
-      this.getPlayerMaxDefense(duel, 1 - playerId) + this.relevantStatMargin;
-    const maxRelevantDefense =
-      this.getPlayerMaxAttack(duel, 1 - playerId) + this.relevantStatMargin;*/
 
     const [minRelevantAtk, maxRelevantAtk, minRelevantDef, maxRelevantDef] =
       this.relevantStats(duel, playerId);
@@ -41,8 +32,8 @@ export class AIScoreCalculator {
     let fieldScore = 0;
     for (const card of duel.cards[playerId][Zone.Field]) {
       let relevantAttack = card.getAttack();
-      if (relevantAttack < minRelevantAtk) relevantAttack = 0;
-      else if (relevantAttack > maxRelevantAtk)
+      if (relevantAttack <= minRelevantAtk) relevantAttack = 0;
+      else if (relevantAttack >= maxRelevantAtk)
         relevantAttack = this.maxScoreByCardStat;
       else
         relevantAttack =
@@ -50,8 +41,8 @@ export class AIScoreCalculator {
           (maxRelevantAtk - minRelevantAtk);
 
       let relevantDefense = card.getDefense();
-      if (relevantDefense < minRelevantDef) relevantDefense = 0;
-      else if (relevantDefense > maxRelevantDef)
+      if (relevantDefense <= minRelevantDef) relevantDefense = 0;
+      else if (relevantDefense >= maxRelevantDef)
         relevantDefense = this.maxScoreByCardStat;
       else
         relevantDefense =
@@ -60,10 +51,6 @@ export class AIScoreCalculator {
 
       let fieldCardScore =
         relevantAttack + relevantDefense + this.fieldCardExtraScore;
-
-      if (isNaN(fieldCardScore)) {
-        console.log("asd");
-      }
 
       if (fieldCardScore < 1.1)
         // Remember that even if a card has 0 atk/def, it can have effects that make them strong.

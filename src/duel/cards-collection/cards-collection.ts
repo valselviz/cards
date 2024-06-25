@@ -11,6 +11,10 @@ export const labelEffect = "EFFECT";
 export const labelRitualMagic = "RITUAL MAGIC";
 export const labelRitualCreature = "RITUAL CREATURE";
 export const labelPassive = "PASSIVE";
+export const labelBlueSynergy = "BLUE SYNERGY";
+export const labelRedSynergy = "RED SYNERGY";
+export const labelGreenSynergy = "GREEN SYNERGY";
+export const labelYellowSynergy = "YELLOW SYNERGY";
 
 export function checkFullField(card: Card) {
   if (card.duel.cards[card.playerId][Zone.Field].length === 5) {

@@ -1,9 +1,13 @@
 import { CardModel } from "../../duel/CardModel";
 import {
   addCardModel,
+  labelBlueSynergy,
   labelEffect,
+  labelGreenSynergy,
   labelNoSacrifice,
   labelOneSacrifice,
+  labelRedSynergy,
+  labelYellowSynergy,
   oneSacrificeInvokation,
   oneSacrificeInvokationInfo,
   simpleAttack,
@@ -23,6 +27,7 @@ export function loadBonusCards() {
     new CardModel(690, "Thunder Traitor", null, 0, 15, Color.Red, 2.5, [
       labelNoSacrifice,
       labelEffect,
+      labelYellowSynergy,
     ])
       .withHandEffect(simpleInvokation, simpleInvokationInfo)
       .withPassiveEffect((card: Card, event: DuelEvent) => {},
@@ -36,6 +41,7 @@ export function loadBonusCards() {
     new CardModel(481, "Ocean Traitor", null, 12, 5, Color.Yellow, 2.5, [
       labelNoSacrifice,
       labelEffect,
+      labelBlueSynergy,
     ])
       .withHandEffect(simpleInvokation, simpleInvokationInfo)
       .withFieldEffect(simpleAttack, simpleAttackInfo)
@@ -50,6 +56,7 @@ export function loadBonusCards() {
     new CardModel(881, "Druid Traitor", null, 0, 14, Color.Blue, 2.5, [
       labelNoSacrifice,
       labelEffect,
+      labelGreenSynergy,
     ])
       .withHandEffect(simpleInvokation, simpleInvokationInfo)
       .withPassiveEffect((card: Card, event: DuelEvent) => {},
@@ -63,6 +70,7 @@ export function loadBonusCards() {
     new CardModel(880, "Bomber Traitor", null, 4, 10, Color.Green, 2.5, [
       labelNoSacrifice,
       labelEffect,
+      labelRedSynergy,
     ])
       .withHandEffect(simpleInvokation, simpleInvokationInfo)
       .withFieldEffect(simpleAttack, simpleAttackInfo)
@@ -74,14 +82,15 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(440, "Harpy", null, 4, 9, Color.Red, 2.5, [
+    new CardModel(440, "Harpy", null, 5, 9, Color.Red, 2.5, [
       labelNoSacrifice,
       labelEffect,
+      labelRedSynergy,
     ])
       .withHandEffect(simpleInvokation, simpleInvokationInfo)
       .withFieldEffect(simpleAttack, simpleAttackInfo)
       .withPassiveEffect((card: Card, event: DuelEvent) => {},
-      "Add 6 attack to every red card on the field.")
+      "Add 5 attack to every red card on the field.")
       .withAttackBonus((buffGiver: Card, buffedCard: Card) =>
         buffedCard.model.color === Color.Red ? 6 : 0
       )
@@ -91,6 +100,7 @@ export function loadBonusCards() {
     new CardModel(413, "Corrupted Mage", null, 6, 12, Color.Green, 2.5, [
       labelNoSacrifice,
       labelEffect,
+      labelGreenSynergy,
     ])
       .withHandEffect(simpleInvokation, simpleInvokationInfo)
       .withFieldEffect(simpleAttack, simpleAttackInfo)
@@ -121,6 +131,7 @@ export function loadBonusCards() {
     new CardModel(662, "Nightmare Beast", null, 12, 19, Color.Blue, 2.8, [
       labelNoSacrifice,
       labelEffect,
+      labelBlueSynergy,
     ])
       .withHandEffect(oneSacrificeInvokation, oneSacrificeInvokationInfo)
       .withFieldEffect(simpleAttack, simpleAttackInfo)
@@ -142,7 +153,7 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(212, "Tundra Rider", null, 5, 5, Color.Blue, 2.9, [
+    new CardModel(212, "Tundra Rider", null, 5, 5, Color.Blue, 2.0, [
       labelOneSacrifice,
       labelEffect,
     ])
@@ -154,7 +165,7 @@ export function loadBonusCards() {
   );
 
   addCardModel(
-    new CardModel(901, "Dragon Treasure", null, 0, 0, Color.Red, 2.3, [
+    new CardModel(901, "Dragon Treasure", null, 0, 0, Color.Red, 2.0, [
       labelNoSacrifice,
       labelEffect,
     ])

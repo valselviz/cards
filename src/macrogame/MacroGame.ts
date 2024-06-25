@@ -34,18 +34,9 @@ export class MacroGame {
     for (let i = 0; i < 7; i++) {
       this.deck.push(getRandomCardModelIdByCriteria(labelMagic, 2));
     }
-    /*for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 6; i++) {
       this.deck.push(getRandomCardModelIdByCriteria(labelOneSacrifice, 2.2));
-    }*/
-
-    this.deck.push(getCardModelIdByName("Druid Traitor"));
-    this.deck.push(getCardModelIdByName("Druid Traitor"));
-    this.deck.push(getCardModelIdByName("Bomber Traitor"));
-    this.deck.push(getCardModelIdByName("Bomber Traitor"));
-    this.deck.push(getCardModelIdByName("Thunder Traitor"));
-    this.deck.push(getCardModelIdByName("Thunder Traitor"));
-    this.deck.push(getCardModelIdByName("Ocean Traitor"));
-    this.deck.push(getCardModelIdByName("Ocean Traitor"));
+    }
 
     this.rivals.push(new Rival(getCardModelIdByName("Tundra Skeleton"), true));
     this.rivals.push(new Rival(getCardModelIdByName("Elf Archer"), false));
