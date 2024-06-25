@@ -1,4 +1,4 @@
-import { CardModel } from "duel/CardModel";
+import { CardModel } from "../CardModel";
 import {
   addCardModel,
   labelEffect,
@@ -8,10 +8,10 @@ import {
   simpleAttack,
   simpleAttackInfo,
 } from "./cards-collection";
-import { Color } from "duel/color";
-import { Card } from "duel/Card";
-import { Zone } from "duel/zone";
-import { Action } from "duel/Action";
+import { Color } from "../color";
+import { Card } from "../Card";
+import { Zone } from "../zone";
+import { Action } from "../Action";
 
 export function loadEffectSacrificeCards() {
   addCardModel(

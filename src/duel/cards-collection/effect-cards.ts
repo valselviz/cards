@@ -1,4 +1,4 @@
-import { Color } from "duel/color";
+import { Color } from "../color";
 import {
   addCardModel,
   checkFullField,
@@ -9,11 +9,11 @@ import {
   simpleInvokation,
   simpleInvokationInfo,
 } from "./cards-collection";
-import { Card } from "duel/Card";
-import { CardModel } from "duel/CardModel";
-import { Zone } from "duel/zone";
+import { Card } from "../Card";
+import { CardModel } from "../CardModel";
+import { Zone } from "../zone";
 
-import { Action } from "duel/Action";
+import { Action } from "../Action";
 
 export function loadEffectCards() {
   addCardModel(

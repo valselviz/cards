@@ -8,10 +8,10 @@ import {
   simpleInvokation,
   simpleInvokationInfo,
 } from "./cards-collection";
-import { Color } from "duel/color";
-import { Card } from "duel/Card";
-import { DuelEvent } from "duel/DuelEvent";
-import { EventType } from "duel/EventType";
+import { Color } from "../color";
+import { Card } from "../Card";
+import { DuelEvent } from "../DuelEvent";
+import { EventType } from "../EventType";
 
 export function loadPassiveCards() {
   addCardModel(

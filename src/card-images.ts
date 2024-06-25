@@ -8,6 +8,7 @@ import NightmareBeast from "./assets/cards/nightmareBeast.jpg";
 import SandTitan from "./assets/cards/sandTitan.jpg";
 import SkyGoddess from "./assets/cards/skyGoddess.jpg";
 import CentaurSocerer from "assets/cards/centaurSorcerer.jpg";
+import FateRune from "assets/cards/fateRune.jpg";
 import Guardian from "assets/cards/guardian.jpg";
 import LizardSpearman from "assets/cards/lizardSpearman.jpg";
 import Siren from "assets/cards/siren.jpg";
@@ -19,6 +20,7 @@ import Reaper from "assets/cards/reaper.jpg";
 import TigerWarrior from "assets/cards/tigerWarrior.jpg";
 import Eruption from "assets/cards/eruption.jpg";
 import NatureAmulet from "assets/cards/natureAmulet.jpg";
+import LightningBreath from "assets/cards/lightningBreath.jpg";
 import Vortex from "assets/cards/vortex.jpg";
 import Raid from "assets/cards/raid.jpg";
 import MagicCup from "assets/cards/magicCup.jpg";
@@ -58,6 +60,7 @@ const cardModelImages: any = {
   SandTitan: SandTitan,
   SkyGoddess: SkyGoddess,
   CentaurSocerer: CentaurSocerer,
+  FateRune: FateRune,
   Guardian: Guardian,
   LizardSpearman: LizardSpearman,
   DragonMistress: DragonMistress,
@@ -81,6 +84,7 @@ const cardModelImages: any = {
   GoblinWarrior: GoblinWarrior,
   HammerDwarf: HammerDwarf,
   OceanTraitor: OceanTraitor,
+  LightningBreath: LightningBreath,
   ThunderTraitor: ThunderTraitor,
   Paladin: Paladin,
   TundraSkeleton: TundraSkeleton,

@@ -1,9 +1,13 @@
-import { Card } from "duel/Card";
-import { Color } from "duel/color";
-import { addCardModel, labelMagic } from "./cards-collection";
-import { CardModel } from "duel/CardModel";
-import { Action } from "duel/Action";
-import { Zone } from "duel/zone";
+import { Card } from "../Card";
+import { Color } from "../color";
+import {
+  addCardModel,
+  labelGreenSynergy,
+  labelMagic,
+} from "./cards-collection";
+import { CardModel } from "../CardModel";
+import { Action } from "../Action";
+import { Zone } from "../zone";
 
 export function loadMagicCards() {
   addCardModel(
@@ -46,6 +50,7 @@ export function loadMagicCards() {
   addCardModel(
     new CardModel(113, "Nature Amulet", null, 0, 0, Color.Green, 2.8, [
       labelMagic,
+      labelGreenSynergy,
     ]).withHandEffect((card: Card) => {
       const sacrificeCriteria = (sacrificedCard: Card) =>
         sacrificedCard.model.color === Color.Green;
@@ -126,7 +131,7 @@ export function loadMagicCards() {
         );
         return;
       }
-      if (card.duel.cards[1 - card.playerId][Zone.Field].length == 0) {
+      if (card.duel.cards[1 - card.playerId][Zone.Field].length === 0) {
         card.duel.alertPlayer(
           "Your rival does not have any card on the field to destroy."
         );
@@ -140,5 +145,53 @@ export function loadMagicCards() {
       }
       card.duel.queueDiscardAction(() => card);
     }, "If you have more cards on the field than your rival, this card destroys every card on the field.")
+  );
+
+  addCardModel(
+    new CardModel(561, "Fate Rune", null, 0, 0, Color.Yellow, 2.8, [
+      labelMagic,
+    ]).withHandEffect((card: Card) => {
+      const discardCriteria = (discardedCard: Card) =>
+        discardedCard.model.color === Color.Yellow && discardedCard !== card;
+      if (!card.duel.cards[card.playerId][Zone.Hand].some(discardCriteria)) {
+        card.duel.alertPlayer(
+          "You need one extra yellow card in your hand to be discarded."
+        );
+        return;
+      }
+      card.duel.queueStartSelectionAction(
+        card.playerId,
+        Zone.Hand,
+        discardCriteria
+      );
+      card.duel.queueDiscardAction(() => card.duel.selectedTarget);
+      card.duel.queueDrawAction(card.playerId);
+      card.duel.queueDrawAction(card.playerId);
+      card.duel.queueDrawAction(card.playerId);
+      card.duel.queueDiscardAction(() => card);
+    }, "Discard a yellow card from your hand. Then draw 3 cards.")
+  );
+
+  addCardModel(
+    new CardModel(111, "Lightning Breath", null, 0, 0, Color.Yellow, 2.4, [
+      labelMagic,
+    ]).withHandEffect((card: Card) => {
+      const discardCriteria = (discardedCard: Card) =>
+        discardedCard.model.color === Color.Yellow && discardedCard !== card;
+      if (!card.duel.cards[card.playerId][Zone.Hand].some(discardCriteria)) {
+        card.duel.alertPlayer(
+          "You need one extra yellow card in your hand to be discarded."
+        );
+        return;
+      }
+      card.duel.queueStartSelectionAction(
+        card.playerId,
+        Zone.Hand,
+        discardCriteria
+      );
+      card.duel.queueDiscardAction(() => card.duel.selectedTarget);
+      card.duel.queueDamagePlayerAction(1 - card.playerId, 4);
+      card.duel.queueDiscardAction(() => card);
+    }, "Discard a yellow card from your hand. Your rival loses 4 cards.")
   );
 }

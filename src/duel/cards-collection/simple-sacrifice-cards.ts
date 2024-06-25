@@ -10,7 +10,7 @@ import {
   twoSacrificesInvokation,
   twoSacrificesInvokationInfo,
 } from "./cards-collection";
-import { Color } from "duel/color";
+import { Color } from "../color";
 
 export function loadSimpleSacrificeCards() {
   addCardModel(
