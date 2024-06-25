@@ -37,6 +37,7 @@ import Minotaur from "assets/cards/minotaur.jpg";
 import FireDemon from "assets/cards/fireDemon.jpg";
 import GoblinWarrior from "assets/cards/goblinWarrior.jpg";
 import HammerDwarf from "assets/cards/hammerDwarf.jpg";
+import SandAssassin from "assets/cards/sandAssassin.jpg";
 import OceanTraitor from "assets/cards/oceanTraitor.jpg";
 import ThunderTraitor from "assets/cards/thunderTraitor.jpg";
 import Paladin from "assets/cards/paladin.jpg";
@@ -94,6 +95,7 @@ const cardModelImages: any = {
   Siren: Siren,
   OwlGuardian: OwlGuardian,
   TreeGuardian: TreeGuardian,
+  SandAssassin: SandAssassin,
   Vortex: Vortex,
   Raid: Raid,
   TundraRider: TundraRider,

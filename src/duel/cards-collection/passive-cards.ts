@@ -1,6 +1,7 @@
-import { CardModel } from "duel/CardModel";
+import { CardModel } from "../CardModel";
 import {
   addCardModel,
+  checkFullField,
   labelNoSacrifice,
   labelPassive,
   simpleAttack,
@@ -12,6 +13,7 @@ import { Color } from "../color";
 import { Card } from "../Card";
 import { DuelEvent } from "../DuelEvent";
 import { EventType } from "../EventType";
+import { Zone } from "../zone";
 
 export function loadPassiveCards() {
   addCardModel(
@@ -56,5 +58,29 @@ export function loadPassiveCards() {
         if (event.target !== card) return;
         card.duel.queueDestroyAction(() => event.source);
       }, "The card that attacks Fiend is destroyed.")
+  );
+
+  addCardModel(
+    new CardModel(333, "Sand Assassin", null, 18, 15, Color.Yellow, 1.7, [
+      labelNoSacrifice,
+      labelPassive,
+    ])
+      .withHandEffect((card: Card) => {
+        if (checkFullField(card)) return;
+        if (card.duel.cards[card.playerId][Zone.Field].length >= 2) {
+          card.duel.alertPlayer(
+            "This card can not share the field with 2 or more cards."
+          );
+          return;
+        }
+        card.duel.queueInvokeAction(() => card);
+      }, simpleInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
+      .withPassiveEffect((card: Card, event: DuelEvent) => {
+        if (event.eventType !== EventType.Invoke) return;
+        if (event.target?.playerId !== card.playerId) return;
+        if (card.duel.cards[card.playerId][Zone.Field].length < 3) return;
+        card.duel.queueDestroyAction(() => card);
+      }, "This card gets destroyed if you have 3 or more cards on your field.")
   );
 }
