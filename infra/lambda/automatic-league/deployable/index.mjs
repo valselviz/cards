@@ -9,6 +9,8 @@ import { loadAllCardModels } from "duel/cards-collection/load-all-card-models.js
 import { executeDuel } from "duel/executeDuel.js";
 import { RND } from "duel/Rnd.js";
 
+const MIN_LEAGUE_CARDS = 32;
+
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);
 
@@ -37,7 +39,9 @@ async function getPlayersFromDynamoDB() {
       break;
     }
   }
-  players = players.filter((player) => player.username[0] !== "_");
+  players = players
+    .filter((player) => player.username[0] !== "_")
+    .filter((player) => player.macrogame.deck.length >= MIN_LEAGUE_CARDS);
   for (const player of players) {
     if (!player.leagueScore) {
       player.leagueScore = 0;

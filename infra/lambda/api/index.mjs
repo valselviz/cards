@@ -3,7 +3,10 @@ import {
   DynamoDBDocumentClient,
   PutCommand,
   GetCommand,
+  ScanCommand,
 } from "@aws-sdk/lib-dynamodb";
+
+const MIN_LEAGUE_CARDS = 32;
 
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);
@@ -27,6 +30,9 @@ export const handler = async (event) => {
     }
     if (path === "/player" && method === "PUT") {
       return await updatePlayer(body, sessionToken);
+    }
+    if (path === "/league-players" && method === "GET") {
+      return await getPlayersFromDynamoDB();
     }
   } catch (error) {
     return {
@@ -235,4 +241,30 @@ function simpleHash(password) {
     sum += password.charCodeAt(i);
   }
   return sum % 1000;
+}
+
+async function getPlayersFromDynamoDB() {
+  let players = [];
+  const params = {
+    TableName: playerTableName,
+  };
+  while (true) {
+    const response = await dynamo.send(new ScanCommand(params));
+    response.Items.forEach((item) => players.push(item));
+    if (typeof response.LastEvaluatedKey !== "undefined") {
+      params.ExclusiveStartKey = response.LastEvaluatedKey;
+    } else {
+      break;
+    }
+  }
+  players = players
+    .filter((player) => player.username[0] !== "_")
+    .filter((player) => player.macrogame.deck.length >= MIN_LEAGUE_CARDS)
+    .map((player) => ({
+      username: player.username,
+      score: player.leagueScore ? player.leagueScore : 0,
+      portrait: player.macrogame.portraitCard ? player.macrogame.portraitCard : player.macrogame.deck[0],
+    }));
+  players.sort((playerA, playerB) => playerA.score - playerB.score);
+  return players;
 }
