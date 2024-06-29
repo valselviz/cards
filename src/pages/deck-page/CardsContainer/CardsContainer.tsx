@@ -20,7 +20,7 @@ export default function CardsContainer({
   setHoveredCard,
 }: CardsContainerProps) {
   return (
-    <div className={styles.cardsContainer}>
+    <div className={styles.cardsContainer} data-testid="cards-container">
       <div>{title}</div>
       <div className={styles.squareCardsContainer}>
         {cardIds.map((id, index) => (

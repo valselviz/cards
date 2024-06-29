@@ -27,6 +27,7 @@ export default function SquareCard({
   return (
     <div
       className={styles.imgDiv}
+      data-testid={"square-card-" + position}
       onClick={() => removeCard(position)}
       onMouseEnter={() => {
         setHoveredCard(card);

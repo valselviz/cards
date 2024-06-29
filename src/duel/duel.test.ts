@@ -7,7 +7,9 @@ import {
   getCardModelIdByName,
 } from "./cards-collection/cards-collection";
 import { Zone } from "./zone";
+import { loadAllCardModels } from "./cards-collection/load-all-card-models";
 
+loadAllCardModels();
 const elfArcherId = getCardModelIdByName("Elf Archer");
 const elfArcherCardModel = cardModels[elfArcherId];
 
@@ -116,6 +118,25 @@ describe("duel queueWithdrawAction", () => {
     expect(card.zone).toBe(Zone.Hand);
     expect(duel.cards[0][Zone.Hand]).toHaveLength(1);
     expect(duel.cards[0][Zone.Hand][0]).toBe(card);
+    expect(duel.cards[0][Zone.Field]).toHaveLength(0);
+  });
+});
+
+describe("duel queueDestroyAction", () => {
+  test("queue and execute Destroy", () => {
+    const duel = createDuel();
+    const card = new Card(elfArcherCardModel, duel, 0);
+    card.zone = Zone.Field;
+    duel.cards[0][Zone.Field].push(card);
+    const cardProvider = () => card;
+    duel.queueDestroyAction(cardProvider);
+
+    // Check the action was queued
+    expect(duel.actionsQueue.length).toBe(1);
+
+    // Check the action is executed properly
+    duel.executeOneAction();
+    expect(card.zone).toBe(Zone.Graveyard);
     expect(duel.cards[0][Zone.Field]).toHaveLength(0);
   });
 });
