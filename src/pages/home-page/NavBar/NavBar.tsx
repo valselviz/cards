@@ -1,8 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useOutletContext } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
 
-export default function NavBar() {
+interface NavBarProps {
+  openDialog: (error: boolean, ...message: string[]) => void;
+}
+
+export default function NavBar({ openDialog }: NavBarProps) {
   const [macrogame] = useMacrogame();
 
   const navLinkCssClass = ({ isActive }: { isActive: any }) =>
@@ -27,7 +31,10 @@ export default function NavBar() {
         onClick={(e) => {
           if (!macrogame || macrogame.deck.length < 32) {
             e.preventDefault();
-            alert("NO");
+            openDialog(
+              true,
+              "You need at least 32 cards to participate on the league"
+            );
           }
         }}
       >
