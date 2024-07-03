@@ -1,4 +1,4 @@
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
 

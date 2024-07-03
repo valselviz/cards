@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCardDisplay";
 import styles from "../common-components/MainTable/MainTable.module.css";
 import OnSaleCardRow from "./OnSaleCardRow";
-import { useDialog } from "pages/common-components/Dialog/useDialog";
-import Dialog from "pages/common-components/Dialog/Dialog";
 import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
 import { useOutletContext } from "react-router-dom";
 
