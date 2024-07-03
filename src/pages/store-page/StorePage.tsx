@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCardDisplay";
 import styles from "../common-components/MainTable/MainTable.module.css";
 import OnSaleCardRow from "./OnSaleCardRow";
-import { useDialog } from "pages/common-components/Dialog/useDialog";
-import Dialog from "pages/common-components/Dialog/Dialog";
 import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
+import { useOutletContext } from "react-router-dom";
 
 export default function DeckPage() {
   const [macrogame] = useMacrogame();
@@ -16,8 +15,8 @@ export default function DeckPage() {
     macrogame ? macrogame.cardsInStore : []
   );
 
-  const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
-    useDialog();
+  const openDialog: (error: boolean, ...message: string[]) => void =
+    useOutletContext();
 
   useEffect(() => {
     if (!localStorage.getItem("storePageInfoDisplayed")) {
@@ -80,12 +79,6 @@ export default function DeckPage() {
           <DoubleCardDisplay hoveredCard={hoveredCard} title={"Card Details"} />
         </div>
       </div>
-      <Dialog
-        dialogMessage={dialogMessage}
-        isError={isError}
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      />
     </div>
   );
 }

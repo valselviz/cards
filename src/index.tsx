@@ -11,6 +11,7 @@ import DuelPage from "./pages/duel-page/DuelPage";
 import { MacroGameContextProvider } from "MacroGameContext";
 import { loadAllCardModels } from "duel/cards-collection/load-all-card-models";
 import { loadAllCardModelsImages } from "card-images";
+import LeaguePage from "pages/league-page/LeaguePage";
 
 loadAllCardModels();
 loadAllCardModelsImages();
@@ -41,6 +42,7 @@ root.render(
             <Route path="/deck" element={<DeckPage />} />
             <Route path="/store" element={<StorePage />} />
             <Route path="/rivals" element={<RivalsPage />} />
+            <Route path="/league" element={<LeaguePage />} />
           </Route>
           <Route path="/duel" element={<DuelPage />} />
         </Routes>

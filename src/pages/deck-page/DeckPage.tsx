@@ -7,9 +7,8 @@ import { updateOnBackend } from "api-client/api-client";
 import styles from "./DeckPage.module.css";
 import DoubleCardDisplay from "pages/common-components/DoubleCardDisplay/DoubleCardDisplay";
 import { CardModel } from "duel/CardModel";
-import Dialog from "pages/common-components/Dialog/Dialog";
-import { useDialog } from "pages/common-components/Dialog/useDialog";
 import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
+import { useOutletContext } from "react-router-dom";
 
 export default function DeckPage() {
   const [macrogame, context] = useMacrogame();
@@ -17,8 +16,8 @@ export default function DeckPage() {
   const [deck, setDeck] = useState(undefined as number[] | undefined);
   const [cardsPool, setCardsPool] = useState(undefined as number[] | undefined);
 
-  const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
-    useDialog();
+  const openDialog: (error: boolean, ...message: string[]) => void =
+    useOutletContext();
 
   useEffect(() => {
     if (!localStorage.getItem("deckPageInfoDisplayed")) {
@@ -98,12 +97,6 @@ export default function DeckPage() {
           setHoveredCard={setHoveredCard}
         />
       </div>
-      <Dialog
-        dialogMessage={dialogMessage}
-        isError={isError}
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      />
     </div>
   );
 }

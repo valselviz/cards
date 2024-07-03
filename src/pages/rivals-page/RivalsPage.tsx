@@ -3,17 +3,16 @@ import { useEffect, useState } from "react";
 import styles from "../common-components/MainTable/MainTable.module.css";
 import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCardDisplay";
 import { CardModel } from "duel/CardModel";
-import Dialog from "pages/common-components/Dialog/Dialog";
-import { useDialog } from "pages/common-components/Dialog/useDialog";
 import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
+import { useOutletContext } from "react-router-dom";
 
 export default function RivalsPage() {
   const [macrogame] = useMacrogame();
 
   const [hoveredCard, setHoveredCard] = useState(null as CardModel | null);
 
-  const [openDialog, dialogMessage, isError, isModalOpen, setIsModalOpen] =
-    useDialog();
+  const openDialog: (error: boolean, ...message: string[]) => void =
+    useOutletContext();
 
   useEffect(() => {
     if (!localStorage.getItem("rivalsPageInfoDisplayed")) {
@@ -71,12 +70,6 @@ export default function RivalsPage() {
           />
         </div>
       </div>
-      <Dialog
-        dialogMessage={dialogMessage}
-        isError={isError}
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      />
     </div>
   );
 }
