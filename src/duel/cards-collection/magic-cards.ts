@@ -11,43 +11,6 @@ import { Zone } from "../zone";
 
 export function loadMagicCards() {
   addCardModel(
-    new CardModel(747, "Vortex", null, 0, 0, Color.Yellow, 1.8, [
-      labelMagic,
-    ]).withHandEffect((card: Card) => {
-      if (card.duel.cards[card.playerId][Zone.Hand].length < 2) {
-        card.duel.alertPlayer(
-          "You need an additional card in your hand to offer as sacrifice."
-        );
-        return;
-      }
-      const destroyCriteriaDefense = 20;
-      const destroyCriteria = (availableCard: Card) =>
-        availableCard.getDefense() <= destroyCriteriaDefense;
-      if (
-        !card.duel.cards[1 - card.playerId][Zone.Field].some(destroyCriteria)
-      ) {
-        card.duel.alertPlayer(
-          `You opponent does not have any card with ${destroyCriteriaDefense} defense or less.`
-        );
-        return;
-      }
-      card.duel.queueStartSelectionAction(
-        card.playerId,
-        Zone.Hand,
-        (availableCard) => availableCard !== card
-      );
-      card.duel.queueDiscardAction(() => card.duel.selectedTarget);
-      card.duel.queueStartSelectionAction(
-        1 - card.playerId,
-        Zone.Field,
-        destroyCriteria
-      );
-      card.duel.queueDestroyAction(() => card.duel.selectedTarget);
-      card.duel.queueDiscardAction(() => card);
-    }, "Discard a card from your hand. Then select a card from your opponent’s field with 20 defense or less and destroy it.")
-  );
-
-  addCardModel(
     new CardModel(113, "Nature Amulet", null, 0, 0, Color.Green, 2.8, [
       labelMagic,
       labelGreenSynergy,

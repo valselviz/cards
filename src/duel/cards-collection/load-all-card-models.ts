@@ -7,6 +7,7 @@ import { loadPassiveCards } from "./passive-cards";
 import { loadRitualCards } from "./ritual-cards";
 import { loadSimpleAggressors } from "./simple-aggressor";
 import { loadSimpleDefenders } from "./simple-defender";
+import { loadSimpleMagicAggressors } from "./simple-magic-aggressor";
 import { loadSimpleSacrificeCards } from "./simple-sacrifice-cards";
 
 export function loadAllCardModels() {
@@ -16,6 +17,7 @@ export function loadAllCardModels() {
   loadMagicCards();
   loadSimpleDefenders();
   loadSimpleAggressors();
+  loadSimpleMagicAggressors();
   loadSimpleSacrificeCards();
   loadRitualCards();
   loadPassiveCards();

@@ -1,3 +1,4 @@
+import BeastTrap from "assets/cards/beastTrap.jpg";
 import BlackDragon from "assets/cards/blackDragon.jpg";
 import Blacksmith from "./assets/cards/blacksmith.jpg";
 import BomberTraitor from "./assets/cards/bomberTraitor.jpg";
@@ -35,6 +36,7 @@ import Slayer from "assets/cards/slayer.jpg";
 import WolfBarbarian from "assets/cards/wolfBarbarian.jpg";
 import ElfArcher from "assets/cards/elfArcher.jpg";
 import Minotaur from "assets/cards/minotaur.jpg";
+import FireBall from "assets/cards/fireBall.jpg";
 import FireDemon from "assets/cards/fireDemon.jpg";
 import GoblinWarrior from "assets/cards/goblinWarrior.jpg";
 import HammerDwarf from "assets/cards/hammerDwarf.jpg";
@@ -52,6 +54,7 @@ import DragonTreasure from "assets/cards/dragonTreasure.jpg";
 import { cardModelsList } from "./duel/cards-collection/cards-collection";
 
 const cardModelImages: any = {
+  BeastTrap: BeastTrap,
   BlackDragon: BlackDragon,
   Blacksmith: Blacksmith,
   BomberTraitor: BomberTraitor,
@@ -83,6 +86,7 @@ const cardModelImages: any = {
   WolfBarbarian: WolfBarbarian,
   ElfArcher: ElfArcher,
   Minotaur: Minotaur,
+  FireBall: FireBall,
   FireDemon: FireDemon,
   GoblinWarrior: GoblinWarrior,
   HammerDwarf: HammerDwarf,
