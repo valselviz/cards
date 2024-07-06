@@ -30,6 +30,7 @@ import Fiend from "./assets/cards/fiend.jpg";
 import DarkRitual from "assets/cards/darkRitual.jpg";
 import DeathLord from "assets/cards/deathLord.jpg";
 import Imp from "assets/cards/imp.jpg";
+import Shipwreck from "assets/cards/shipwreck.jpg";
 import Slayer from "assets/cards/slayer.jpg";
 import WolfBarbarian from "assets/cards/wolfBarbarian.jpg";
 import ElfArcher from "assets/cards/elfArcher.jpg";
@@ -77,6 +78,7 @@ const cardModelImages: any = {
   DarkRitual: DarkRitual,
   DeathLord: DeathLord,
   Imp: Imp,
+  Shipwreck: Shipwreck,
   Slayer: Slayer,
   WolfBarbarian: WolfBarbarian,
   ElfArcher: ElfArcher,

@@ -194,4 +194,33 @@ export function loadMagicCards() {
       card.duel.queueDiscardAction(() => card);
     }, "Discard a yellow card from your hand. Your rival loses 4 cards.")
   );
+
+  addCardModel(
+    new CardModel(4, "Shipwreck", null, 0, 0, Color.Blue, 2.1, [
+      labelMagic,
+    ]).withHandEffect((card: Card) => {
+      const duel = card.duel;
+      if (duel.cards[card.playerId][Zone.Field].length === 0) {
+        duel.alertPlayer("You need one card in your field to sacrifie.");
+        return;
+      }
+
+      duel.queueStartSelectionAction(card.playerId, Zone.Field);
+
+      const newAction = new Action(() => {
+        for (const fieldCard of duel.cards[card.playerId][Zone.Field]) {
+          if (fieldCard.model.color === duel.selectedTarget?.model.color) {
+            duel.queueDestroyAction(() => fieldCard);
+          }
+        }
+        for (const fieldCard of duel.cards[1 - card.playerId][Zone.Field]) {
+          if (fieldCard.model.color === duel.selectedTarget?.model.color) {
+            duel.queueDestroyAction(() => fieldCard);
+          }
+        }
+        duel.queueDiscardAction(() => card);
+      });
+      duel.actionsQueue.push(newAction);
+    }, "Sacrifice a card from your field. Every card on the field with the same color is destroyed.")
+  );
 }
