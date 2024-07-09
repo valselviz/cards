@@ -1,17 +1,23 @@
 import { CardModel } from "../CardModel";
 import {
   addCardModel,
+  labelBlueSynergy,
   labelEffect,
   labelOneSacrifice,
+  labelTwoSacrifice,
   oneSacrificeInvokation,
   oneSacrificeInvokationInfo,
   simpleAttack,
   simpleAttackInfo,
+  twoSacrificesInvokation,
+  twoSacrificesInvokationInfo,
 } from "./cards-collection";
 import { Color } from "../color";
 import { Card } from "../Card";
 import { Zone } from "../zone";
 import { Action } from "../Action";
+import { DuelEvent } from "../DuelEvent";
+import { EventType } from "../EventType";
 
 export function loadEffectSacrificeCards() {
   addCardModel(
@@ -123,5 +129,24 @@ export function loadEffectSacrificeCards() {
         card.duel.actionsQueue.push(newAction);
       }, "Invoke by sacrifying a card from your field. This card is ready to attack immediately.")
       .withFieldEffect(simpleAttack, simpleAttackInfo)
+  );
+
+  addCardModel(
+    new CardModel(21, "Kraken", null, 14, 24, Color.Blue, 3.2, [
+      labelTwoSacrifice,
+      labelEffect,
+      labelBlueSynergy,
+    ])
+      .withHandEffect(twoSacrificesInvokation, twoSacrificesInvokationInfo)
+      .withFieldEffect(simpleAttack, simpleAttackInfo)
+      .withPassiveEffect((card: Card, event: DuelEvent) => {
+        if (event.eventType !== EventType.PassTurn) return;
+        if (card.duel.playerTurn === card.playerId) return;
+        let blueCards = 0;
+        for (const fieldCard of card.duel.cards[card.playerId][Zone.Field]) {
+          if (fieldCard.model.color === Color.Blue) blueCards++;
+        }
+        card.duel.queueDamagePlayerAction(1 - card.playerId, blueCards);
+      }, "When your turn ends. Inflict 1 damage per blue card on your field.")
   );
 }

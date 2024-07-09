@@ -70,3 +70,22 @@ export async function updateOnBackend(username: string, macrogame: MacroGame) {
     throw new Error(response.status.toString());
   }
 }
+
+export interface LeaguePlayer {
+  username: string;
+  score: number;
+  portrait: number; // The ID of the card model used as a player portrait
+}
+
+export async function getLeaguePlayersFromBackend(): Promise<LeaguePlayer[]> {
+  const response = await fetch(backendUrl + "/league-players", {
+    method: "GET",
+  });
+  if (response.status !== 200) {
+    throw new Error(response.status.toString());
+  }
+
+  const responseJson = await response.json();
+
+  return responseJson;
+}

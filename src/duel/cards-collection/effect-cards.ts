@@ -31,40 +31,6 @@ export function loadEffectCards() {
   );
 
   addCardModel(
-    new CardModel(80, "Owl Guardian", null, 12, 5, Color.Green, 1.4, [
-      labelNoSacrifice,
-      labelEffect,
-    ])
-      .withHandEffect(simpleInvokation, simpleInvokationInfo)
-      .withFieldEffect((card: Card) => {
-        const selectTargetCriteria = (opponentCard: Card) =>
-          opponentCard.getDefense() < card.getAttack();
-        if (
-          card.duel.cards[1 - card.playerId][Zone.Field].length > 0 &&
-          !card.duel.cards[1 - card.playerId][Zone.Field].some(
-            selectTargetCriteria
-          )
-        ) {
-          card.duel.alertPlayer(
-            "Your opponent cards have too much defense to be attacked."
-          );
-          return;
-        }
-
-        card.duel.queueStartSelectionAction(
-          1 - card.playerId,
-          Zone.Field,
-          selectTargetCriteria
-        );
-        card.duel.queueAttackAction(
-          () => card,
-          () => card.duel.selectedTarget
-        );
-        card.duel.queueDrawAction(card.playerId);
-      }, "Attack. Then draw a card.")
-  );
-
-  addCardModel(
     new CardModel(43, "Centaur Socerer", null, 18, 18, Color.Green, 1.4, [
       labelNoSacrifice,
       labelEffect,

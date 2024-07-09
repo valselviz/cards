@@ -1,3 +1,5 @@
+import AncientTree from "assets/cards/ancientTree.jpg";
+import CelestialGuardian from "assets/cards/celestialGuardian.jpg";
 import BeastTrap from "assets/cards/beastTrap.jpg";
 import BlackDragon from "assets/cards/blackDragon.jpg";
 import Blacksmith from "./assets/cards/blacksmith.jpg";
@@ -17,6 +19,7 @@ import OwlGuardian from "assets/cards/owlGuardian.jpg";
 import TreeGuardian from "assets/cards/treeGuardian.jpg";
 import DragonMistress from "assets/cards/dragonMistress.jpg";
 import Griffin from "assets/cards/griffin.jpg";
+import Kraken from "assets/cards/kraken.jpg";
 import Reaper from "assets/cards/reaper.jpg";
 import TigerWarrior from "assets/cards/tigerWarrior.jpg";
 import Eruption from "assets/cards/eruption.jpg";
@@ -54,6 +57,8 @@ import DragonTreasure from "assets/cards/dragonTreasure.jpg";
 import { cardModelsList } from "./duel/cards-collection/cards-collection";
 
 const cardModelImages: any = {
+  AncientTree: AncientTree,
+  CelestialGuardian: CelestialGuardian,
   BeastTrap: BeastTrap,
   BlackDragon: BlackDragon,
   Blacksmith: Blacksmith,
@@ -70,6 +75,7 @@ const cardModelImages: any = {
   LizardSpearman: LizardSpearman,
   DragonMistress: DragonMistress,
   Griffin: Griffin,
+  Kraken: Kraken,
   Reaper: Reaper,
   TigerWarrior: TigerWarrior,
   Eruption: Eruption,

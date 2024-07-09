@@ -4,6 +4,7 @@ import {
   addCardModel,
   labelGreenSynergy,
   labelMagic,
+  labelYellowSynergy,
 } from "./cards-collection";
 import { CardModel } from "../CardModel";
 import { Action } from "../Action";
@@ -113,6 +114,7 @@ export function loadMagicCards() {
   addCardModel(
     new CardModel(561, "Fate Rune", null, 0, 0, Color.Yellow, 2.8, [
       labelMagic,
+      labelYellowSynergy,
     ]).withHandEffect((card: Card) => {
       const discardCriteria = (discardedCard: Card) =>
         discardedCard.model.color === Color.Yellow && discardedCard !== card;
@@ -138,6 +140,7 @@ export function loadMagicCards() {
   addCardModel(
     new CardModel(111, "Lightning Breath", null, 0, 0, Color.Yellow, 2.4, [
       labelMagic,
+      labelYellowSynergy,
     ]).withHandEffect((card: Card) => {
       const discardCriteria = (discardedCard: Card) =>
         discardedCard.model.color === Color.Yellow && discardedCard !== card;

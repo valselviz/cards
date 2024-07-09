@@ -30,7 +30,7 @@ export function loadSimpleSacrificeCards() {
   );
 
   addCardModel(
-    new CardModel(133, "Black Dragon", null, 35, 25, Color.Blue, 2.5, [
+    new CardModel(133, "Black Dragon", null, 35, 25, Color.Red, 2.5, [
       labelTwoSacrifice,
     ])
       .withHandEffect(twoSacrificesInvokation, twoSacrificesInvokationInfo)

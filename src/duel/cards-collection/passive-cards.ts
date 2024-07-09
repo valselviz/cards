@@ -83,4 +83,21 @@ export function loadPassiveCards() {
         card.duel.queueDestroyAction(() => card);
       }, "This card gets destroyed if you have 3 or more cards on your field.")
   );
+
+  addCardModel(
+    new CardModel(10, "Ancient Tree", null, 0, 10, Color.Blue, 2.7, [
+      labelNoSacrifice,
+      labelPassive,
+    ])
+      .withHandEffect(simpleInvokation, simpleInvokationInfo)
+      .withFieldEffect((card: Card) => {
+        card.duel.queueDamagePlayerAction(1 - card.playerId, 1);
+        card.duel.queueDestroyAction(() => card);
+      }, "Your opponent loses 1 card from their deck. This card is destroyed.")
+      .withPassiveEffect((card: Card, event: DuelEvent) => {
+        if (event.eventType !== EventType.PassTurn) return;
+        if (card.duel.playerTurn !== card.playerId) return;
+        card.duel.queueDrawAction(card.playerId);
+      }, "Draw an extra card on every turn.")
+  );
 }

@@ -31,7 +31,7 @@ export const handler = async (event) => {
     if (path === "/player" && method === "PUT") {
       return await updatePlayer(body, sessionToken);
     }
-    if (path === "/league-players" && method === "GET") {
+    if (path === sant && method === "GET") {
       return await getPlayersFromDynamoDB();
     }
   } catch (error) {
@@ -263,7 +263,9 @@ async function getPlayersFromDynamoDB() {
     .map((player) => ({
       username: player.username,
       score: player.leagueScore ? player.leagueScore : 0,
-      portrait: player.macrogame.portraitCard ? player.macrogame.portraitCard : player.macrogame.deck[0],
+      portrait: player.macrogame.portraitCard
+        ? player.macrogame.portraitCard
+        : player.macrogame.deck[0],
     }));
   players.sort((playerA, playerB) => playerA.score - playerB.score);
   return players;

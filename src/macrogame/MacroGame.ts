@@ -46,6 +46,19 @@ export class MacroGame {
       this.deck.push(getRandomCardModelIdByCriteria(labelOneSacrifice, 2.2));
     }
 
+    this.deck.push(getCardModelIdByName("Archangel"));
+    this.deck.push(getCardModelIdByName("Archangel"));
+    this.deck.push(getCardModelIdByName("Archangel"));
+    this.deck.push(getCardModelIdByName("Archangel"));
+    this.deck.push(getCardModelIdByName("Archangel"));
+    this.deck.push(getCardModelIdByName("Archangel"));
+    this.deck.push(getCardModelIdByName("Owl Guardian"));
+    this.deck.push(getCardModelIdByName("Owl Guardian"));
+    this.deck.push(getCardModelIdByName("Owl Guardian"));
+    this.deck.push(getCardModelIdByName("Owl Guardian"));
+    this.deck.push(getCardModelIdByName("Owl Guardian"));
+    this.deck.push(getCardModelIdByName("Owl Guardian"));
+
     this.rivals.push(new Rival(getCardModelIdByName("Tundra Skeleton"), true));
     this.rivals.push(new Rival(getCardModelIdByName("Elf Archer"), false));
     this.rivals.push(new Rival(getCardModelIdByName("Lizard Spearman"), false));
