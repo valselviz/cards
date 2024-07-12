@@ -1,15 +1,17 @@
 {
   "files": {
-    "main.css": "/cards/static/css/main.4d906735.css",
-    "main.js": "/cards/static/js/main.03c9d470.js",
+    "main.css": "/cards/static/css/main.4a841ba2.css",
+    "main.js": "/cards/static/js/main.7c867d3f.js",
     "static/media/background.png": "/cards/static/media/background.446f9a6fd7358d301b64.png",
     "static/media/bookBackground.jpg": "/cards/static/media/bookBackground.4df14e3ac23a8dd53d27.jpg",
     "static/media/darkRitual.jpg": "/cards/static/media/darkRitual.47a55497fbca38df9f38.jpg",
     "static/media/cardBack.jpg": "/cards/static/media/cardBack.a74b4d4355663af9d55f.jpg",
     "static/media/oceanTraitor.jpg": "/cards/static/media/oceanTraitor.ce140be9ee1fcbadc927.jpg",
     "static/media/thunderTraitor.jpg": "/cards/static/media/thunderTraitor.0f1b2e57cd4d1a8491fb.jpg",
+    "static/media/celestialGuardian.jpg": "/cards/static/media/celestialGuardian.94beb1cd08387244dc6b.jpg",
     "static/media/druidTraitor.jpg": "/cards/static/media/druidTraitor.4bdc42c3e6a73b5549e5.jpg",
     "static/media/skyGoddess.jpg": "/cards/static/media/skyGoddess.6864f3aa2ed243c0ff12.jpg",
+    "static/media/shipwreck.jpg": "/cards/static/media/shipwreck.26f3b7cfdf08313b398f.jpg",
     "static/media/treeGuardian.jpg": "/cards/static/media/treeGuardian.f8e0a0cffec255f3ef62.jpg",
     "static/media/harpy.jpg": "/cards/static/media/harpy.9b415998d2cec4bea4c3.jpg",
     "static/media/fiend.jpg": "/cards/static/media/fiend.625f3460fec6291d665d.jpg",
@@ -23,6 +25,7 @@
     "static/media/paladin.jpg": "/cards/static/media/paladin.d7b1a7fb893c93976356.jpg",
     "static/media/guardian.jpg": "/cards/static/media/guardian.1f8f6dca8ac05201bc57.jpg",
     "static/media/blacksmith.jpg": "/cards/static/media/blacksmith.ab33ceddd5bec022fa88.jpg",
+    "static/media/ancientTree.jpg": "/cards/static/media/ancientTree.d4af0c1feb366aa268c5.jpg",
     "static/media/slayer.jpg": "/cards/static/media/slayer.51714c48dd64430acf32.jpg",
     "static/media/dragonMistress.jpg": "/cards/static/media/dragonMistress.4d14a69e503b327b6310.jpg",
     "static/media/sandTitan.jpg": "/cards/static/media/sandTitan.3184f12ab581d0d0310f.jpg",
@@ -32,6 +35,7 @@
     "static/media/imp.jpg": "/cards/static/media/imp.6d99b83ada1349594edc.jpg",
     "static/media/reaper.jpg": "/cards/static/media/reaper.513062dd38e11c287940.jpg",
     "static/media/centaurSorcerer.jpg": "/cards/static/media/centaurSorcerer.36eadf2b4a7be28ed050.jpg",
+    "static/media/fireBall.jpg": "/cards/static/media/fireBall.5121614c23bdf43f4e26.jpg",
     "static/media/eruption.jpg": "/cards/static/media/eruption.dcefc24cde1da6fe3648.jpg",
     "static/media/wolfBarbarian.jpg": "/cards/static/media/wolfBarbarian.37d359366ba71fc197ca.jpg",
     "static/media/goblinWarrior.jpg": "/cards/static/media/goblinWarrior.854dd8b2f7ceff61f80d.jpg",
@@ -45,7 +49,9 @@
     "static/media/ballista.jpg": "/cards/static/media/ballista.dafc0c83757379791006.jpg",
     "static/media/siren.jpg": "/cards/static/media/siren.4e7d3b03ef730037f26b.jpg",
     "static/media/fateRune.jpg": "/cards/static/media/fateRune.b87ccd9e130aeb9f4cd1.jpg",
+    "static/media/beastTrap.jpg": "/cards/static/media/beastTrap.cd3c0378dc9bb4bda427.jpg",
     "static/media/tundraSkeleton.jpg": "/cards/static/media/tundraSkeleton.e0fd900d7cc6f5c99d03.jpg",
+    "static/media/kraken.jpg": "/cards/static/media/kraken.92841a12aa2bddc9933d.jpg",
     "static/media/raid.jpg": "/cards/static/media/raid.42caf3327f7908b2e59d.jpg",
     "static/media/lizardSpearman.jpg": "/cards/static/media/lizardSpearman.a7df8bdc3fd5fe2784b8.jpg",
     "static/media/deathLord.jpg": "/cards/static/media/deathLord.e40c4974a531b1959fa7.jpg",
@@ -61,11 +67,11 @@
     "static/media/shield.svg": "/cards/static/media/shield.0973822d078a4e746fe5de6ff3720221.svg",
     "static/media/questionMark.svg": "/cards/static/media/questionMark.fcc53f27f6bc4ff0f691ee81a343ee8b.svg",
     "index.html": "/cards/index.html",
-    "main.4d906735.css.map": "/cards/static/css/main.4d906735.css.map",
-    "main.03c9d470.js.map": "/cards/static/js/main.03c9d470.js.map"
+    "main.4a841ba2.css.map": "/cards/static/css/main.4a841ba2.css.map",
+    "main.7c867d3f.js.map": "/cards/static/js/main.7c867d3f.js.map"
   },
   "entrypoints": [
-    "static/css/main.4d906735.css",
-    "static/js/main.03c9d470.js"
+    "static/css/main.4a841ba2.css",
+    "static/js/main.7c867d3f.js"
   ]
 }
