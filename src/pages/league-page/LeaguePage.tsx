@@ -19,16 +19,17 @@ export default function LeaguePage() {
     getPlayers();
   }, []);
 
-  console.log(leaguePlayers)
+  console.log(leaguePlayers);
 
   if (!leaguePlayers) return <></>;
-  
+
   const leagueRows = leaguePlayers.map((leaguePlayer, index) => {
     return <LeagueRow leaguePlayer={leaguePlayer} key={index} />;
   });
 
   return (
-    <div>
+    <div className={styles.mainTablePage}>
+      <h3 className={styles.leagueText}>Next automatic round in 13 hours.</h3>
       <div className={styles.mainTablePageContent}>
         <div className={styles.mainTable}>
           <div className={styles.tableHeader}>
