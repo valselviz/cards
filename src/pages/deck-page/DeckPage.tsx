@@ -23,10 +23,9 @@ export default function DeckPage() {
     if (!localStorage.getItem("deckPageInfoDisplayed")) {
       openDialog(
         false,
-        `Welcome to Valeria CCG!`,
         `This is the Deck Management section.`,
-        `On the left you have the deck of cards you use during duels.`,
-        `On the right you have the rest of the cards you earned. It’s empty for now, but you will earn new cards soon.`
+        `Here you can add the cards you earned to your deck.`,
+        `Choose your cards carefully to create a powerful deck!`
       );
       localStorage.setItem("deckPageInfoDisplayed", "true");
     }

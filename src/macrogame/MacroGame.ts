@@ -30,7 +30,9 @@ export class MacroGame {
     for (let i = 0; i < 5; i++) {
       this.addOnSaleCard();
     }
-    for (let i = 0; i < 9; i++) {
+    // Add 31 cards to the initial deck
+    // It adds one more card than the minimum (30), to let the player understand that he can add remove cards in the deck page
+    for (let i = 0; i < 10; i++) {
       this.deck.push(getRandomCardModelIdByCriteria(labelNoSacrifice, 1.4));
     }
     for (let i = 0; i < 8; i++) {

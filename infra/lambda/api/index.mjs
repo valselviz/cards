@@ -6,7 +6,7 @@ import {
   ScanCommand,
 } from "@aws-sdk/lib-dynamodb";
 
-const MIN_LEAGUE_CARDS = 32;
+const MIN_LEAGUE_CARDS = 33;
 
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);

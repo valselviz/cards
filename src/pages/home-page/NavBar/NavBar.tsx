@@ -29,11 +29,11 @@ export default function NavBar({ openDialog }: NavBarProps) {
         to="/league"
         className={navLinkCssClass}
         onClick={(e) => {
-          if (!macrogame || macrogame.deck.length < 32) {
+          if (!macrogame || macrogame.deck.length < 33) {
             e.preventDefault();
             openDialog(
               true,
-              "You need at least 32 cards to participate on the league"
+              "You need at least 33 cards to participate on the league"
             );
           }
         }}

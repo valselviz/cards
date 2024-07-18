@@ -9,7 +9,7 @@ import { loadAllCardModels } from "duel/cards-collection/load-all-card-models.js
 import { executeDuel } from "duel/executeDuel.js";
 import { RND } from "duel/Rnd.js";
 
-const MIN_LEAGUE_CARDS = 32;
+const MIN_LEAGUE_CARDS = 33;
 
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);
