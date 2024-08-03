@@ -1,0 +1,20 @@
+.leagueText:hover {
+  text-shadow: 0 0 7px #fffff6a5, 0 0 14px #fffff6e4;
+}
+
+.contextUsername {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 0;
+  background-color: #ffffff77;
+  border-radius: 6px;
+  box-shadow: 0 0 5px #341111c3, 0 0 5px #583a3ae4;
+}
+
+.contextImageDiv {
+  position: relative;
+  height: 135px;
+  width: 135px;
+  border-radius: 6px;
+  box-shadow: 0 0 5px #341111c3, 0 0 5px #583a3ae4;
+}

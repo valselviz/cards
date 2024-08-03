@@ -1,5 +1,6 @@
 import { Rival } from "macrogame/Rival";
-import styles from "../common-components/MainTable/MainTableRow.module.css";
+import commonStyles from "../common-components/MainTable/MainTableRow.module.css";
+import styles from "./LeaguePage.module.css";
 import { CardModel } from "duel/CardModel";
 import { Dispatch, SetStateAction, useContext } from "react";
 import MacroGameContext, { GameContext } from "MacroGameContext";
@@ -8,30 +9,48 @@ import { cardModels } from "duel/cards-collection/cards-collection";
 import { useNavigate } from "react-router-dom";
 import questionMark from "../../assets/icons/questionMark.svg";
 import { LeaguePlayer, updateOnBackend } from "api-client/api-client";
+import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
 
 interface LeagueRowProps {
   leaguePlayer: LeaguePlayer;
+  ranking: number;
 }
 
-export default function LeagueRow({ leaguePlayer }: LeagueRowProps) {
+export default function LeagueRow({ leaguePlayer, ranking }: LeagueRowProps) {
   const portraitCard = cardModels[leaguePlayer.portrait];
 
+  const [macrogame, context] = useMacrogame();
+  const contextUsername = context.username;
+
+  const contextTextStyles =
+    leaguePlayer.username === contextUsername
+      ? styles.contextUsername
+      : commonStyles.tableDataCell;
+
+  const contextImageStyles =
+    leaguePlayer.username === contextUsername
+      ? styles.contextImageDiv
+      : commonStyles.imageDiv;
+
   return (
-    <tr className={styles.tableRow}>
-      <td className={styles.tableDataCell}>
-        <div className={styles.imageDiv}>
+    <tr className={commonStyles.tableRow}>
+      <td className={commonStyles.tableDataCell}>
+        <div className={contextImageStyles}>
           <img
             src={portraitCard.image}
             alt={portraitCard.name}
-            className={styles.image}
+            className={commonStyles.image}
           />
         </div>
       </td>
-      <td className={styles.tableDataCell}>
+      <td className={contextTextStyles}>
         <p>{leaguePlayer.username}</p>
       </td>
-      <td className={styles.tableDataCell}>
+      <td className={contextTextStyles}>
         <p>{leaguePlayer.score}</p>
+      </td>
+      <td className={contextTextStyles}>
+        <p>{ranking}</p>
       </td>
     </tr>
   );

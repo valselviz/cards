@@ -43,7 +43,3 @@
   display: flex;
   justify-content: space-between;
 }
-
-.leagueText:hover {
-  text-shadow: 0 0 7px #fffff6a5, 0 0 14px #fffff6e4;
-}
