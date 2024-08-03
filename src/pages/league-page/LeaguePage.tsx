@@ -20,8 +20,6 @@ export default function LeaguePage() {
     getPlayers();
   }, []);
 
-  console.log(leaguePlayers);
-
   if (!leaguePlayers) return <></>;
 
   const leagueRows = leaguePlayers.map((leaguePlayer, index) => {
@@ -30,9 +28,38 @@ export default function LeaguePage() {
     );
   });
 
+  //const currentTime = new Date();
+
+  const currentTime = new Date();
+
+  const jumpToNextDay = currentTime.getUTCHours() > 6;
+
+  const nextRoundTime = new Date(
+    Date.UTC(
+      currentTime.getUTCFullYear(),
+      currentTime.getUTCMonth(),
+      jumpToNextDay ? currentTime.getUTCDate() + 1 : currentTime.getUTCDate(),
+      6,
+      0,
+      0
+    )
+  );
+
+  const remainingHours = Math.floor(
+    Math.abs(nextRoundTime.getTime() - currentTime.getTime()) / (60 * 60 * 1000)
+  );
+
+  const remainingMinutes = Math.floor(
+    Math.abs(nextRoundTime.getTime() - currentTime.getTime()) / (60 * 1000) -
+      remainingHours * 60
+  );
+
   return (
     <div className={commonStyles.mainTablePage}>
-      <h3 className={styles.leagueText}>Next automatic round in 13 hours.</h3>
+      <h3 className={styles.leagueText}>
+        Next automatic round in {remainingHours} hours and {remainingMinutes}{" "}
+        minutes.
+      </h3>
       <div className={commonStyles.mainTablePageContent}>
         <div className={commonStyles.mainTable}>
           <div className={commonStyles.tableHeader}>
