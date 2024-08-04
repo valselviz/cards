@@ -7,11 +7,16 @@ import styles from "./LeaguePage.module.css";
 import LeagueRow from "./LeagueRow";
 import { useEffect, useState } from "react";
 
-interface LeaguePageProps {
-  currentTime: Date;
-}
+// Jest can not mock the getCurrentDate function unless it is imported from a module.
+// To keep everything in this file, this module is importing itself
+import * as ThisModule from "./LeaguePage"
 
-export default function LeaguePage({ currentTime }: LeaguePageProps) {
+const LEAGUE_EXECUTION_HOUR = 6;
+
+export function getCurrentDate() {
+  return new Date();
+}
+export function LeaguePage() {
   const [leaguePlayers, setLeaguePlayers] = useState(
     null as LeaguePlayer[] | null
   );
@@ -32,14 +37,16 @@ export default function LeaguePage({ currentTime }: LeaguePageProps) {
     );
   });
 
-  const jumpToNextDay = currentTime.getUTCHours() > 6;
+  const currentTime = ThisModule.getCurrentDate();
+
+  const jumpToNextDay = currentTime.getUTCHours() > LEAGUE_EXECUTION_HOUR;
 
   const nextRoundTime = new Date(
     Date.UTC(
       currentTime.getUTCFullYear(),
       currentTime.getUTCMonth(),
       jumpToNextDay ? currentTime.getUTCDate() + 1 : currentTime.getUTCDate(),
-      6,
+      LEAGUE_EXECUTION_HOUR,
       0,
       0
     )
