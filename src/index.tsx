@@ -42,7 +42,10 @@ root.render(
             <Route path="/deck" element={<DeckPage />} />
             <Route path="/store" element={<StorePage />} />
             <Route path="/rivals" element={<RivalsPage />} />
-            <Route path="/league" element={<LeaguePage />} />
+            <Route
+              path="/league"
+              element={<LeaguePage currentTime={new Date()} />}
+            />
           </Route>
           <Route path="/duel" element={<DuelPage />} />
         </Routes>

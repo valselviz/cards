@@ -1,14 +1,7 @@
-import { Rival } from "macrogame/Rival";
 import commonStyles from "../common-components/MainTable/MainTableRow.module.css";
 import styles from "./LeaguePage.module.css";
-import { CardModel } from "duel/CardModel";
-import { Dispatch, SetStateAction, useContext } from "react";
-import MacroGameContext, { GameContext } from "MacroGameContext";
-import { MacroGame } from "macrogame/MacroGame";
 import { cardModels } from "duel/cards-collection/cards-collection";
-import { useNavigate } from "react-router-dom";
-import questionMark from "../../assets/icons/questionMark.svg";
-import { LeaguePlayer, updateOnBackend } from "api-client/api-client";
+import { LeaguePlayer } from "api-client/api-client";
 import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
 
 interface LeagueRowProps {

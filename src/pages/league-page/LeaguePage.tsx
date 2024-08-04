@@ -7,7 +7,11 @@ import styles from "./LeaguePage.module.css";
 import LeagueRow from "./LeagueRow";
 import { useEffect, useState } from "react";
 
-export default function LeaguePage() {
+interface LeaguePageProps {
+  currentTime: Date;
+}
+
+export default function LeaguePage({ currentTime }: LeaguePageProps) {
   const [leaguePlayers, setLeaguePlayers] = useState(
     null as LeaguePlayer[] | null
   );
@@ -27,10 +31,6 @@ export default function LeaguePage() {
       <LeagueRow leaguePlayer={leaguePlayer} ranking={index + 1} key={index} />
     );
   });
-
-  //const currentTime = new Date();
-
-  const currentTime = new Date();
 
   const jumpToNextDay = currentTime.getUTCHours() > 6;
 
@@ -56,7 +56,7 @@ export default function LeaguePage() {
 
   return (
     <div className={commonStyles.mainTablePage}>
-      <h3 className={styles.leagueText}>
+      <h3 className={styles.leagueText} data-testid="remaining-time-message">
         Next automatic round in {remainingHours} hours and {remainingMinutes}{" "}
         minutes.
       </h3>
