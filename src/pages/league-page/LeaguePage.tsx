@@ -7,7 +7,16 @@ import styles from "./LeaguePage.module.css";
 import LeagueRow from "./LeagueRow";
 import { useEffect, useState } from "react";
 
-export default function LeaguePage() {
+// Jest can not mock the getCurrentDate function unless it is imported from a module.
+// To keep everything in this file, this module is importing itself
+import * as ThisModule from "./LeaguePage"
+
+const LEAGUE_EXECUTION_HOUR = 6;
+
+export function getCurrentDate() {
+  return new Date();
+}
+export function LeaguePage() {
   const [leaguePlayers, setLeaguePlayers] = useState(
     null as LeaguePlayer[] | null
   );
@@ -20,8 +29,6 @@ export default function LeaguePage() {
     getPlayers();
   }, []);
 
-  console.log(leaguePlayers);
-
   if (!leaguePlayers) return <></>;
 
   const leagueRows = leaguePlayers.map((leaguePlayer, index) => {
@@ -30,9 +37,36 @@ export default function LeaguePage() {
     );
   });
 
+  const currentTime = ThisModule.getCurrentDate();
+
+  const jumpToNextDay = currentTime.getUTCHours() > LEAGUE_EXECUTION_HOUR;
+
+  const nextRoundTime = new Date(
+    Date.UTC(
+      currentTime.getUTCFullYear(),
+      currentTime.getUTCMonth(),
+      jumpToNextDay ? currentTime.getUTCDate() + 1 : currentTime.getUTCDate(),
+      LEAGUE_EXECUTION_HOUR,
+      0,
+      0
+    )
+  );
+
+  const remainingHours = Math.floor(
+    Math.abs(nextRoundTime.getTime() - currentTime.getTime()) / (60 * 60 * 1000)
+  );
+
+  const remainingMinutes = Math.floor(
+    Math.abs(nextRoundTime.getTime() - currentTime.getTime()) / (60 * 1000) -
+      remainingHours * 60
+  );
+
   return (
     <div className={commonStyles.mainTablePage}>
-      <h3 className={styles.leagueText}>Next automatic round in 13 hours.</h3>
+      <h3 className={styles.leagueText} data-testid="remaining-time-message">
+        Next automatic round in {remainingHours} hours and {remainingMinutes}{" "}
+        minutes.
+      </h3>
       <div className={commonStyles.mainTablePageContent}>
         <div className={commonStyles.mainTable}>
           <div className={commonStyles.tableHeader}>
