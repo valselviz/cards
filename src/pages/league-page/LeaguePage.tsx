@@ -9,7 +9,9 @@ import { useEffect, useState } from "react";
 
 // Jest can not mock the getCurrentDate function unless it is imported from a module.
 // To keep everything in this file, this module is importing itself
-import * as ThisModule from "./LeaguePage"
+import * as ThisModule from "./LeaguePage";
+import { useOutletContext } from "react-router-dom";
+import { LEAGUE_PAGE_DESCRIPTION } from "pages/common-components/sectionDescriptions";
 
 const LEAGUE_EXECUTION_HOUR = 6;
 
@@ -27,6 +29,16 @@ export function LeaguePage() {
       setLeaguePlayers(players);
     }
     getPlayers();
+  }, []);
+
+  const openDialog: (error: boolean, ...message: string[]) => void =
+    useOutletContext();
+
+  useEffect(() => {
+    if (!localStorage.getItem("deckPageInfoDisplayed")) {
+      openDialog(false, ...LEAGUE_PAGE_DESCRIPTION);
+      localStorage.setItem("deckPageInfoDisplayed", "true");
+    }
   }, []);
 
   if (!leaguePlayers) return <></>;

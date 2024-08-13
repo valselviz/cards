@@ -9,6 +9,7 @@ import DoubleCardDisplay from "pages/common-components/DoubleCardDisplay/DoubleC
 import { CardModel } from "duel/CardModel";
 import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
 import { useOutletContext } from "react-router-dom";
+import { DECK_PAGE_DESCRIPTION } from "pages/common-components/sectionDescriptions";
 
 export default function DeckPage() {
   const [macrogame, context] = useMacrogame();
@@ -21,12 +22,7 @@ export default function DeckPage() {
 
   useEffect(() => {
     if (!localStorage.getItem("deckPageInfoDisplayed")) {
-      openDialog(
-        false,
-        `This is the Deck Management section.`,
-        `Here you can add the cards you earned to your deck.`,
-        `Choose your cards carefully to create a powerful deck!`
-      );
+      openDialog(false, ...DECK_PAGE_DESCRIPTION);
       localStorage.setItem("deckPageInfoDisplayed", "true");
     }
   }, []);
