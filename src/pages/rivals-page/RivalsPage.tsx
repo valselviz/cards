@@ -5,6 +5,7 @@ import DoubleCardDisplay from "../common-components/DoubleCardDisplay/DoubleCard
 import { CardModel } from "duel/CardModel";
 import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
 import { useOutletContext } from "react-router-dom";
+import { RIVALS_PAGE_DESCRIPTION } from "pages/common-components/sectionDescriptions";
 
 export default function RivalsPage() {
   const [macrogame] = useMacrogame();
@@ -16,13 +17,7 @@ export default function RivalsPage() {
 
   useEffect(() => {
     if (!localStorage.getItem("rivalsPageInfoDisplayed")) {
-      openDialog(
-        false,
-        `This is the Rivals section.`,
-        `Click on a rival to duel against him.`,
-        `As you defeat rivals, new ones will be unlocked.`,
-        `Can you defeat them all?`
-      );
+      openDialog(false, ...RIVALS_PAGE_DESCRIPTION);
       localStorage.setItem("rivalsPageInfoDisplayed", "true");
     }
   }, []);

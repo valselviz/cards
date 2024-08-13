@@ -5,6 +5,7 @@ import styles from "../common-components/MainTable/MainTable.module.css";
 import OnSaleCardRow from "./OnSaleCardRow";
 import { useMacrogame } from "pages/common-components/useMacrogame/useMacrogame";
 import { useOutletContext } from "react-router-dom";
+import { STORE_PAGE_DESCRIPTION } from "pages/common-components/sectionDescriptions";
 
 export default function DeckPage() {
   const [macrogame] = useMacrogame();
@@ -20,12 +21,7 @@ export default function DeckPage() {
 
   useEffect(() => {
     if (!localStorage.getItem("storePageInfoDisplayed")) {
-      openDialog(
-        false,
-        `This is the Store section.`,
-        `You can buy new cards here.`,
-        `After buying a new card, make sure you add it to your deck in the “MY DECK” section.`
-      );
+      openDialog(false, ...STORE_PAGE_DESCRIPTION);
       localStorage.setItem("storePageInfoDisplayed", "true");
     }
   }, []);
