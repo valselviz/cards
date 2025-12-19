@@ -1,7 +1,7 @@
 import { MacroGame } from "macrogame/MacroGame";
 
 const backendUrl =
-  "https://nfum7buqpoyqn3visxvthctfa40zyhee.lambda-url.us-east-1.on.aws";
+  "https://4xjvzgtjvrmmf6sw3yepjgxiay0uxalv.lambda-url.us-east-1.on.aws";
 
 export async function loginOnBackend(username: string, password: string) {
   let sessionToken = localStorage.getItem("sessionToken");
